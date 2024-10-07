@@ -9,10 +9,10 @@ export class CommandManager {
                 callback: callback,
                 isOpOnly: isOpOnly
             };
-            console.log(`指令 ${name} 注册成功.`);
+            console.log(`Command "${name}" registration successfully.`);
         }
         else {
-            console.error(`指令 ${name} 注册失败. 回调函数不是有效的函数.`);
+            console.error(`Registration of directive ${name} failed. Callback functions are not valid functions.`);
         }
     }
     // 注册子指令
@@ -31,11 +31,11 @@ export class CommandManager {
                 };
             }
             else {
-                console.error(`指令 ${father} 的子指令 ${name} 注册失败. ${father}父指令未注册.`);
+                console.error(`Registration of sub-directive ${name} of directive ${father} failed. ${father} parent instruction is not registered.`);
             }
         }
         else {
-            console.error(`指令 ${father} 的子指令 ${name} 注册失败. 回调函数不是有效的函数.`);
+            console.error(`Registration of sub-directive ${name} of directive ${father} failed. Callback functions are not valid functions.`);
         }
     }
     static Input(player, event) {

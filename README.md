@@ -68,9 +68,7 @@ export class mPlayer extends SuperSAPI.Player {
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)
 ```
 
-```## 文档
-
-更多关于 SuperSAPI 的详细文档和 API 参考，请访问 [SuperSAPI 文档](#)。
+## 更多关于 SuperSAPI 的详细文档和 API 参考，请访问 [SuperSAPI 文档](#)。
 
 ## 贡献
 
