@@ -1,4 +1,4 @@
-import { ChatSendBeforeEvent, Entity, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, Player, PlayerBreakBlockAfterEvent, PlayerBreakBlockBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, PlayerSpawnAfterEvent, system, System, SystemAfterEvents, SystemBeforeEvents, World, world } from "@minecraft/server";
+import { ChatSendBeforeEvent, Entity, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, Player, PlayerBreakBlockAfterEvent, PlayerBreakBlockBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, PlayerSpawnAfterEvent, system, System, SystemAfterEvents, SystemBeforeEvents, World, world } from "@minecraft/server";
 import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
@@ -45,7 +45,7 @@ export class ClassManager {
 export class SuperSystem {
     source_instance: System;
     static sp_world: SuperWorld;
-    ready:boolean=false;
+    ready: boolean = false;
     constructor(source_instance: System) {
         this.source_instance = source_instance;
         this.afterEvents = source_instance.afterEvents;
@@ -85,162 +85,250 @@ export class SuperSystem {
         SuperSystem.sp_world.afterEvents.itemStartUse.subscribe(this.PlayerItemStartUseAfterEvent)
         SuperSystem.sp_world.afterEvents.itemStopUseOn.subscribe(this.PlayerItemStopUseOnAfterEvent)
 
+        //entity
+        SuperSystem.sp_world.afterEvents.entityDie.subscribe(this.EntityDieAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityHealthChanged.subscribe(this.EntityHealthChangedAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityHitBlock.subscribe(this.EntityHitBlockAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityHitEntity.subscribe(this.EntityHitEntityAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityHurt.subscribe(this.EntityHurtAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityLoad.subscribe(this.EntityLoadAfterEvent)
+        SuperSystem.sp_world.afterEvents.entityRemove.subscribe(this.EntityRemoveAfterEvent)
+        SuperSystem.sp_world.afterEvents.entitySpawn.subscribe(this.EntitySpawnAfterEvent)
+
+        SuperSystem.sp_world.beforeEvents.entityRemove.subscribe(this.EntityRemoveBeforeEvent)
+
+
         //自定义指令
         SuperSystem.sp_world.beforeEvents.chatSend.subscribe(this.PlayerInputCommand)
 
+        //world
+        SuperSystem.sp_world.beforeEvents.worldInitialize.subscribe(SuperSystem.sp_world.onWorldInitializeBefore)
+        SuperSystem.sp_world.afterEvents.worldInitialize.subscribe(SuperSystem.sp_world.onWorldInitializeAfter)
 
         //运行时管理world内的实体和玩家
-        SuperWorld.Players=SuperSystem.getWorld().toSuperPlayers(world.getAllPlayers());
-        SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event)=>{
-            let sp_entity=new (ClassManager.getClass(NativeClassType.Entity))(event.entity)
+        //实体
+        SuperWorld.Entitys = [];
+        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("overworld").getEntities()));
+        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("nether").getEntities()));
+        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("the_end").getEntities()));
+        SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
+            let sp_entity = new (ClassManager.getClass(NativeClassType.Entity))(event.entity)
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != sp_entity.id
+            })
             SuperWorld.Entitys.push(sp_entity)
         })
-        SuperSystem.sp_world.afterEvents.entityDie.subscribe((event)=>{
-            let sp_entity=new (ClassManager.getClass(NativeClassType.Entity))(event.deadEntity)
-            SuperWorld.Entitys=SuperWorld.Entitys.filter((e)=>{
-                return e.id!=sp_entity.id
+        SuperSystem.sp_world.afterEvents.entityDie.subscribe((event) => {
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != event.deadEntity.id
             })
         })
-        SuperSystem.sp_world.afterEvents.playerSpawn.subscribe((event)=>{
-            let sp_player=new (ClassManager.getClass(NativeClassType.Player))(event.player)
-            SuperWorld.Players=SuperWorld.Players.filter((p)=>{
-                return p.name!=sp_player.name
+        //玩家
+        SuperWorld.Players = SuperSystem.getWorld().toSuperPlayers(world.getAllPlayers());//reload是确保正确
+        SuperSystem.sp_world.afterEvents.playerSpawn.subscribe((event) => {
+            let sp_player = new (ClassManager.getClass(NativeClassType.Player))(event.player)
+            SuperWorld.Players = SuperWorld.Players.filter((p) => {
+                return p.id != sp_player.id
             })
             SuperWorld.Players.push(sp_player)
         })
-        SuperSystem.sp_world.afterEvents.playerLeave.subscribe((event)=>{
-            let name=event.playerName
-            SuperWorld.Players=SuperWorld.Players.filter((p)=>{
-                return p.name!=name
+        SuperSystem.sp_world.afterEvents.playerLeave.subscribe((event) => {
+            let id = event.playerId
+            SuperWorld.Players = SuperWorld.Players.filter((p) => {
+                return p.id != id
             })
         })
-        
 
-        system.runInterval(()=>{
+
+        system.runInterval(() => {
             this.runTick(1);
-        },1);
-        this.ready=true;
+        }, 1);
+        this.ready = true;
     }
-    private runTick(t:number){
+    private runTick(t: number) {
         if (this.ready) {
-            for(let entity of SuperSystem.getWorld().getAllEntitys()){
+            for (let entity of SuperSystem.getWorld().getAllEntitys()) {
                 if (entity.enable_tick) {
                     entity.tick(t);
                 }
             }
-            for(let player of SuperSystem.getWorld().getPlayers()){
+            for (let player of SuperSystem.getWorld().getPlayers()) {
                 if (player.enable_tick) {
                     player.tick(t);
                 }
             }
         }
     }
-    private PlayerInputCommand(event:ChatSendBeforeEvent){
-        let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0]
-        if (player==undefined) {
+    //实体
+    private EntityDieAfterEvent(event: EntityDieAfterEvent) {
+        let entity = SuperSystem.getWorld().getEntity(event.deadEntity.id)
+        if (entity == undefined) {
             return
         }
-        CommandManager.Input(player,event);
+    }
+    private EntityHealthChangedAfterEvent(event:EntityHealthChangedAfterEvent) {
+        let entity = SuperSystem.getWorld().getEntity(event.entity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityHealthChangedAfterEvent(event)
+    }
+    private EntityHitBlockAfterEvent(event:EntityHitBlockAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityHitBlockAfterEvent(event)
+    }
+    private EntityHitEntityAfterEvent(event:EntityHitEntityAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityHitEntityAfterEvent(event)
+    }
+    private EntityHurtAfterEvent(event:EntityHurtAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.hurtEntity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityHurtAfterEvent(event)
+    }
+    private EntityLoadAfterEvent(event:EntityLoadAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.entity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityLoadAfterEvent(event)
+    }
+    private EntityRemoveAfterEvent(event:EntityRemoveAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.removedEntityId);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityRemoveAfterEvent(event)
+    }
+    private EntitySpawnAfterEvent(event:EntitySpawnAfterEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.entity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntitySpawnAfterEvent(event)
+    }
+    private EntityRemoveBeforeEvent(event:EntityRemoveBeforeEvent){
+        let entity = SuperSystem.getWorld().getEntity(event.removedEntity.id);
+        if (entity == undefined) {
+            return
+        }
+        entity.onEntityRemoveBeforeEvent(event)
+    }
+    //玩家
+    private PlayerInputCommand(event: ChatSendBeforeEvent) {
+        let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0]
+        if (player == undefined) {
+            return
+        }
+        CommandManager.Input(player, event);
     }
     private PlayerItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemStopUseOnAfterEvent(event)
     }
     private PlayerItemStartUseAfterEvent(event: ItemStartUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemStartUseAfterEvent(event)
     }
     private PlayerItemReleaseUseAfterEvent(event: ItemReleaseUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemReleaseAfterEvent(event)
     }
     private PlayerItemCompleteAfterEvent(event: ItemCompleteUseEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemCompleteAfterEvent(event)
     }
     private PlayerItemUseOnAfterEvent(event: ItemUseOnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemUseOnAfterEvent(event)
     }
     private PlayerItemUseAfterEvent(event: ItemUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemUseAfterEvent(event)
     }
     private PlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onSpawnAfterEvent(event)
     }
     private PlayerPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onPlaceBlockAfterEvent(event)
     }
     private PlayerLeaveAfterEvent(event: PlayerLeaveAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.playerName })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onLeaveAfterEvent(event)
     }
     private PlayerJoinAfterEvent(event: PlayerJoinAfterEvent) {
-        let run=system.runInterval(()=>{
+        let run = system.runInterval(() => {
             let player = world.getPlayers({ name: event.playerName })[0]
-            if (player==undefined) {
+            if (player == undefined) {
                 return
             }
             system.clearRun(run)
-            let newplayer=new SuperPlayer(player);
+            let newplayer = new SuperPlayer(player);
             SuperWorld.Players.push(newplayer)
             newplayer.onJoinAfterEvent(event)
-        },10)
+        }, 10)
     }
     private PlayerInteractWithEntityAfterEvent(event: PlayerInteractWithEntityAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onInteractWithEntityAfterEvent(event)
     }
     private PlayerInteractWithBlockAfterEvent(event: PlayerInteractWithBlockAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onInteractWithBlockAfterEvent(event)
     }
     private PlayerInputPermissionCategoryChangeAfterEvent(event: PlayerInputPermissionCategoryChangeAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onInputPermissionCategoryChangeAfterEvent(event)
     }
     private PlayerGameModeChangeAfterEvent(event: PlayerGameModeChangeAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         if (player) {
@@ -249,95 +337,95 @@ export class SuperSystem {
     }
     private PlayerEmoteAfterEvent(event: PlayerEmoteAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onEmoteAfterEvent(event)
     }
     private PlayerDimensionChangeAfterEvent(event: PlayerDimensionChangeAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onDimensionChangeAfterEvent(event)
     }
     private PlayerBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onAfterBreakBlockEvent(event)
     }
 
-    private PlayerLeaveBeforeEvent(event:PlayerLeaveBeforeEvent){
+    private PlayerLeaveBeforeEvent(event: PlayerLeaveBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onLeaveBeforeEvent(event)
     }
-    private PlayerInteractWithEntityBeforeEvent(event:PlayerInteractWithEntityBeforeEvent){
+    private PlayerInteractWithEntityBeforeEvent(event: PlayerInteractWithEntityBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onInteractWithEntityBeforeEvent(event)
     }
-    private PlayerInteractWithBlockBeforeEvent(event:PlayerInteractWithBlockBeforeEvent){
+    private PlayerInteractWithBlockBeforeEvent(event: PlayerInteractWithBlockBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onInteractWithBlockBeforeEvent(event)
     }
-    private PlayerGameModeChangeBeforeEvent(event:PlayerGameModeChangeBeforeEvent){
+    private PlayerGameModeChangeBeforeEvent(event: PlayerGameModeChangeBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onGameModeChangeBeforeEvent(event)
     }
-    private PlayerItemUseOnBeforeEvent(event:ItemUseOnBeforeEvent){
+    private PlayerItemUseOnBeforeEvent(event: ItemUseOnBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemUseOnBeforeEvent(event)
     }
-    private PlayerItemUseBeforeEvent(event:ItemUseBeforeEvent){
+    private PlayerItemUseBeforeEvent(event: ItemUseBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onItemUseBeforeEvent(event)
     }
-    private PlayerChatSendBeforeEvent(event:ChatSendBeforeEvent){
+    private PlayerChatSendBeforeEvent(event: ChatSendBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onChatSendBeforeEvent(event)
     }
-    private PlayerBreakPlaceBeforeEvent(event:PlayerPlaceBlockBeforeEvent){
+    private PlayerBreakPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onBreakPlaceBeforeEvent(event)
     }
     private PlayerBreakBlockBeforeEvent(event: PlayerBreakBlockBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
-        if (player==undefined) {
+        if (player == undefined) {
             return
         }
         player.onBeforeBreakBlockEvent(event)
     }
 
-    
+
     static getWorld(): SuperWorld {
         return SuperSystem.sp_world
     }
-    
+
     /**
      * @remarks
      * Returns a collection of after-events for system-level

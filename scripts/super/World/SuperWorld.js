@@ -29,6 +29,10 @@ export class SuperWorld {
     getAllEntitys() {
         return SuperWorld.Entitys;
     }
+    onWorldInitializeBefore(event) {
+    }
+    onWorldInitializeAfter(event) {
+    }
     /**
      * @beta
      * @remarks
@@ -235,7 +239,14 @@ export class SuperWorld {
      * Throws if the given entity id is invalid.
      */
     getEntity(id) {
-        return this.source_instance.getEntity(id);
+        let entity = this.source_instance.getEntity(id);
+        if (!entity) {
+            return undefined;
+        }
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return id = entity.id;
+        });
+        return sp_entity;
     }
     ;
     /**

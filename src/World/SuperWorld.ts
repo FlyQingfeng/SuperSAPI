@@ -1,4 +1,4 @@
-import { World, WorldAfterEvents, WorldBeforeEvents, GameRules, Scoreboard, StructureManager, Player, Vector3, Dimension, Entity, MoonPhase, EntityQueryOptions, MusicOptions, WorldSoundOptions, RawMessage, TimeOfDay, world } from "@minecraft/server";
+import { World, WorldAfterEvents, WorldBeforeEvents, GameRules, Scoreboard, StructureManager, Player, Vector3, Dimension, Entity, MoonPhase, EntityQueryOptions, MusicOptions, WorldSoundOptions, RawMessage, TimeOfDay, world, WorldInitializeBeforeEvent, WorldInitializeAfterEvent } from "@minecraft/server";
 import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { SuperEntity } from "../Entity/SuperEntity";
@@ -34,6 +34,12 @@ export class SuperWorld{
     }
     getAllEntitys(){
         return SuperWorld.Entitys
+    }
+    onWorldInitializeBefore(event:WorldInitializeBeforeEvent){
+
+    }
+    onWorldInitializeAfter(event:WorldInitializeAfterEvent){
+
     }
     /**
      * @remarks
@@ -269,8 +275,15 @@ export class SuperWorld{
      * @throws
      * Throws if the given entity id is invalid.
      */
-    getEntity(id: string): Entity | undefined {
-        return this.source_instance.getEntity(id);
+    getEntity(id: string): SuperEntity | undefined {
+        let entity=this.source_instance.getEntity(id);
+        if (!entity) {
+            return undefined
+        }
+        let sp_entity=SuperWorld.Entitys.find((e)=>{
+            return id=entity.id
+        })
+        return sp_entity
     };
     /**
      * @remarks

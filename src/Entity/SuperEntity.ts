@@ -1,7 +1,8 @@
-import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3 } from "@minecraft/server";
+import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { SuperComponent } from "../Component/SuperComponent";
 import {vec3} from "../Public/vec3";
+import { SuperSystem } from "Runtime";
 
 export class SuperEntity{
     source_instance: Entity;
@@ -43,6 +44,25 @@ export class SuperEntity{
     getCustomComponents():SuperComponent[]{
         return this.custom_components
     }
+    onEntityDieAfterEvent(event: EntityDieAfterEvent) {
+    }
+    onEntityHealthChangedAfterEvent(event:EntityHealthChangedAfterEvent) {
+    }
+    onEntityHitBlockAfterEvent(event:EntityHitBlockAfterEvent){
+    }
+    onEntityHitEntityAfterEvent(event:EntityHitEntityAfterEvent){
+    }
+    onEntityHurtAfterEvent(event:EntityHurtAfterEvent){
+    }
+    onEntityLoadAfterEvent(event:EntityLoadAfterEvent){
+    }
+    onEntityRemoveAfterEvent(event:EntityRemoveAfterEvent){
+    }
+    onEntitySpawnAfterEvent(event:EntitySpawnAfterEvent){
+    }
+    onEntityRemoveBeforeEvent(event:EntityRemoveBeforeEvent){
+    }
+
     /**
      * @remarks
      * Dimension that the entity is currently within.

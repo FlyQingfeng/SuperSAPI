@@ -14,6 +14,5 @@ export class mPlayer extends SuperSAPI.Player {
     onAfterBreakBlockEvent(event: mc.PlayerBreakBlockAfterEvent): void {
         this.sendMessage(`${event.brokenBlockPermutation.type.id}`)
     }
-    
 }
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)

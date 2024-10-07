@@ -37,6 +37,24 @@ export class SuperEntity {
     getCustomComponents() {
         return this.custom_components;
     }
+    onEntityDieAfterEvent(event) {
+    }
+    onEntityHealthChangedAfterEvent(event) {
+    }
+    onEntityHitBlockAfterEvent(event) {
+    }
+    onEntityHitEntityAfterEvent(event) {
+    }
+    onEntityHurtAfterEvent(event) {
+    }
+    onEntityLoadAfterEvent(event) {
+    }
+    onEntityRemoveAfterEvent(event) {
+    }
+    onEntitySpawnAfterEvent(event) {
+    }
+    onEntityRemoveBeforeEvent(event) {
+    }
     /**
      * @remarks
      * Adds or updates an effect, like poison, to the entity.

@@ -10,4 +10,3 @@ export class mEntity extends SuperSAPI.Entity {
         
     }
 }
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity,mEntity)

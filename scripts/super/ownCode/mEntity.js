@@ -7,4 +7,3 @@ export class mEntity extends SuperSAPI.Entity {
     tick(t) {
     }
 }
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
