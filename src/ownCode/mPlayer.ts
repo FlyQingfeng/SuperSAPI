@@ -1,9 +1,8 @@
-import { Player, PlayerBreakBlockAfterEvent, PlayerBreakBlockBeforeEvent, PlayerJoinAfterEvent, PlayerPlaceBlockAfterEvent, PlayerSpawnAfterEvent, world } from "@minecraft/server";
-import { SuperPlayer } from "../Player/SuperPlayer";
-import { ClassManager, NativeClassType, runtime } from "Runtime";
+import * as SuperSAPI from "../SuperSAPI";
+import * as mc from "@minecraft/server";
 
-export class mPlayer extends SuperPlayer {
-    constructor(player: Player) {
+export class mPlayer extends SuperSAPI.Player {
+    constructor(player: mc.Player) {
         super(player)
         this.atribute.set("value",0);
         // this.enable_tick=true;
@@ -12,8 +11,9 @@ export class mPlayer extends SuperPlayer {
         this.sendMessage(`${this.name}`)
     }
     //玩家破坏方块之后
-    onAfterBreakBlockEvent(event: PlayerBreakBlockAfterEvent): void {
+    onAfterBreakBlockEvent(event: mc.PlayerBreakBlockAfterEvent): void {
         this.sendMessage(`${event.brokenBlockPermutation.type.id}`)
     }
     
 }
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)

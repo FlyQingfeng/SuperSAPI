@@ -1,8 +1,8 @@
-import { Entity } from "@minecraft/server";
-import { SuperEntity } from "../Entity/SuperEntity";
+import * as SuperSAPI from "../SuperSAPI";
+import * as mc from "@minecraft/server";
 
-export class mEntity extends SuperEntity {
-    constructor(entity:Entity) {
+export class mEntity extends SuperSAPI.Entity {
+    constructor(entity:mc.Entity) {
         super(entity)
         this.enable_tick=true;
     }
@@ -10,3 +10,4 @@ export class mEntity extends SuperEntity {
         
     }
 }
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity,mEntity)

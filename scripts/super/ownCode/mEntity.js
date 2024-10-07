@@ -1,5 +1,5 @@
-import { SuperEntity } from "../Entity/SuperEntity";
-export class mEntity extends SuperEntity {
+import * as SuperSAPI from "../SuperSAPI";
+export class mEntity extends SuperSAPI.Entity {
     constructor(entity) {
         super(entity);
         this.enable_tick = true;
@@ -7,3 +7,4 @@ export class mEntity extends SuperEntity {
     tick(t) {
     }
 }
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);

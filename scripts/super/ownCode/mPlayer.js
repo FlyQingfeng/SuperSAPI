@@ -1,5 +1,5 @@
-import { SuperPlayer } from "../Player/SuperPlayer";
-export class mPlayer extends SuperPlayer {
+import * as SuperSAPI from "../SuperSAPI";
+export class mPlayer extends SuperSAPI.Player {
     constructor(player) {
         super(player);
         this.atribute.set("value", 0);
@@ -13,3 +13,4 @@ export class mPlayer extends SuperPlayer {
         this.sendMessage(`${event.brokenBlockPermutation.type.id}`);
     }
 }
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
