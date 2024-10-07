@@ -46,6 +46,7 @@ SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity,mEntity)
 ```
 
 ```ts
+
 //mPlyer.ts
 import * as SuperSAPI from "../SuperSAPI";
 import * as mc from "@minecraft/server";
@@ -68,9 +69,24 @@ export class mPlayer extends SuperSAPI.Player {
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)
 ```
 
+```ts
+//编写完自己的实体类和玩家类后，在main.ts中注册替换类
+import { mEntity } from "./ownCode/mEntity";
+import { mPlayer } from "./ownCode/mPlayer";
+import * as SuperSAPI from "./SuperSAPI";
+
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity,mEntity)
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)
+//记得在注册完替换类后，初始化SuperSAPI系统
+SuperSAPI.System.init();
+
+```
+
 ## 更多关于 SuperSAPI 的详细文档和 API 参考，请访问 [SuperSAPI 文档](#)。
 
 ## 贡献
+
+目前该项目处于开发阶段
 
 如果你对 SuperSAPI 有任何改进建议或者想要贡献代码，请提交 Pull Request。
 
