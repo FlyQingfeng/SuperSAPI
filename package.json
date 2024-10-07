@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@minecraft/server": "^1.15.0-beta.1.21.30-stable",
+    "@minecraft/server-admin": "^1.0.0-beta.1.21.40-preview.25",
+    "@minecraft/server-gametest": "^1.0.0-beta.1.21.40-preview.25",
+    "@minecraft/server-net": "^1.0.0-beta.1.21.40-preview.25",
+    "@minecraft/server-ui": "^1.4.0-beta.1.21.40-preview.25"
+  },
+  "name": "superapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
