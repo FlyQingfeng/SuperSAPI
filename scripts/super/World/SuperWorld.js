@@ -1,3 +1,4 @@
+import { Player } from "@minecraft/server";
 import { ClassManager, NativeClassType } from "../Runtime";
 export class SuperWorld {
     constructor(source_instance) {
@@ -242,6 +243,12 @@ export class SuperWorld {
         let entity = this.source_instance.getEntity(id);
         if (!entity) {
             return undefined;
+        }
+        if (entity instanceof Player) {
+            let sp_player = SuperWorld.Players.find((e) => {
+                return id = entity.id;
+            });
+            return sp_player;
         }
         let sp_entity = SuperWorld.Entitys.find((e) => {
             return id = entity.id;

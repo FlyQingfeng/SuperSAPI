@@ -275,10 +275,16 @@ export class SuperWorld{
      * @throws
      * Throws if the given entity id is invalid.
      */
-    getEntity(id: string): SuperEntity | undefined {
+    getEntity(id: string): SuperEntity |SuperPlayer| undefined {
         let entity=this.source_instance.getEntity(id);
         if (!entity) {
             return undefined
+        }
+        if(entity instanceof Player){
+            let sp_player=SuperWorld.Players.find((e)=>{
+                return id=entity.id
+            })
+            return sp_player
         }
         let sp_entity=SuperWorld.Entitys.find((e)=>{
             return id=entity.id

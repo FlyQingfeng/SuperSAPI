@@ -30,7 +30,7 @@ export class SuperPlayer extends SuperEntity {
     }
     onItemUseAfterEvent(event: ItemUseAfterEvent) {
     }
-    onSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
+    onPlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
     }
     onPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent) {
     }

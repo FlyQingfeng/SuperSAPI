@@ -12,5 +12,5 @@ export const SuperSystem = run.SuperSystem;
 export const NativeClassType = run.NativeClassType;
 export const ClassManager = run.ClassManager;
 export const CommandManager = cm.CommandManager;
-export let System = run.runtime;
-export let world = SuperSystem.getWorld();
+export const System = run.runtime;
+export const world = SuperSystem.getWorld();

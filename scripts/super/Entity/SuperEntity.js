@@ -37,23 +37,24 @@ export class SuperEntity {
     getCustomComponents() {
         return this.custom_components;
     }
-    onEntityDieAfterEvent(event) {
+    //触发事件
+    onDieAfterEvent(event) {
     }
-    onEntityHealthChangedAfterEvent(event) {
+    onHealthChangedAfterEvent(event) {
     }
-    onEntityHitBlockAfterEvent(event) {
+    onHitBlockAfterEvent(event) {
     }
-    onEntityHitEntityAfterEvent(event) {
+    onHitEntityAfterEvent(event) {
     }
-    onEntityHurtAfterEvent(event) {
+    onHurtAfterEvent(event) {
     }
-    onEntityLoadAfterEvent(event) {
+    onLoadAfterEvent(event) {
     }
-    onEntityRemoveAfterEvent(event) {
+    onRemoveAfterEvent(event) {
     }
     onEntitySpawnAfterEvent(event) {
     }
-    onEntityRemoveBeforeEvent(event) {
+    onRemoveBeforeEvent(event) {
     }
     /**
      * @remarks

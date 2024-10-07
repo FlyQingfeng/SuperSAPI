@@ -5,7 +5,7 @@ import * as cm from "./Command/CommandManager";
 import * as sw from "./World/SuperWorld";
 import * as mc from "@minecraft/server";
 
-export const MC=mc
+export const MC=mc;
 
 export const World = sw.SuperWorld
 export const Player = sp.SuperPlayer
@@ -14,5 +14,5 @@ export const SuperSystem=run.SuperSystem;
 export const NativeClassType=run.NativeClassType;
 export const ClassManager=run.ClassManager;
 export const CommandManager=cm.CommandManager
-export let System = run.runtime;
-export let world = SuperSystem.getWorld();
+export const System = run.runtime;
+export const world = SuperSystem.getWorld();

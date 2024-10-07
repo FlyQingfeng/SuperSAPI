@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { Player, system, world } from "@minecraft/server";
 import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
@@ -31,6 +31,9 @@ export class ClassManager {
             this.mclass[type] = NewClass;
         }
     }
+    static CreateInstance(type, origin) {
+        return new (this.mclass[type.toString()])(origin);
+    }
 }
 ClassManager.mclass = {
     World: SuperWorld,
@@ -48,7 +51,7 @@ export class SuperSystem {
     ;
     //初始化运行时函数
     init() {
-        SuperSystem.sp_world = new (ClassManager.getClass(NativeClassType.World))(world);
+        SuperSystem.sp_world = ClassManager.CreateInstance(NativeClassType.World, world);
         //玩家事件
         //beforeEvents事件
         SuperSystem.sp_world.beforeEvents.playerBreakBlock.subscribe(this.PlayerBreakBlockBeforeEvent);
@@ -99,12 +102,25 @@ export class SuperSystem {
         SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("overworld").getEntities()));
         SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("nether").getEntities()));
         SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("the_end").getEntities()));
+        //替换Entity实例
+        for (let i = 0; i < SuperWorld.Entitys.length; i++) {
+            let entity = SuperWorld.Entitys[i];
+            if (entity.source_instance instanceof Player) {
+                let player = ClassManager.CreateInstance(NativeClassType.Player, entity.source_instance);
+                SuperWorld.Entitys[i] = player;
+            }
+        }
         SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
-            let sp_entity = new (ClassManager.getClass(NativeClassType.Entity))(event.entity);
-            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
-                return e.id != sp_entity.id;
-            });
-            SuperWorld.Entitys.push(sp_entity);
+            this.runTimeout(() => {
+                let sp_entity = ClassManager.CreateInstance(NativeClassType.Entity, event.entity);
+                if (event.entity instanceof Player) {
+                    sp_entity = ClassManager.CreateInstance(NativeClassType.Player, event.entity);
+                }
+                SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                    return e.id != sp_entity.id;
+                });
+                SuperWorld.Entitys.push(sp_entity);
+            }, 20);
         });
         SuperSystem.sp_world.afterEvents.entityDie.subscribe((event) => {
             SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
@@ -114,17 +130,11 @@ export class SuperSystem {
         //玩家
         SuperWorld.Players = SuperSystem.getWorld().toSuperPlayers(world.getAllPlayers()); //reload是确保正确
         SuperSystem.sp_world.afterEvents.playerSpawn.subscribe((event) => {
-            let sp_player = new (ClassManager.getClass(NativeClassType.Player))(event.player);
+            let sp_player = ClassManager.CreateInstance(NativeClassType.Player, event.player);
             SuperWorld.Players = SuperWorld.Players.filter((p) => {
                 return p.id != sp_player.id;
             });
             SuperWorld.Players.push(sp_player);
-        });
-        SuperSystem.sp_world.afterEvents.playerLeave.subscribe((event) => {
-            let id = event.playerId;
-            SuperWorld.Players = SuperWorld.Players.filter((p) => {
-                return p.id != id;
-            });
         });
         system.runInterval(() => {
             this.runTick(1);
@@ -157,42 +167,42 @@ export class SuperSystem {
         if (entity == undefined) {
             return;
         }
-        entity.onEntityHealthChangedAfterEvent(event);
+        entity.onHealthChangedAfterEvent(event);
     }
     EntityHitBlockAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
         if (entity == undefined) {
             return;
         }
-        entity.onEntityHitBlockAfterEvent(event);
+        entity.onHitBlockAfterEvent(event);
     }
     EntityHitEntityAfterEvent(event) {
-        let entity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
+        let entity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
         if (entity == undefined) {
             return;
         }
-        entity.onEntityHitEntityAfterEvent(event);
+        entity.onHitEntityAfterEvent(event);
     }
     EntityHurtAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.hurtEntity.id);
         if (entity == undefined) {
             return;
         }
-        entity.onEntityHurtAfterEvent(event);
+        entity.onHurtAfterEvent(event);
     }
     EntityLoadAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.entity.id);
         if (entity == undefined) {
             return;
         }
-        entity.onEntityLoadAfterEvent(event);
+        entity.onLoadAfterEvent(event);
     }
     EntityRemoveAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.removedEntityId);
         if (entity == undefined) {
             return;
         }
-        entity.onEntityRemoveAfterEvent(event);
+        entity.onRemoveAfterEvent(event);
     }
     EntitySpawnAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.entity.id);
@@ -206,7 +216,7 @@ export class SuperSystem {
         if (entity == undefined) {
             return;
         }
-        entity.onEntityRemoveBeforeEvent(event);
+        entity.onRemoveBeforeEvent(event);
     }
     //玩家
     PlayerInputCommand(event) {
@@ -263,7 +273,7 @@ export class SuperSystem {
         if (player == undefined) {
             return;
         }
-        player.onSpawnAfterEvent(event);
+        player.onPlayerSpawnAfterEvent(event);
     }
     PlayerPlaceBlockAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];

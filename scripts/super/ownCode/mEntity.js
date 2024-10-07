@@ -5,5 +5,8 @@ export class mEntity extends SuperSAPI.Entity {
         this.enable_tick = true;
     }
     tick(t) {
+        if (this.source_instance instanceof SuperSAPI.Player) {
+            console.log("tick:player");
+        }
     }
 }

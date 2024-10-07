@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "module": "ES2020",
+      "module": "esnext",
       "target": "ES2021",
       "moduleResolution": "Node",
       "allowSyntheticDefaultImports": true,

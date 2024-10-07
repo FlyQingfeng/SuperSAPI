@@ -1,14 +1,13 @@
-import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent } from "@minecraft/server";
+import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent, Player } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { SuperComponent } from "../Component/SuperComponent";
-import {vec3} from "../Public/vec3";
-import { SuperSystem } from "Runtime";
+import { vec3 } from "../Public/vec3";
 
-export class SuperEntity{
+export class SuperEntity {
     source_instance: Entity;
-    atribute:Attribute=new Attribute();
-    custom_components:SuperComponent[];
-    enable_tick:boolean=false
+    atribute: Attribute = new Attribute();
+    custom_components: SuperComponent[];
+    enable_tick: boolean = false
     constructor(source_instance: Entity) {
         this.source_instance = source_instance;
         this.dimension = source_instance.dimension;
@@ -27,40 +26,41 @@ export class SuperEntity{
         this.target = source_instance.target;
         this.typeId = source_instance.typeId;
 
-        this.custom_components=[];
+        this.custom_components = [];
     };
-    tick(t:number){
+    tick(t: number) {
 
     }
-    getLocation():vec3{
+    getLocation(): vec3 {
         return vec3.fromObj(this.location)
     }
-    getAttributeMap():Attribute{
+    getAttributeMap(): Attribute {
         return this.atribute
     }
-    addCustomComponent(identifier:string){
+    addCustomComponent(identifier: string) {
         this.custom_components.push()
     }
-    getCustomComponents():SuperComponent[]{
+    getCustomComponents(): SuperComponent[] {
         return this.custom_components
     }
-    onEntityDieAfterEvent(event: EntityDieAfterEvent) {
+    //触发事件
+    onDieAfterEvent(event: EntityDieAfterEvent) {
     }
-    onEntityHealthChangedAfterEvent(event:EntityHealthChangedAfterEvent) {
+    onHealthChangedAfterEvent(event: EntityHealthChangedAfterEvent) {
     }
-    onEntityHitBlockAfterEvent(event:EntityHitBlockAfterEvent){
+    onHitBlockAfterEvent(event: EntityHitBlockAfterEvent) {
     }
-    onEntityHitEntityAfterEvent(event:EntityHitEntityAfterEvent){
+    onHitEntityAfterEvent(event: EntityHitEntityAfterEvent) {
     }
-    onEntityHurtAfterEvent(event:EntityHurtAfterEvent){
+    onHurtAfterEvent(event: EntityHurtAfterEvent) {
     }
-    onEntityLoadAfterEvent(event:EntityLoadAfterEvent){
+    onLoadAfterEvent(event: EntityLoadAfterEvent) {
     }
-    onEntityRemoveAfterEvent(event:EntityRemoveAfterEvent){
+    onRemoveAfterEvent(event: EntityRemoveAfterEvent) {
     }
-    onEntitySpawnAfterEvent(event:EntitySpawnAfterEvent){
+    onEntitySpawnAfterEvent(event: EntitySpawnAfterEvent) {
     }
-    onEntityRemoveBeforeEvent(event:EntityRemoveBeforeEvent){
+    onRemoveBeforeEvent(event: EntityRemoveBeforeEvent) {
     }
 
     /**
