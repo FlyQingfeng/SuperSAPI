@@ -2,7 +2,6 @@ import { Attribute } from "../Public/attribute";
 import { vec3 } from "../Public/vec3";
 export class SuperEntity {
     constructor(source_instance) {
-        this.atribute = new Attribute();
         this.enable_tick = false;
         this.source_instance = source_instance;
         this.dimension = source_instance.dimension;
@@ -21,6 +20,7 @@ export class SuperEntity {
         this.target = source_instance.target;
         this.typeId = source_instance.typeId;
         this.custom_components = [];
+        this.attribute = new Attribute(source_instance);
     }
     ;
     tick(t) {
@@ -29,7 +29,7 @@ export class SuperEntity {
         return vec3.fromObj(this.location);
     }
     getAttributeMap() {
-        return this.atribute;
+        return this.attribute;
     }
     addCustomComponent(identifier) {
         this.custom_components.push();

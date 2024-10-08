@@ -4,12 +4,12 @@ import * as mc from "@minecraft/server";
 export class mEntity extends SuperSAPI.Entity {
     constructor(entity:mc.Entity) {
         super(entity)
-        this.enable_tick=true;
+        this.enable_tick=false;
     }
     tick(t: number): void {
-        if (this.source_instance instanceof SuperSAPI.Player) {
-            console.log("tick:player");
-        }
+        
     }
-    
+    onHurtAfterEvent(event: mc.EntityHurtAfterEvent): void {
+        SuperSAPI.SuperSystem.getWorld().sendMessage(`${event.damage}`)
+    }
 }

@@ -15,4 +15,3 @@ export const NativeClassType=run.NativeClassType;
 export const ClassManager=run.ClassManager;
 export const CommandManager=cm.CommandManager
 export const System = run.runtime;
-export const world = SuperSystem.getWorld();

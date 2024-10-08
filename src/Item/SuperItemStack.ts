@@ -1,9 +1,31 @@
 import { ItemStack, ItemLockMode, ItemType, ItemComponentTypeMap, ItemComponent, Vector3, PotionOptions } from "@minecraft/server";
-import { Super } from "../Public/Super";
+import { Attribute } from "../Public/attribute";
 
-export class SuperItemStack extends Super{
+export class SuperItemStack {
 
     source_instance: ItemStack;
+    attribute:Attribute;
+    /**
+     * @remarks
+     * Creates a new instance of a stack of items for use in the
+     * world.
+     *
+     * @param source_instance
+     * 传入一个ItemStack对象
+     */
+    constructor(source_instance:ItemStack) {
+        this.source_instance = source_instance;
+        this.amount = source_instance.amount;
+        this.isStackable = source_instance.isStackable;
+        this.keepOnDeath = source_instance.keepOnDeath;
+        this.lockMode = source_instance.lockMode;
+        this.maxAmount = source_instance.maxAmount;
+        this.nameTag = source_instance.nameTag;
+        this.type = source_instance.type;
+        this.typeId = source_instance.typeId;
+        this.attribute=new Attribute(source_instance);
+        return this.source_instance.constructor(source_instance.type, source_instance.amount);
+    };
     /**
      * @remarks
      * Number of the items in the stack. Valid values range between
@@ -75,27 +97,6 @@ export class SuperItemStack extends Super{
      *
      */
     readonly typeId: string;
-    /**
-     * @remarks
-     * Creates a new instance of a stack of items for use in the
-     * world.
-     *
-     * @param source_instance
-     * 传入一个ItemStack对象
-     */
-    constructor(source_instance:ItemStack) {
-        super()
-        this.source_instance = source_instance;
-        this.amount = source_instance.amount;
-        this.isStackable = source_instance.isStackable;
-        this.keepOnDeath = source_instance.keepOnDeath;
-        this.lockMode = source_instance.lockMode;
-        this.maxAmount = source_instance.maxAmount;
-        this.nameTag = source_instance.nameTag;
-        this.type = source_instance.type;
-        this.typeId = source_instance.typeId;
-        return this.source_instance.constructor(source_instance.type, source_instance.amount);
-    };
     /**
      * @remarks
      * Clears all dynamic properties that have been set on this

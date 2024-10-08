@@ -1,54 +1,50 @@
+import { hasFun } from "../Public/stdlib";
 //属性类
 export class Attribute {
-    // constructor(entity:Entity){
-    //     this.entity=entity
-    // }
-    constructor() {
-        // entity:Entity
+    constructor(obj) {
         this.properties = {};
+        // 保证有这两个函数
+        if (hasFun(obj, "getDynamicProperty")
+            && hasFun(obj, "setDynamicProperty")) {
+            this._obj = obj;
+            let data = obj.getDynamicProperty("Attribute");
+            if (data) {
+                this.properties = JSON.parse(data);
+            }
+            else {
+                this.save();
+            }
+        }
+        else { //抛出异常
+            throw new Error("SuperAPI[Attribute:constructor]:The constructor you want to pass using the <Attribute> class must have <getDynamicProperty><setDynamicProperty>two functions,");
+        }
+    }
+    save() {
+        let data = JSON.stringify(this.properties);
+        if (this._obj) {
+            this._obj.setDynamicProperty("Attribute", data);
+        }
+    }
+    init(key, value) {
+        let data = this._obj.getDynamicProperty("Attribute");
+        let json = JSON.parse(data);
+        if (!json[key]) { //只有在该值不存在的时候才能初始化，避免覆盖值
+            this.set(key, value);
+        }
     }
     // 添加或更新属性
     set(key, value) {
-        // let tags=this.entity.getTags().filter((tag)=>{
-        //     return tag.startsWith("attribute:")
-        // })
-        // let data=`${key}#${JSON.stringify(value)}`
-        // const found=tags.find((tag)=>{
-        //     let atag=tag.replace("attribute:",'')
-        //     let name=atag.split("#")[0]
-        //     return name==key
-        // })
-        // let newtag=`attribute:${data}`
-        // if (found!=undefined) {
-        //     // console.log(found);
-        //     this.entity.removeTag(found);
-        //     this.entity.addTag(newtag)
-        // }else{
-        //     this.entity.addTag(newtag)
-        // }
         this.properties[key] = value;
+        this.save();
     }
     // 获取属性值
     get(key) {
-        // let tags=this.entity.getTags().filter((tag)=>{
-        //     return tag.startsWith("attribute:")
-        // })
-        // const found=tags.find((tag)=>{
-        //     let atag=tag.replace("attribute:",'')
-        //     let name=atag.split("#")[0]
-        //     return name==key
-        // })
-        // if (found==undefined) {
-        //     return undefined
-        // }
-        // let atag=found.replace("attribute:",'')
-        // let value=JSON.parse(atag.split("#")[1])
-        // return value;
         return this.properties[key];
     }
     // 删除属性
     delete(key) {
         delete this.properties[key];
+        this.save();
     }
     // 检查属性是否存在
     has(key) {
@@ -71,6 +67,7 @@ export class Attribute {
         Object.keys(this.properties).forEach(key => {
             delete this.properties[key];
         });
+        this.save();
     }
 }
 // 使用示例

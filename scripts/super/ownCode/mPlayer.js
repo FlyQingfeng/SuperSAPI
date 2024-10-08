@@ -2,24 +2,12 @@ import * as SuperSAPI from "../SuperSAPI";
 export class mPlayer extends SuperSAPI.Player {
     constructor(player) {
         super(player);
-        this.atribute.set("value", 0);
-        // this.enable_tick=true;
+        this.attribute.init("use_num", 0);
     }
-    tick(t) {
-        this.sendMessage(`${this.name}`);
-    }
-    onHitBlockAfterEvent(event) {
-        this.sendMessage(`hit block`);
-    }
-    onHitEntityAfterEvent(event) {
-        this.sendMessage(`hit`);
-    }
-    onHurtAfterEvent(event) {
-        this.sendMessage(`${event.damage}`);
-    }
-    //玩家破坏方块之后
-    onAfterBreakBlockEvent(event) {
-        this.sendMessage(`${event.brokenBlockPermutation.type.id}`);
+    onItemUseAfterEvent(event) {
+        let use_num = this.attribute.get("use_num");
+        use_num++;
+        this.attribute.set("use_num", use_num);
+        this.sendMessage(`${use_num}`);
     }
 }
-// SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)
