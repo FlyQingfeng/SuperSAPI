@@ -3,6 +3,8 @@ import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
+import { Super } from "./Public/Super";
+import { SuperItemStack } from "./Item/SuperItemStack";
 
 
 function isClass(fn: any) {
@@ -16,10 +18,11 @@ function isClass(fn: any) {
     }
 }
 
-export enum NativeClassType {
+export enum NativeClassType {//可被替换的类和原型
     World = "World",
     Player = "Player",
     Entity = "Entity",
+    ItemStack = "ItemStack",
 }
 
 export class ClassManager {
@@ -27,6 +30,7 @@ export class ClassManager {
         World: SuperWorld,
         Player: SuperPlayer,
         Entity: SuperEntity,
+        ItemStack:SuperItemStack,
     }
     constructor() {
 
@@ -34,10 +38,8 @@ export class ClassManager {
     static getClass(type: NativeClassType) {
         return this.mclass[type.toString()]
     }
-    static replaceClass(type: NativeClassType, NewClass: any) {
-        if (isClass(NewClass)) {
-            this.mclass[type] = NewClass;
-        }
+    static replaceClass<C extends Super>(type: NativeClassType, NewClass: C) {
+        this.mclass[type.toString()] = NewClass;
     }
     static CreateInstance(type: NativeClassType,origin:any){
         return new (this.mclass[type.toString()])(origin)
@@ -157,14 +159,14 @@ export class SuperSystem {
     }
     private runTick(t: number) {
         if (this.ready) {
-            for (let entity of SuperSystem.getWorld().getAllEntitys()) {
+            for (const entity of SuperSystem.getWorld().getAllEntitys()) {
                 if (entity.enable_tick) {
                     entity.tick(t);
                 }
-            }
-            for (let player of SuperSystem.getWorld().getPlayers()) {
-                if (player.enable_tick) {
-                    player.tick(t);
+                for (const sp_com of entity.getCustomComponents()) {
+                    if (sp_com.enable_tick) {
+                        sp_com.tick(t);
+                    }
                 }
             }
         }

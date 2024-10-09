@@ -1,6 +1,7 @@
 import { ItemStack } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
-export class SuperItemStack {
+import { Super } from "../Public/Super";
+export class SuperItemStack extends Super {
     /**
      * @remarks
      * Creates a new instance of a stack of items for use in the
@@ -10,6 +11,7 @@ export class SuperItemStack {
      * 传入一个ItemStack对象
      */
     constructor(source_instance) {
+        super();
         this.source_instance = source_instance;
         this.amount = source_instance.amount;
         this.isStackable = source_instance.isStackable;

@@ -1,16 +1,21 @@
-import { Component } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
+import { CustomComponentManager } from "../Component/CustomComponentManager";
 
 export class SuperComponent {
-    source_instance: Component;
-    atribute: Attribute;
-    constructor(source_instance: Component) {
-        this.source_instance = source_instance;
-        this.typeId = source_instance.typeId;
-
+    owner:any;
+    enable_tick:boolean=false;
+    constructor(typeId:string,owner: any) {
+        this.typeId=typeId;
+        this.owner=owner;
     };
-    getAttributeMap(): Attribute {
-        return this.atribute;
+    onStart(){
+
+    }
+    tick(t: number){
+
+    }
+    getOwnerAttributeMap(): Attribute {
+        return this.owner.getAttributeMap();
     }
     /**
      * @remarks
@@ -29,6 +34,6 @@ export class SuperComponent {
      * Whether the component is valid.
      */
     isValid(): boolean {
-        return this.source_instance.isValid();
+        return true
     };
 }

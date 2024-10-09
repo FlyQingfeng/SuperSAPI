@@ -9,7 +9,4 @@ export class mEntity extends SuperSAPI.Entity {
     tick(t: number): void {
         
     }
-    onHurtAfterEvent(event: mc.EntityHurtAfterEvent): void {
-        SuperSAPI.SuperSystem.getWorld().sendMessage(`${event.damage}`)
-    }
 }

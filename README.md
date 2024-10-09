@@ -41,8 +41,6 @@ export class mEntity extends SuperSAPI.Entity {
   
     }
 }
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity,mEntity)
-
 ```
 
 ```ts
@@ -66,7 +64,6 @@ export class mPlayer extends SuperSAPI.Player {
     }
   
 }
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player,mPlayer)
 ```
 
 ```ts

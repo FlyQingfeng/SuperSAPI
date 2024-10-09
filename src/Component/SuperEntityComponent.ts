@@ -1,14 +1,11 @@
-import { Component, EntityComponent, Entity } from "@minecraft/server";
+import { SuperEntity } from "../Entity/SuperEntity";
 import { SuperComponent } from "../Component/SuperComponent";
 
 export class EntitySuperComponent extends SuperComponent {
 
-    source_instance: EntityComponent;
-    constructor(source_instance: EntityComponent) {
-        super(source_instance)
-        this.source_instance = source_instance;
-        this.entity = source_instance.entity;
-
+    constructor(typeId:string,owner: SuperEntity) {
+        super(typeId,owner)
+        this.entity=this.owner
     };
     /**
      * @remarks
@@ -16,5 +13,5 @@ export class EntitySuperComponent extends SuperComponent {
      * undefined if it has been removed.
      *
      */
-    readonly entity: Entity;
+    readonly entity: SuperEntity;
 }

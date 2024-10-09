@@ -1,7 +1,8 @@
 import { ItemStack, ItemLockMode, ItemType, ItemComponentTypeMap, ItemComponent, Vector3, PotionOptions } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
+import { Super } from "../Public/Super";
 
-export class SuperItemStack {
+export class SuperItemStack extends Super{
 
     source_instance: ItemStack;
     attribute:Attribute;
@@ -14,6 +15,7 @@ export class SuperItemStack {
      * 传入一个ItemStack对象
      */
     constructor(source_instance:ItemStack) {
+        super()
         this.source_instance = source_instance;
         this.amount = source_instance.amount;
         this.isStackable = source_instance.isStackable;

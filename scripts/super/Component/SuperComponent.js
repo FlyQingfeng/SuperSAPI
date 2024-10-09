@@ -1,11 +1,16 @@
 export class SuperComponent {
-    constructor(source_instance) {
-        this.source_instance = source_instance;
-        this.typeId = source_instance.typeId;
+    constructor(typeId, owner) {
+        this.enable_tick = false;
+        this.typeId = typeId;
+        this.owner = owner;
     }
     ;
-    getAttributeMap() {
-        return this.atribute;
+    onStart() {
+    }
+    tick(t) {
+    }
+    getOwnerAttributeMap() {
+        return this.owner.getAttributeMap();
     }
     /**
      * @remarks
@@ -18,7 +23,7 @@ export class SuperComponent {
      * Whether the component is valid.
      */
     isValid() {
-        return this.source_instance.isValid();
+        return true;
     }
     ;
 }

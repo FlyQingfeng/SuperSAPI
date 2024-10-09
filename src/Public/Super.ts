@@ -1,6 +1,6 @@
-export class Super extends Object{
-    readonly superid:string
+
+
+export class Super{
     constructor() {
-        super()
     }
 }

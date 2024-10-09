@@ -1,14 +1,18 @@
 import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent, Player } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { SuperComponent } from "../Component/SuperComponent";
+import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
+import { cast } from "../Public/stdlib";
+import { Super } from "../Public/Super";
 
-export class SuperEntity {
+export class SuperEntity extends Super{
     source_instance: Entity;
     attribute: Attribute;
-    custom_components: SuperComponent[];
+    custom_components: {[id:string]:SuperComponent};
     enable_tick: boolean = false
     constructor(source_instance: Entity) {
+        super()
         this.source_instance = source_instance;
         this.dimension = source_instance.dimension;
         this.id = source_instance.id;
@@ -26,9 +30,14 @@ export class SuperEntity {
         this.target = source_instance.target;
         this.typeId = source_instance.typeId;
 
-        this.custom_components = [];
+        this.custom_components = {};
         this.attribute=new Attribute(source_instance);
+        //加载存储的组件
+        this.readCustomComponent();
     };
+    cast<T>(){
+        return cast<T>(this)
+    }
     tick(t: number) {
 
     }
@@ -38,11 +47,62 @@ export class SuperEntity {
     getAttributeMap(): Attribute {
         return this.attribute
     }
-    addCustomComponent(identifier: string) {
-        this.custom_components.push()
+    private readCustomComponent(){
+        let data=this.getDynamicProperty("CustomComponent") as string;
+        if (data) {
+            let json=JSON.parse(data);
+            for (let [id,cm_data] of Object.entries(json)) {
+                let com=CustomComponentManager.CreateComponentInstance(id,this);
+                for (let [key,value] of Object.entries(json)) {
+                    com[key]=value;
+                }
+                this.custom_components[id]=com;
+            }
+        }
+    }
+    private saveCustomComponent(){//保存玩家自定义组件
+        let components={};
+        for (let [key,value] of Object.entries(this.custom_components)) {
+            //抹除对自己的引用
+            if (value.hasOwnProperty("entity")) {
+                value["entity"]=undefined
+            }
+            if (value.hasOwnProperty("entity")) {
+                value["owner"]=undefined
+            }
+            components[key]=value
+        }
+        let data=JSON.stringify(components);
+        this.setDynamicProperty("CustomComponent",data);
+    }
+    addCustomComponent(identifier: string):boolean {
+        let com=CustomComponentManager.CreateComponentInstance(identifier,this);
+        if (!this.custom_components.hasOwnProperty(identifier)) {
+            com.onStart();
+            this.custom_components[identifier]=com;
+            this.saveCustomComponent();
+            return true
+        }
+        return false
+    }
+    removeCustomComponent(identifier: string) {
+        delete this.custom_components[identifier]
+        this.saveCustomComponent();
+    }
+    getCustomComponent<C extends SuperComponent>(identifier: string): C|undefined {
+        if (this.custom_components.hasOwnProperty(identifier)) {
+            return this.custom_components[identifier] as C
+        }
+        return undefined
     }
     getCustomComponents(): SuperComponent[] {
-        return this.custom_components
+        let coms:SuperComponent[]=[];
+        for (const key in this.custom_components) {
+            if (this.custom_components.hasOwnProperty(key)) {
+                coms.push(this.custom_components[key])
+            }
+        }
+        return coms
     }
     //触发事件
     onDieAfterEvent(event: EntityDieAfterEvent) {
@@ -1003,31 +1063,8 @@ export class SuperEntity {
      * Options regarding the teleport operation.
      * @throws This function can throw errors.
      * @example teleportMovement.ts
-     * ```typescript
-     * import { world, system } from '@minecraft/server';
-     *
-     * const overworld = world.getDimension('overworld');
-     * const targetLocation = { x: 0, y: 0, z: 0 };
-     *
-     * const pig = overworld.spawnEntity('minecraft:pig', targetLocation);
-     *
-     * let inc = 1;
-     * const runId = system.runInterval(() => {
-     *     pig.teleport(
-     *         { x: targetLocation.x + inc / 4, y: targetLocation.y + inc / 4, z: targetLocation.z + inc / 4 },
-     *         {
-     *             facingLocation: targetLocation,
-     *         },
-     *     );
-     *
-     *     if (inc > 100) {
-     *         system.clearRun(runId);
-     *     }
-     *     inc++;
-     * }, 4);
-     * ```
      */
-    teleport(location: Vector3, teleportOptions?: TeleportOptions): void {
+    teleport(location: vec3, teleportOptions?: TeleportOptions): void {
         return this.source_instance.teleport(location, teleportOptions);
     };
     /**
@@ -1079,7 +1116,7 @@ export class SuperEntity {
      * result in intersecting with blocks.
      * @throws This function can throw errors.
      */
-    tryTeleport(location: Vector3, teleportOptions?: TeleportOptions): boolean {
+    tryTeleport(location: vec3, teleportOptions?: TeleportOptions): boolean {
         return this.source_instance.tryTeleport(location, teleportOptions);
     };
 }

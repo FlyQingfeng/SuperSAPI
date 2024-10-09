@@ -1,5 +1,4 @@
-export class Super extends Object {
+export class Super {
     constructor() {
-        super();
     }
 }

@@ -2,12 +2,14 @@ import { World, WorldAfterEvents, WorldBeforeEvents, GameRules, Scoreboard, Stru
 import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { SuperEntity } from "../Entity/SuperEntity";
+import { Super } from "../Public/Super";
 
-export class SuperWorld{
+export class SuperWorld extends Super{
     source_instance: World;
     static Entitys:SuperEntity[]=[];
     static Players:SuperPlayer[]=[];
     constructor(source_instance: World) {
+        super()
         this.source_instance = source_instance;
         this.afterEvents = source_instance.afterEvents;
         this.beforeEvents = source_instance.beforeEvents;

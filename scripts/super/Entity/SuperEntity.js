@@ -1,7 +1,11 @@
 import { Attribute } from "../Public/attribute";
+import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
-export class SuperEntity {
+import { cast } from "../Public/stdlib";
+import { Super } from "../Public/Super";
+export class SuperEntity extends Super {
     constructor(source_instance) {
+        super();
         this.enable_tick = false;
         this.source_instance = source_instance;
         this.dimension = source_instance.dimension;
@@ -19,10 +23,15 @@ export class SuperEntity {
         this.scoreboardIdentity = source_instance.scoreboardIdentity;
         this.target = source_instance.target;
         this.typeId = source_instance.typeId;
-        this.custom_components = [];
+        this.custom_components = {};
         this.attribute = new Attribute(source_instance);
+        //加载存储的组件
+        this.readCustomComponent();
     }
     ;
+    cast() {
+        return cast(this);
+    }
     tick(t) {
     }
     getLocation() {
@@ -31,11 +40,62 @@ export class SuperEntity {
     getAttributeMap() {
         return this.attribute;
     }
+    readCustomComponent() {
+        let data = this.getDynamicProperty("CustomComponent");
+        if (data) {
+            let json = JSON.parse(data);
+            for (let [id, cm_data] of Object.entries(json)) {
+                let com = CustomComponentManager.CreateComponentInstance(id, this);
+                for (let [key, value] of Object.entries(json)) {
+                    com[key] = value;
+                }
+                this.custom_components[id] = com;
+            }
+        }
+    }
+    saveCustomComponent() {
+        let components = {};
+        for (let [key, value] of Object.entries(this.custom_components)) {
+            //抹除对自己的引用
+            if (value.hasOwnProperty("entity")) {
+                value["entity"] = undefined;
+            }
+            if (value.hasOwnProperty("entity")) {
+                value["owner"] = undefined;
+            }
+            components[key] = value;
+        }
+        let data = JSON.stringify(components);
+        this.setDynamicProperty("CustomComponent", data);
+    }
     addCustomComponent(identifier) {
-        this.custom_components.push();
+        let com = CustomComponentManager.CreateComponentInstance(identifier, this);
+        if (!this.custom_components.hasOwnProperty(identifier)) {
+            com.onStart();
+            this.custom_components[identifier] = com;
+            this.saveCustomComponent();
+            return true;
+        }
+        return false;
+    }
+    removeCustomComponent(identifier) {
+        delete this.custom_components[identifier];
+        this.saveCustomComponent();
+    }
+    getCustomComponent(identifier) {
+        if (this.custom_components.hasOwnProperty(identifier)) {
+            return this.custom_components[identifier];
+        }
+        return undefined;
     }
     getCustomComponents() {
-        return this.custom_components;
+        let coms = [];
+        for (const key in this.custom_components) {
+            if (this.custom_components.hasOwnProperty(key)) {
+                coms.push(this.custom_components[key]);
+            }
+        }
+        return coms;
     }
     //触发事件
     onDieAfterEvent(event) {
@@ -909,29 +969,6 @@ export class SuperEntity {
      * Options regarding the teleport operation.
      * @throws This function can throw errors.
      * @example teleportMovement.ts
-     * ```typescript
-     * import { world, system } from '@minecraft/server';
-     *
-     * const overworld = world.getDimension('overworld');
-     * const targetLocation = { x: 0, y: 0, z: 0 };
-     *
-     * const pig = overworld.spawnEntity('minecraft:pig', targetLocation);
-     *
-     * let inc = 1;
-     * const runId = system.runInterval(() => {
-     *     pig.teleport(
-     *         { x: targetLocation.x + inc / 4, y: targetLocation.y + inc / 4, z: targetLocation.z + inc / 4 },
-     *         {
-     *             facingLocation: targetLocation,
-     *         },
-     *     );
-     *
-     *     if (inc > 100) {
-     *         system.clearRun(runId);
-     *     }
-     *     inc++;
-     * }, 4);
-     * ```
      */
     teleport(location, teleportOptions) {
         return this.source_instance.teleport(location, teleportOptions);

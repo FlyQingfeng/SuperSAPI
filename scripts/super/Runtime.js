@@ -3,6 +3,7 @@ import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
+import { SuperItemStack } from "./Item/SuperItemStack";
 function isClass(fn) {
     try {
         return typeof fn === 'function' &&
@@ -19,6 +20,7 @@ export var NativeClassType;
     NativeClassType["World"] = "World";
     NativeClassType["Player"] = "Player";
     NativeClassType["Entity"] = "Entity";
+    NativeClassType["ItemStack"] = "ItemStack";
 })(NativeClassType || (NativeClassType = {}));
 export class ClassManager {
     constructor() {
@@ -27,9 +29,7 @@ export class ClassManager {
         return this.mclass[type.toString()];
     }
     static replaceClass(type, NewClass) {
-        if (isClass(NewClass)) {
-            this.mclass[type] = NewClass;
-        }
+        this.mclass[type.toString()] = NewClass;
     }
     static CreateInstance(type, origin) {
         return new (this.mclass[type.toString()])(origin);
@@ -39,6 +39,7 @@ ClassManager.mclass = {
     World: SuperWorld,
     Player: SuperPlayer,
     Entity: SuperEntity,
+    ItemStack: SuperItemStack,
 };
 export class SuperSystem {
     constructor(source_instance) {
@@ -143,14 +144,14 @@ export class SuperSystem {
     }
     runTick(t) {
         if (this.ready) {
-            for (let entity of SuperSystem.getWorld().getAllEntitys()) {
+            for (const entity of SuperSystem.getWorld().getAllEntitys()) {
                 if (entity.enable_tick) {
                     entity.tick(t);
                 }
-            }
-            for (let player of SuperSystem.getWorld().getPlayers()) {
-                if (player.enable_tick) {
-                    player.tick(t);
+                for (const sp_com of entity.getCustomComponents()) {
+                    if (sp_com.enable_tick) {
+                        sp_com.tick(t);
+                    }
                 }
             }
         }
