@@ -4,7 +4,7 @@ import { SuperComponent } from "../Component/SuperComponent";
 import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
-import { Super } from "../Public/Super";
+import { Super } from "../Super/Super";
 
 export class SuperEntity extends Super{
     source_instance: Entity;
@@ -103,6 +103,8 @@ export class SuperEntity extends Super{
             }
         }
         return coms
+    }
+    registeredToEventManager(){//注册函数到事件管理，用于绑定事件
     }
     //触发事件
     onDieAfterEvent(event: EntityDieAfterEvent) {
@@ -1120,3 +1122,4 @@ export class SuperEntity extends Super{
         return this.source_instance.tryTeleport(location, teleportOptions);
     };
 }
+

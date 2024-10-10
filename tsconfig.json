@@ -3,6 +3,7 @@
       "module": "esnext",
       "target": "ES2021",
       "moduleResolution": "Node",
+      "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
       "baseUrl": "./src",
       "rootDir": "./src",

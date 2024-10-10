@@ -2,7 +2,7 @@ import { World, WorldAfterEvents, WorldBeforeEvents, GameRules, Scoreboard, Stru
 import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { SuperEntity } from "../Entity/SuperEntity";
-import { Super } from "../Public/Super";
+import { Super } from "../Super/Super";
 
 export class SuperWorld extends Super{
     source_instance: World;

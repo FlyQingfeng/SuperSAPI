@@ -1,6 +1,6 @@
 import { Player } from "@minecraft/server";
 import { ClassManager, NativeClassType } from "../Runtime";
-import { Super } from "../Public/Super";
+import { Super } from "../Super/Super";
 export class SuperWorld extends Super {
     constructor(source_instance) {
         super();

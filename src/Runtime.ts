@@ -3,42 +3,31 @@ import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
-import { Super } from "./Public/Super";
 import { SuperItemStack } from "./Item/SuperItemStack";
 
 
-function isClass(fn: any) {
-    try {
-        return typeof fn === 'function' &&
-            fn.prototype &&
-            fn.prototype.constructor &&
-            fn.prototype.constructor.name === fn.name;
-    } catch (error) {
-        return false;
-    }
-}
-
 export enum NativeClassType {//可被替换的类和原型
-    World = "World",
-    Player = "Player",
-    Entity = "Entity",
-    ItemStack = "ItemStack",
+    World,
+    Player,
+    Entity,
+    ItemStack,
 }
+type _Class=new (...args: any[]) => any
 
 export class ClassManager {
     static mclass = {
-        World: SuperWorld,
-        Player: SuperPlayer,
-        Entity: SuperEntity,
-        ItemStack:SuperItemStack,
-    }
+        [NativeClassType.World]: SuperWorld,
+        [NativeClassType.Player]: SuperPlayer,
+        [NativeClassType.Entity]: SuperEntity,
+        [NativeClassType.ItemStack]: SuperItemStack,
+    };
     constructor() {
 
     }
     static getClass(type: NativeClassType) {
         return this.mclass[type.toString()]
     }
-    static replaceClass<C extends Super>(type: NativeClassType, NewClass: C) {
+    static replaceClass(type: NativeClassType, NewClass: _Class) {
         this.mclass[type.toString()] = NewClass;
     }
     static CreateInstance(type: NativeClassType,origin:any){

@@ -1,6 +1,6 @@
 import { ItemStack, ItemLockMode, ItemType, ItemComponentTypeMap, ItemComponent, Vector3, PotionOptions } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
-import { Super } from "../Public/Super";
+import { Super } from "../Super/Super";
 
 export class SuperItemStack extends Super{
 

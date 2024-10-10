@@ -2,7 +2,7 @@ import { Attribute } from "../Public/attribute";
 import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
-import { Super } from "../Public/Super";
+import { Super } from "../Super/Super";
 export class SuperEntity extends Super {
     constructor(source_instance) {
         super();
@@ -96,6 +96,8 @@ export class SuperEntity extends Super {
             }
         }
         return coms;
+    }
+    registeredToEventManager() {
     }
     //触发事件
     onDieAfterEvent(event) {

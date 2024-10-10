@@ -4,23 +4,12 @@ import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
-function isClass(fn) {
-    try {
-        return typeof fn === 'function' &&
-            fn.prototype &&
-            fn.prototype.constructor &&
-            fn.prototype.constructor.name === fn.name;
-    }
-    catch (error) {
-        return false;
-    }
-}
 export var NativeClassType;
 (function (NativeClassType) {
-    NativeClassType["World"] = "World";
-    NativeClassType["Player"] = "Player";
-    NativeClassType["Entity"] = "Entity";
-    NativeClassType["ItemStack"] = "ItemStack";
+    NativeClassType[NativeClassType["World"] = 0] = "World";
+    NativeClassType[NativeClassType["Player"] = 1] = "Player";
+    NativeClassType[NativeClassType["Entity"] = 2] = "Entity";
+    NativeClassType[NativeClassType["ItemStack"] = 3] = "ItemStack";
 })(NativeClassType || (NativeClassType = {}));
 export class ClassManager {
     constructor() {
@@ -36,10 +25,10 @@ export class ClassManager {
     }
 }
 ClassManager.mclass = {
-    World: SuperWorld,
-    Player: SuperPlayer,
-    Entity: SuperEntity,
-    ItemStack: SuperItemStack,
+    [NativeClassType.World]: SuperWorld,
+    [NativeClassType.Player]: SuperPlayer,
+    [NativeClassType.Entity]: SuperEntity,
+    [NativeClassType.ItemStack]: SuperItemStack,
 };
 export class SuperSystem {
     constructor(source_instance) {

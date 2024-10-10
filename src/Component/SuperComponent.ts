@@ -7,7 +7,12 @@ export class SuperComponent {
     constructor(typeId:string,owner: any) {
         this.typeId=typeId;
         this.owner=owner;
+        this.init();
     };
+    
+    init(){//组件初始化
+
+    }
     onStart(){
 
     }

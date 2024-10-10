@@ -3,8 +3,11 @@ export class SuperComponent {
         this.enable_tick = false;
         this.typeId = typeId;
         this.owner = owner;
+        this.init();
     }
     ;
+    init() {
+    }
     onStart() {
     }
     tick(t) {

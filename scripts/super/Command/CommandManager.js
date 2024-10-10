@@ -1,3 +1,4 @@
+import { system } from "@minecraft/server";
 export class CommandManager {
     constructor() {
     }
@@ -53,7 +54,9 @@ export class CommandManager {
         if (CommandManager.commands.hasOwnProperty(name)) {
             const command = CommandManager.commands[name];
             // console.log(`执行指令: ${name}`);
-            command.callback(player, args);
+            system.run(() => {
+                command.callback(player, args);
+            });
         }
         else {
             console.error(`指令 ${name} 未注册.`);
@@ -66,7 +69,9 @@ export class CommandManager {
             if (fathercmd.subCommands.hasOwnProperty(name)) {
                 const command = fathercmd.subCommands[name];
                 // console.log(`执行指令:${father} ${name}`);
-                command.callback(player, args);
+                system.run(() => {
+                    command.callback(player, args);
+                });
             }
             else {
                 // console.error(`指令 ${father} ${name} 未注册.`);
