@@ -1,11 +1,11 @@
 import { system, world } from "@minecraft/server";
 import { mEntity } from "./ownCode/mEntity";
 import { mPlayer } from "./ownCode/mPlayer";
-import { PlayerManaComponent } from "./ownCode/mPlayerComponent";
+import { mPlayerComponent } from "./ownCode/mPlayerComponent";
 import * as SuperSAPI from "./SuperSAPI";
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
-SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
+SuperSAPI.CustomComponentManager.registrationCustomComponent("id", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
     let num = world.getDimension("overworld").getEntities().length;
     num += world.getDimension("nether").getEntities().length;
@@ -14,11 +14,8 @@ SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) =
     console.log("super_world entitys:", SuperSAPI.SuperSystem.getWorld().getAllEntitys().length);
 });
 system.runInterval(() => {
-    // SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e)=>{
-    //     if (e instanceof SuperPlayer) {
-    //         console.log("has Player");
-    //     }
-    // })
+    SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e) => {
+    });
 }, 10);
 SuperSAPI.CommandManager.registerCommand('has', "获取玩家的全部组件", (player, arg) => {
     let coms = player.getCustomComponents();
@@ -56,23 +53,6 @@ SuperSAPI.CommandManager.registerCommand('remove', "<组件ID> 删除", (player,
         player.sendMessage(`未发现组件${id}，请查看该组件是否注册`);
     }
 });
-SuperSAPI.CommandManager.registerCommand('setMana', "<设置的值> 设置组件的Mana值", (player, arg) => {
-    let value = arg[0];
-    if (!value) {
-        player.sendMessage(`缺少<设置的值>参数`);
-    }
-    let mana = player.getCustomComponent("id");
-    mana.mana = parseInt(value);
-});
-SuperSAPI.CommandManager.registerCommand('putMana', "打印组件的Mana值", (player, arg) => {
-    let mana = player.getCustomComponent("id");
-    player.sendMessage(`mana:${mana.mana}`);
-});
 SuperSAPI.System.init();
-function test() {
-    console.log("fun test");
-}
 system.run(() => {
-    let player = SuperSAPI.SuperSystem.getWorld().getAllPlayers()[0];
-    player.Bind(player.onItemUseAfterEvent, test);
 });

@@ -1,17 +1,12 @@
 import { SuperPlayer } from "../Player/SuperPlayer";
 import { EntitySuperComponent } from "./SuperEntityComponent";
 import { ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerBreakBlockAfterEvent, PlayerBreakBlockBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, PlayerSpawnAfterEvent } from "@minecraft/server";
+
 export class PlayerSuperComponent extends EntitySuperComponent {
-    player: SuperPlayer;
     constructor(typeId: string, owner: SuperPlayer) {
         super(typeId, owner)
-        this.player = owner
-        this.init();
-    };
-    init(): void {
-        super.init();
-        if (this.player) {
-            let player = this.player;
+        let player = this.getOwner();
+        if (player.isValid()) {
             player.Bind(player.onItemStopUseOnAfterEvent, this.onItemStopUseOnAfterEvent);
             player.Bind(player.onItemStartUseAfterEvent, this.onItemStartUseAfterEvent);
             player.Bind(player.onItemReleaseAfterEvent, this.onItemReleaseAfterEvent);
@@ -36,9 +31,48 @@ export class PlayerSuperComponent extends EntitySuperComponent {
             player.Bind(player.onItemUseOnBeforeEvent, this.onItemUseOnBeforeEvent);
             player.Bind(player.onItemUseBeforeEvent, this.onItemUseBeforeEvent);
             player.Bind(player.onChatSendBeforeEvent, this.onChatSendBeforeEvent);
-            player.Bind(player.onBreakPlaceBeforeEvent, this.onPlaceBlockBeforeEvent);
+            player.Bind(player.onPlaceBeforeEvent, this.onPlaceBlockBeforeEvent);
             player.Bind(player.onBreakBlockBeforeEvent, this.onBreakBlockBeforeEvent);
         }
+    };
+    deconstructor(op?: string): void {
+        let player = this.getOwner();
+        if (player.isValid()) {
+            player.UnBind(player.onItemStopUseOnAfterEvent, this.onItemStopUseOnAfterEvent);
+            player.UnBind(player.onItemStartUseAfterEvent, this.onItemStartUseAfterEvent);
+            player.UnBind(player.onItemReleaseAfterEvent, this.onItemReleaseAfterEvent);
+            player.UnBind(player.onItemCompleteAfterEvent, this.onItemCompleteAfterEvent);
+            player.UnBind(player.onItemUseOnAfterEvent, this.onItemUseOnAfterEvent);
+            player.UnBind(player.onItemUseAfterEvent, this.onItemUseAfterEvent);
+            player.UnBind(player.onPlayerSpawnAfterEvent, this.onPlayerSpawnAfterEvent);
+            player.UnBind(player.onPlaceBlockAfterEvent, this.onPlaceBlockAfterEvent);
+            player.UnBind(player.onLeaveAfterEvent, this.onLeaveAfterEvent);
+            player.UnBind(player.onJoinAfterEvent, this.onJoinAfterEvent);
+            player.UnBind(player.onInteractWithEntityAfterEvent, this.onInteractWithEntityAfterEvent);
+            player.UnBind(player.onInteractWithBlockAfterEvent, this.onInteractWithBlockAfterEvent);
+            player.UnBind(player.onInputPermissionCategoryChangeAfterEvent, this.onInputPermissionCategoryChangeAfterEvent);
+            player.UnBind(player.onGameModeChangeAfterEvent, this.onGameModeChangeAfterEvent);
+            player.UnBind(player.onEmoteAfterEvent, this.onEmoteAfterEvent);
+            player.UnBind(player.onDimensionChangeAfterEvent, this.onDimensionChangeAfterEvent);
+            player.UnBind(player.onBreakBlockAfterEvent, this.onBreakBlockAfterEvent);
+            player.UnBind(player.onLeaveBeforeEvent, this.onLeaveBeforeEvent);
+            player.UnBind(player.onInteractWithEntityBeforeEvent, this.onInteractWithEntityBeforeEvent);
+            player.UnBind(player.onInteractWithBlockBeforeEvent, this.onInteractWithBlockBeforeEvent);
+            player.UnBind(player.onGameModeChangeBeforeEvent, this.onGameModeChangeBeforeEvent);
+            player.UnBind(player.onItemUseOnBeforeEvent, this.onItemUseOnBeforeEvent);
+            player.UnBind(player.onItemUseBeforeEvent, this.onItemUseBeforeEvent);
+            player.UnBind(player.onChatSendBeforeEvent, this.onChatSendBeforeEvent);
+            player.UnBind(player.onPlaceBeforeEvent, this.onPlaceBlockBeforeEvent);
+            player.UnBind(player.onBreakBlockBeforeEvent, this.onBreakBlockBeforeEvent);
+        }
+    }
+    init(): void {
+    }
+    getOwner(): SuperPlayer {
+        return this.owner as SuperPlayer
+    }
+    onStart(): void {
+        super.onStart();
     }
     onItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent) {
     }
@@ -89,6 +123,7 @@ export class PlayerSuperComponent extends EntitySuperComponent {
     }
 
     onBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent) {
+
     }
 
     onLeaveBeforeEvent(event: PlayerLeaveBeforeEvent) {

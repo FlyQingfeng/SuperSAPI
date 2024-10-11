@@ -3,13 +3,13 @@ import { Attribute } from "../Public/attribute";
 import { SuperComponent } from "../Component/SuperComponent";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
-import { cast } from "../Public/stdlib";
+import { cast, enumKeyToString } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 
-export class SuperEntity extends Super{
+export class SuperEntity extends Super {
     source_instance: Entity;
     attribute: Attribute;
-    custom_components: {[id:string]:SuperComponent};
+    custom_components: { [id: string]: SuperComponent };
     enable_tick: boolean = false
     constructor(source_instance: Entity) {
         super()
@@ -31,11 +31,11 @@ export class SuperEntity extends Super{
         this.typeId = source_instance.typeId;
 
         this.custom_components = {};
-        this.attribute=new Attribute(source_instance);
+        this.attribute = new Attribute(source_instance);
         //加载存储的组件
         this.readCustomComponent();
     };
-    cast<T>(){
+    cast<T>() {
         return cast<T>(this)
     }
     @registerAsSubscribable
@@ -48,60 +48,70 @@ export class SuperEntity extends Super{
     getAttributeMap(): Attribute {
         return this.attribute
     }
-    readCustomComponent(){
-        let data=this.getDynamicProperty("CustomComponent") as string;
+    readCustomComponent() {
+        let data = this.getDynamicProperty("CustomComponent") as string;
         if (data) {
-            let json=JSON.parse(data);
-            for (let [id,cm_data] of Object.entries(json)) {
-                let com=CustomComponentManager.CreateComponentInstance(id,this);
-                for (let [key,value] of Object.entries(json)) {
-                    com[key]=value;
+            let json = JSON.parse(data);
+            for (let [id, cm_data] of Object.entries(json)) {
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.EntityComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance(id, this);
+                    for (let [key, value] of Object.entries(json)) {
+                        com[key] = value;
+                    }
+                    if(!this.custom_components.hasOwnProperty(id)){
+                        com.onStart();
+                        this.custom_components[id] = com;
+                    }
                 }
-                this.custom_components[id]=com;
             }
         }
     }
-    saveCustomComponent(){//保存玩家自定义组件
-        let components={};
-        for (let [key,value] of Object.entries(this.custom_components)) {
+    saveCustomComponent() {//保存玩家自定义组件
+        let components = {};
+        for (let [key, value] of Object.entries(this.custom_components)) {
             //抹除对自己的引用
             if (value.hasOwnProperty("entity")) {
-                value["entity"]=undefined
+                value["entity"] = undefined
             }
             if (value.hasOwnProperty("entity")) {
-                value["owner"]=undefined
+                value["owner"] = undefined
             }
-            components[key]=value
+            if (value.hasOwnProperty("entity")) {
+                value["player"] = undefined
+            }
+            components[key] = value
         }
-        let data=JSON.stringify(components);
-        this.setDynamicProperty("CustomComponent",data);
+        let data = JSON.stringify(components);
+        this.setDynamicProperty("CustomComponent", data);
     }
-    addCustomComponent(identifier: string):boolean {
-        let type=CustomComponentManager.GetType(identifier);
-        if (type!=ComponentType.EntityComponentType) {
-            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to entity components`);
+    addCustomComponent(identifier: string): boolean {
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.EntityComponentType) {
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to entity components`);
         }
-        let com=CustomComponentManager.CreateComponentInstance(identifier,this);
+        let com = CustomComponentManager.CreateComponentInstance(identifier, this);
         if (!this.custom_components.hasOwnProperty(identifier)) {
             com.onStart();
-            this.custom_components[identifier]=com;
+            this.custom_components[identifier] = com;
             this.saveCustomComponent();
             return true
         }
         return false
     }
     removeCustomComponent(identifier: string) {
+        this.custom_components[identifier].deconstructor();
         delete this.custom_components[identifier]
         this.saveCustomComponent();
     }
-    getCustomComponent<C extends SuperComponent>(identifier: string): C|undefined {
+    getCustomComponent<C extends SuperComponent>(identifier: string): C | undefined {
         if (this.custom_components.hasOwnProperty(identifier)) {
             return this.custom_components[identifier] as C
         }
         return undefined
     }
     getCustomComponents(): SuperComponent[] {
-        let coms:SuperComponent[]=[];
+        let coms: SuperComponent[] = [];
         for (const key in this.custom_components) {
             if (this.custom_components.hasOwnProperty(key)) {
                 coms.push(this.custom_components[key])

@@ -1,45 +1,35 @@
 
 
 //事件订阅类
-type EventCallback = (...args:any[]) => void;
-type listen = { [uuid: string]: { [eventName: string]: EventCallback[] } }
-class EventManager {
-    private static listeners: listen = {};
-
+type EventCallback = (...args: any[]) => void;
+type listen = { [eventName: string]: EventCallback[] }
+export class EventManager {
+    private listeners: listen = {};
     // 注册事件监听器
-    on(obj_uuid: string, eventName: string, callback: EventCallback): void {
-        if (EventManager.listeners.hasOwnProperty(obj_uuid)) {
-            if (EventManager.listeners[obj_uuid].hasOwnProperty(eventName)) {
-                EventManager.listeners[obj_uuid][eventName].push(callback);
-                return
-            }
+    on(eventName: string, callback: EventCallback): void {
+        if (this.listeners.hasOwnProperty(eventName)) {
+            this.listeners[eventName].push(callback);
+            return
         }
-        let list = {}
-        list[eventName] = [callback]
-        EventManager.listeners[obj_uuid] = list
+        this.listeners[eventName] = [callback]
     }
-    
-
     // 触发事件
-    emit(obj_uuid: string, eventName: string, ...args: any[]): void {
-        if (EventManager.listeners.hasOwnProperty(obj_uuid)) {
-            if (EventManager.listeners[obj_uuid].hasOwnProperty(eventName)) {
-                const callbacks = EventManager.listeners[obj_uuid][eventName];
-                if (callbacks) {
-                    callbacks.forEach(callback => callback(...args));
-                }
+    emit(eventName: string, ...args: any[]): void {
+        if (this.listeners.hasOwnProperty(eventName)) {
+            const callbacks = this.listeners[eventName];
+            if (callbacks) {
+                callbacks.forEach(callback => callback(...args));
             }
         }
     }
 
     // 注销事件监听器
-    off(obj_uuid: string, eventName: string, callback: EventCallback): void {
-        if (EventManager.listeners.hasOwnProperty(obj_uuid)) {
-            if (EventManager.listeners[obj_uuid].hasOwnProperty(eventName)) {
-                EventManager.listeners[obj_uuid][eventName] = EventManager.listeners[obj_uuid][eventName].filter(cb => cb !== callback)
-            }
+    off(eventName: string, callback: EventCallback): void {
+        if (this.listeners.hasOwnProperty(eventName)) {
+            this.listeners[eventName] = this.listeners[eventName].filter(cb => cb !== callback)
         }
     }
+    getlisteners() {
+        return this.listeners
+    }
 }
-
-export const eventManager = new EventManager();

@@ -1,11 +1,17 @@
-export class SuperComponent {
+import { Super } from "../Super/Super";
+export class SuperComponent extends Super {
     constructor(typeId, owner) {
+        super();
         this.enable_tick = false;
         this.typeId = typeId;
         this.owner = owner;
-        this.init();
     }
     ;
+    deconstructor(op) {
+    }
+    getOwner() {
+        return this.owner;
+    }
     init() {
     }
     onStart() {

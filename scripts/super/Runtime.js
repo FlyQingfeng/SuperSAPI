@@ -190,7 +190,6 @@ export class SuperSystem {
     //玩家
     PlayerInputCommand(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0];
-        console.log(player.name);
         if (player == undefined) {
             return;
         }
@@ -375,7 +374,7 @@ export class SuperSystem {
         if (player == undefined) {
             return;
         }
-        player.onBreakPlaceBeforeEvent(event);
+        player.onPlaceBeforeEvent(event);
     }
     PlayerBreakBlockBeforeEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];

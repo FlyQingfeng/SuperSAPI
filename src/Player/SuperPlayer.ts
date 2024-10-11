@@ -1,7 +1,9 @@
 import { Player, Camera, PlayerInputPermissions, ScreenDisplay, ItemStack, GameMode, DimensionLocation, MusicOptions, PlayerSoundOptions, RawMessage, Vector3, MolangVariableMap, WorldBeforeEvents, WorldAfterEvents, PlayerBreakBlockBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerSpawnAfterEvent } from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
-import { registerAsSubscribable } from "../Super/Super";
+import { registerAsSubscribable, Super } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
+import { enumKeyToString } from "../Public/stdlib";
+
 export class SuperPlayer extends SuperEntity {
     source_instance: Player;
     constructor(source_instance: Player) {
@@ -19,14 +21,40 @@ export class SuperPlayer extends SuperEntity {
         this.selectedSlotIndex = source_instance.selectedSlotIndex;
         this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
-        this.readCustomComponent();
     };
+    readCustomComponent() {
+        super.readCustomComponent();
+        let data = this.getDynamicProperty("CustomComponent") as string;
+        if (data) {
+            let json = JSON.parse(data);
+            for (let [id, cm_data] of Object.entries(json)) {
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.PlayerComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance(id, this);
+                    for (let [key, value] of Object.entries(json)) {
+                        com[key] = value;
+                    }
+                    if(!this.custom_components.hasOwnProperty(id)){
+                        com.onStart();
+                        this.custom_components[id] = com;
+                    }
+                }
+            }
+        }
+    }
     addCustomComponent(identifier: string):boolean {
         let type=CustomComponentManager.GetType(identifier);
         if (type!=ComponentType.PlayerComponentType) {
-            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to player components`);
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType,ComponentType.PlayerComponentType)} components to player components`);
         }
-        return super.addCustomComponent(identifier)
+        let com=CustomComponentManager.CreateComponentInstance(identifier,this);
+        if (!this.custom_components.hasOwnProperty(identifier)) {
+            com.onStart();
+            this.custom_components[identifier]=com;
+            this.saveCustomComponent();
+            return true
+        }
+        return false
     }
 
     @registerAsSubscribable
@@ -126,7 +154,7 @@ export class SuperPlayer extends SuperEntity {
     }
 
     @registerAsSubscribable
-    onBreakPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent) {
+    onPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent) {
     }
 
     @registerAsSubscribable

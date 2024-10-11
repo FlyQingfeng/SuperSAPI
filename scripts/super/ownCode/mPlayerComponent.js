@@ -1,14 +1,14 @@
 import * as SuperSAPI from "../SuperSAPI";
-export class PlayerManaComponent extends SuperSAPI.PlayerComponent {
+export class mPlayerComponent extends SuperSAPI.PlayerComponent {
     constructor(typeId, owner) {
         super(typeId, owner);
-        this.mana = 0;
     }
-    // onBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent): void {
-    //     console.log(event.player.name);
-    // }
+    onBreakBlockAfterEvent(event) {
+    }
+    init() {
+    }
     onStart() {
-        let player = this.entity.cast();
-        player.sendMessage(`加载组件${this.typeId}`);
+        this.init();
+        this.getOwner().sendMessage(`加载组件${this.typeId}`);
     }
 }

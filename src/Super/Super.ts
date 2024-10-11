@@ -1,7 +1,7 @@
 
 
 import { Debug } from "../Public/debug";
-import { eventManager } from "../EventManager/EventManager";
+import { EventManager } from "../EventManager/EventManager";
 
 //构建UUID
 function generateUUID(): string {
@@ -18,7 +18,7 @@ export function registerAsSubscribable(target: Super, propertyKey: string, descr
     const originalMethod = descriptor.value;
     let fun = function (...args: any[]) {
         this.CanBindFunMap[propertyKey]=originalMethod;//添加到绑定函数
-        eventManager.emit(this.uuid, propertyKey,...args);
+        this.eventManager.emit(propertyKey,...args);
         // 在原始方法执行前后添加自定义行为
         const result = originalMethod.apply(this,args);
         return result;
@@ -34,10 +34,10 @@ export function registerAsSubscribable(target: Super, propertyKey: string, descr
     descriptor.value = proxyFun;
     return descriptor;
 }
-
 //保证每个Super类只要一个唯一的UUID
 export class Super {
     readonly uuid: string = ""
+    eventManager=new EventManager()
     CanBindFunMap:{[funname:string]:(...args: any[]) => void}={};
     constructor() {
         this.uuid = generateUUID()
@@ -45,17 +45,17 @@ export class Super {
     deconstructor(op?:string){//析构
     }
     // 绑定函数监听
-    Bind(func: (...args: any[]) => void, callback: (...args: any[]) => void): void {
+    Bind(func: (...args: any[]) => void,callback: (...args: any[]) => void): void {
         if (!func) {
             return
         }
-        eventManager.on(this.uuid, func.name, callback);//注册绑定
+        this.eventManager.on(func.name, callback);//注册绑定
     }
-    UnBind(func: (...args: any[]) => void, callback: (...args: any[]) => void): void {
+    UnBind(func: (...args: any[]) => void,callback: (...args: any[]) => void): void {
         if (!func) {
             return
         }
-        eventManager.off(this.uuid, func.name, callback);//注册绑定
+        this.eventManager.off(func.name, callback);//注册绑定
     }
     getAllFun(): string[] {
         let prototype = Object.getPrototypeOf(this);

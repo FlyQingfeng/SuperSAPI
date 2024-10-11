@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
+import { enumKeyToString } from "../Public/stdlib";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance) {
         super(source_instance);
@@ -23,15 +24,41 @@ export class SuperPlayer extends SuperEntity {
         this.selectedSlotIndex = source_instance.selectedSlotIndex;
         this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
-        this.readCustomComponent();
     }
     ;
+    readCustomComponent() {
+        super.readCustomComponent();
+        let data = this.getDynamicProperty("CustomComponent");
+        if (data) {
+            let json = JSON.parse(data);
+            for (let [id, cm_data] of Object.entries(json)) {
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.PlayerComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance(id, this);
+                    for (let [key, value] of Object.entries(json)) {
+                        com[key] = value;
+                    }
+                    if (!this.custom_components.hasOwnProperty(id)) {
+                        com.onStart();
+                        this.custom_components[id] = com;
+                    }
+                }
+            }
+        }
+    }
     addCustomComponent(identifier) {
         let type = CustomComponentManager.GetType(identifier);
         if (type != ComponentType.PlayerComponentType) {
-            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to player components`);
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to player components`);
         }
-        return super.addCustomComponent(identifier);
+        let com = CustomComponentManager.CreateComponentInstance(identifier, this);
+        if (!this.custom_components.hasOwnProperty(identifier)) {
+            com.onStart();
+            this.custom_components[identifier] = com;
+            this.saveCustomComponent();
+            return true;
+        }
+        return false;
     }
     onItemStopUseOnAfterEvent(event) {
     }
@@ -81,7 +108,7 @@ export class SuperPlayer extends SuperEntity {
     }
     onChatSendBeforeEvent(event) {
     }
-    onBreakPlaceBeforeEvent(event) {
+    onPlaceBeforeEvent(event) {
     }
     onBreakBlockBeforeEvent(event) {
     }
@@ -514,7 +541,7 @@ __decorate([
 ], SuperPlayer.prototype, "onChatSendBeforeEvent", null);
 __decorate([
     registerAsSubscribable
-], SuperPlayer.prototype, "onBreakPlaceBeforeEvent", null);
+], SuperPlayer.prototype, "onPlaceBeforeEvent", null);
 __decorate([
     registerAsSubscribable
 ], SuperPlayer.prototype, "onBreakBlockBeforeEvent", null);

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Attribute } from "../Public/attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
-import { cast } from "../Public/stdlib";
+import { cast, enumKeyToString } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 export class SuperEntity extends Super {
     constructor(source_instance) {
@@ -51,11 +51,17 @@ export class SuperEntity extends Super {
         if (data) {
             let json = JSON.parse(data);
             for (let [id, cm_data] of Object.entries(json)) {
-                let com = CustomComponentManager.CreateComponentInstance(id, this);
-                for (let [key, value] of Object.entries(json)) {
-                    com[key] = value;
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.EntityComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance(id, this);
+                    for (let [key, value] of Object.entries(json)) {
+                        com[key] = value;
+                    }
+                    if (!this.custom_components.hasOwnProperty(id)) {
+                        com.onStart();
+                        this.custom_components[id] = com;
+                    }
                 }
-                this.custom_components[id] = com;
             }
         }
     }
@@ -69,6 +75,9 @@ export class SuperEntity extends Super {
             if (value.hasOwnProperty("entity")) {
                 value["owner"] = undefined;
             }
+            if (value.hasOwnProperty("entity")) {
+                value["player"] = undefined;
+            }
             components[key] = value;
         }
         let data = JSON.stringify(components);
@@ -77,7 +86,7 @@ export class SuperEntity extends Super {
     addCustomComponent(identifier) {
         let type = CustomComponentManager.GetType(identifier);
         if (type != ComponentType.EntityComponentType) {
-            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to entity components`);
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to entity components`);
         }
         let com = CustomComponentManager.CreateComponentInstance(identifier, this);
         if (!this.custom_components.hasOwnProperty(identifier)) {
@@ -89,6 +98,7 @@ export class SuperEntity extends Super {
         return false;
     }
     removeCustomComponent(identifier) {
+        this.custom_components[identifier].deconstructor();
         delete this.custom_components[identifier];
         this.saveCustomComponent();
     }

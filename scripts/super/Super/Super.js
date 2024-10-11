@@ -1,4 +1,4 @@
-import { eventManager } from "../EventManager/EventManager";
+import { EventManager } from "../EventManager/EventManager";
 //构建UUID
 function generateUUID() {
     const pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
@@ -13,7 +13,7 @@ export function registerAsSubscribable(target, propertyKey, descriptor) {
     const originalMethod = descriptor.value;
     let fun = function (...args) {
         this.CanBindFunMap[propertyKey] = originalMethod; //添加到绑定函数
-        eventManager.emit(this.uuid, propertyKey, ...args);
+        this.eventManager.emit(propertyKey, ...args);
         // 在原始方法执行前后添加自定义行为
         const result = originalMethod.apply(this, args);
         return result;
@@ -33,6 +33,7 @@ export function registerAsSubscribable(target, propertyKey, descriptor) {
 export class Super {
     constructor() {
         this.uuid = "";
+        this.eventManager = new EventManager();
         this.CanBindFunMap = {};
         this.uuid = generateUUID();
     }
@@ -43,13 +44,13 @@ export class Super {
         if (!func) {
             return;
         }
-        eventManager.on(this.uuid, func.name, callback); //注册绑定
+        this.eventManager.on(func.name, callback); //注册绑定
     }
     UnBind(func, callback) {
         if (!func) {
             return;
         }
-        eventManager.off(this.uuid, func.name, callback); //注册绑定
+        this.eventManager.off(func.name, callback); //注册绑定
     }
     getAllFun() {
         let prototype = Object.getPrototypeOf(this);

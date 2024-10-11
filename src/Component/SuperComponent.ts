@@ -1,15 +1,21 @@
 import { Attribute } from "../Public/attribute";
 import { CustomComponentManager } from "../Component/CustomComponentManager";
+import { Super } from "../Super/Super";
 
-export class SuperComponent {
+export class SuperComponent extends Super{
     owner:any;
     enable_tick:boolean=false;
     constructor(typeId:string,owner: any) {
+        super()
         this.typeId=typeId;
         this.owner=owner;
-        this.init();
     };
-    
+    deconstructor(op?: string): void {
+        
+    }
+    getOwner():any{
+        return this.owner
+    }
     init(){//组件初始化
 
     }
