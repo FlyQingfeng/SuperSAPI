@@ -3,11 +3,12 @@ import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { Super } from "../Super/Super";
+import { Debug } from "../Public/debug";
 
-export class SuperWorld extends Super{
+export class SuperWorld extends Super {
     source_instance: World;
-    static Entitys:SuperEntity[]=[];
-    static Players:SuperPlayer[]=[];
+    static Entitys: SuperEntity[] = [];
+    static Players: SuperPlayer[] = [];
     constructor(source_instance: World) {
         super()
         this.source_instance = source_instance;
@@ -18,29 +19,90 @@ export class SuperWorld extends Super{
         this.scoreboard = source_instance.scoreboard;
         this.structureManager = source_instance.structureManager;
     };
-    toSuperEntitys(entitys:Entity[]):SuperEntity[]{
-        let mentitys=[]
+    static UpDataPlayers() {
+        SuperWorld.Players = SuperWorld.Entitys.filter((e) => {
+            return e instanceof SuperPlayer
+        })
+        // Debug.log(SuperWorld.Players.length);
+    }
+    static ReloadEntitys() {//重新获取实体
+        SuperWorld.Entitys = [];
+        world.getDimension("overworld").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        world.getDimension("nether").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        world.getDimension("the_end").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        this.UpDataPlayers();
+    }
+    static AddToEntitys(sp_entity: SuperEntity) {
+        let found = SuperWorld.Entitys.find(e => e.id == sp_entity.id)
+        if (!found) {
+            SuperWorld.Entitys.push(sp_entity)
+        }
+        this.UpDataPlayers()
+    }
+    static RemoveEntitysForID(id: string) {
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return e.id == id
+        })
+        if (sp_entity) {
+            sp_entity.deconstructor();
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != id
+            })
+            this.UpDataPlayers()
+        }
+    }
+    static RemoveFromEntitys(entity: Entity | SuperEntity) {
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return e.id == entity.id
+        })
+        if (sp_entity) {
+            sp_entity.deconstructor();
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != entity.id
+            })
+            this.UpDataPlayers()
+        }
+    }
+    static CreateEntityInstance<T extends SuperEntity>(entity: Entity): T {
+        if (entity instanceof Player) {
+            let player = ClassManager.CreateInstance(NativeClassType.Player, entity);
+            SuperWorld.AddToEntitys(player)
+            return player;
+        } else {
+            let e = ClassManager.CreateInstance(NativeClassType.Entity, entity);
+            SuperWorld.AddToEntitys(e)
+            return e;
+        }
+    }
+    toSuperEntitys(entitys: Entity[]): SuperEntity[] {
+        let mentitys = []
         for (let entity of entitys) {
             let newentity = new (ClassManager.getClass(NativeClassType.Entity))(entity);
             mentitys.push(newentity)
         }
         return mentitys
     }
-    toSuperPlayers(players:Player[]):SuperPlayer[]{
-        let mplayers=[]
+    toSuperPlayers(players: Player[]): SuperPlayer[] {
+        let mplayers = []
         for (let player of players) {
             let newplayer = new (ClassManager.getClass(NativeClassType.Player))(player);
             mplayers.push(newplayer)
         }
         return mplayers
     }
-    getAllEntitys(){
+    getAllEntitys() {
         return SuperWorld.Entitys
     }
-    onWorldInitializeBefore(event:WorldInitializeBeforeEvent){
+    onWorldInitializeBefore(event: WorldInitializeBeforeEvent) {
 
     }
-    onWorldInitializeAfter(event:WorldInitializeAfterEvent){
+    onWorldInitializeAfter(event: WorldInitializeAfterEvent) {
 
     }
     /**
@@ -122,6 +184,7 @@ export class SuperWorld extends Super{
      * @throws This function can throw errors.
      */
     getAllPlayers(): SuperPlayer[] {
+        SuperWorld.UpDataPlayers();
         return SuperWorld.Players
     };
     /**
@@ -277,19 +340,19 @@ export class SuperWorld extends Super{
      * @throws
      * Throws if the given entity id is invalid.
      */
-    getEntity(id: string): SuperEntity |SuperPlayer| undefined {
-        let entity=this.source_instance.getEntity(id);
+    getEntity(id: string): SuperEntity | SuperPlayer | undefined {
+        let entity = this.source_instance.getEntity(id);
         if (!entity) {
             return undefined
         }
-        if(entity instanceof Player){
-            let sp_player=SuperWorld.Players.find((e)=>{
-                return id=entity.id
+        if (entity instanceof Player) {
+            let sp_player = SuperWorld.Players.find((e) => {
+                return id = entity.id
             })
             return sp_player
         }
-        let sp_entity=SuperWorld.Entitys.find((e)=>{
-            return id=entity.id
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return id = entity.id
         })
         return sp_entity
     };
@@ -315,12 +378,17 @@ export class SuperWorld extends Super{
      * Throws if the provided EntityQueryOptions are invalid.
      */
     getPlayers(options?: EntityQueryOptions): SuperPlayer[] {
-        let players=SuperWorld.Players.filter((sp)=>{
-            const player=this.source_instance.getPlayers(options)
-            let found=player.find((p)=>{
-                return sp.name==p.name
-            })
-            return found!=undefined
+        let players = SuperWorld.Entitys.filter((se) => {
+            return se instanceof SuperPlayer
+        })
+        players = players.filter((sp) => {
+            if (sp instanceof SuperPlayer) {
+                const player = this.source_instance.getPlayers(options)
+                let found = player.find((p) => {
+                    return sp.name == p.name
+                })
+                return found != undefined
+            }
         })
         return players
     };

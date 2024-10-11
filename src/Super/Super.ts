@@ -1,5 +1,6 @@
 
 
+import { Debug } from "../Public/debug";
 import { eventManager } from "../EventManager/EventManager";
 
 //构建UUID
@@ -40,6 +41,8 @@ export class Super {
     CanBindFunMap:{[funname:string]:(...args: any[]) => void}={};
     constructor() {
         this.uuid = generateUUID()
+    }
+    deconstructor(op?:string){//析构
     }
     // 绑定函数监听
     Bind(func: (...args: any[]) => void, callback: (...args: any[]) => void): void {

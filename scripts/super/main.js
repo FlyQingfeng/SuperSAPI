@@ -1,4 +1,4 @@
-import { system } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { mEntity } from "./ownCode/mEntity";
 import { mPlayer } from "./ownCode/mPlayer";
 import { PlayerManaComponent } from "./ownCode/mPlayerComponent";
@@ -7,7 +7,19 @@ SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
+    let num = world.getDimension("overworld").getEntities().length;
+    num += world.getDimension("nether").getEntities().length;
+    num += world.getDimension("the_end").getEntities().length;
+    console.log("world entitys:", num);
+    console.log("super_world entitys:", SuperSAPI.SuperSystem.getWorld().getAllEntitys().length);
 });
+system.runInterval(() => {
+    // SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e)=>{
+    //     if (e instanceof SuperPlayer) {
+    //         console.log("has Player");
+    //     }
+    // })
+}, 10);
 SuperSAPI.CommandManager.registerCommand('has', "获取玩家的全部组件", (player, arg) => {
     let coms = player.getCustomComponents();
     for (const com of coms) {

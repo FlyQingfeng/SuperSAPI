@@ -10,6 +10,10 @@ export class mPlayer extends SuperSAPI.Player {
         super(player);
         this.enable_tick = true;
         this.attribute.init("use_num", 0);
+        SuperSAPI.Debug.log("Player constructor:", this.id);
+    }
+    deconstructor() {
+        SuperSAPI.Debug.log("Player deconstructor:", this.id);
     }
     tick(t) {
     }

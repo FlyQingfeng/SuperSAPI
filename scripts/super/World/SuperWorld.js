@@ -1,4 +1,5 @@
-import { Player } from "@minecraft/server";
+import { Player, world } from "@minecraft/server";
+import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { Super } from "../Super/Super";
 export class SuperWorld extends Super {
@@ -13,6 +14,68 @@ export class SuperWorld extends Super {
         this.structureManager = source_instance.structureManager;
     }
     ;
+    static UpDataPlayers() {
+        SuperWorld.Players = SuperWorld.Entitys.filter((e) => {
+            return e instanceof SuperPlayer;
+        });
+        // Debug.log(SuperWorld.Players.length);
+    }
+    static ReloadEntitys() {
+        SuperWorld.Entitys = [];
+        world.getDimension("overworld").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        world.getDimension("nether").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        world.getDimension("the_end").getEntities().forEach((e) => {
+            SuperWorld.CreateEntityInstance(e);
+        });
+        this.UpDataPlayers();
+    }
+    static AddToEntitys(sp_entity) {
+        let found = SuperWorld.Entitys.find(e => e.id == sp_entity.id);
+        if (!found) {
+            SuperWorld.Entitys.push(sp_entity);
+        }
+        this.UpDataPlayers();
+    }
+    static RemoveEntitysForID(id) {
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return e.id == id;
+        });
+        if (sp_entity) {
+            sp_entity.deconstructor();
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != id;
+            });
+            this.UpDataPlayers();
+        }
+    }
+    static RemoveFromEntitys(entity) {
+        let sp_entity = SuperWorld.Entitys.find((e) => {
+            return e.id == entity.id;
+        });
+        if (sp_entity) {
+            sp_entity.deconstructor();
+            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
+                return e.id != entity.id;
+            });
+            this.UpDataPlayers();
+        }
+    }
+    static CreateEntityInstance(entity) {
+        if (entity instanceof Player) {
+            let player = ClassManager.CreateInstance(NativeClassType.Player, entity);
+            SuperWorld.AddToEntitys(player);
+            return player;
+        }
+        else {
+            let e = ClassManager.CreateInstance(NativeClassType.Entity, entity);
+            SuperWorld.AddToEntitys(e);
+            return e;
+        }
+    }
     toSuperEntitys(entitys) {
         let mentitys = [];
         for (let entity of entitys) {
@@ -79,6 +142,7 @@ export class SuperWorld extends Super {
      * @throws This function can throw errors.
      */
     getAllPlayers() {
+        SuperWorld.UpDataPlayers();
         return SuperWorld.Players;
     }
     ;
@@ -281,12 +345,17 @@ export class SuperWorld extends Super {
      * Throws if the provided EntityQueryOptions are invalid.
      */
     getPlayers(options) {
-        let players = SuperWorld.Players.filter((sp) => {
-            const player = this.source_instance.getPlayers(options);
-            let found = player.find((p) => {
-                return sp.name == p.name;
-            });
-            return found != undefined;
+        let players = SuperWorld.Entitys.filter((se) => {
+            return se instanceof SuperPlayer;
+        });
+        players = players.filter((sp) => {
+            if (sp instanceof SuperPlayer) {
+                const player = this.source_instance.getPlayers(options);
+                let found = player.find((p) => {
+                    return sp.name == p.name;
+                });
+                return found != undefined;
+            }
         });
         return players;
     }

@@ -1,4 +1,4 @@
-import { Player, system, world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { SuperWorld } from "./World/SuperWorld";
 import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
@@ -87,44 +87,23 @@ export class SuperSystem {
         SuperSystem.sp_world.beforeEvents.worldInitialize.subscribe(SuperSystem.sp_world.onWorldInitializeBefore);
         SuperSystem.sp_world.afterEvents.worldInitialize.subscribe(SuperSystem.sp_world.onWorldInitializeAfter);
         //运行时管理world内的实体和玩家
-        //实体
-        SuperWorld.Entitys = [];
-        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("overworld").getEntities()));
-        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("nether").getEntities()));
-        SuperWorld.Entitys = SuperWorld.Entitys.concat(SuperSystem.getWorld().toSuperEntitys(world.getDimension("the_end").getEntities()));
-        //替换Entity实例
-        for (let i = 0; i < SuperWorld.Entitys.length; i++) {
-            let entity = SuperWorld.Entitys[i];
-            if (entity.source_instance instanceof Player) {
-                let player = ClassManager.CreateInstance(NativeClassType.Player, entity.source_instance);
-                SuperWorld.Entitys[i] = player;
-            }
-        }
+        //重新加载实体
+        SuperWorld.ReloadEntitys();
         SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
             this.runTimeout(() => {
-                let sp_entity = ClassManager.CreateInstance(NativeClassType.Entity, event.entity);
-                if (event.entity instanceof Player) {
-                    sp_entity = ClassManager.CreateInstance(NativeClassType.Player, event.entity);
-                }
-                SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
-                    return e.id != sp_entity.id;
-                });
-                SuperWorld.Entitys.push(sp_entity);
+                SuperWorld.CreateEntityInstance(event.entity);
             }, 20);
         });
+        SuperSystem.sp_world.afterEvents.entityRemove.subscribe((event) => {
+            let id = event.removedEntityId;
+            SuperWorld.RemoveEntitysForID(id);
+        });
         SuperSystem.sp_world.afterEvents.entityDie.subscribe((event) => {
-            SuperWorld.Entitys = SuperWorld.Entitys.filter((e) => {
-                return e.id != event.deadEntity.id;
-            });
+            SuperWorld.RemoveFromEntitys(event.deadEntity);
         });
         //玩家
-        SuperWorld.Players = SuperSystem.getWorld().toSuperPlayers(world.getAllPlayers()); //reload是确保正确
         SuperSystem.sp_world.afterEvents.playerSpawn.subscribe((event) => {
-            let sp_player = ClassManager.CreateInstance(NativeClassType.Player, event.player);
-            SuperWorld.Players = SuperWorld.Players.filter((p) => {
-                return p.id != sp_player.id;
-            });
-            SuperWorld.Players.push(sp_player);
+            SuperWorld.CreateEntityInstance(event.player);
         });
         system.runInterval(() => {
             this.runTick(1);
@@ -211,6 +190,7 @@ export class SuperSystem {
     //玩家
     PlayerInputCommand(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0];
+        console.log(player.name);
         if (player == undefined) {
             return;
         }
@@ -286,9 +266,8 @@ export class SuperSystem {
                 return;
             }
             system.clearRun(run);
-            let newplayer = new SuperPlayer(player);
-            SuperWorld.Players.push(newplayer);
-            newplayer.onJoinAfterEvent(event);
+            // let newplayer=SuperWorld.CreateEntityInstance<SuperPlayer>(player);
+            // newplayer.onJoinAfterEvent(event)
         }, 10);
     }
     PlayerInteractWithEntityAfterEvent(event) {

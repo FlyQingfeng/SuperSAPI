@@ -36,6 +36,8 @@ export class Super {
         this.CanBindFunMap = {};
         this.uuid = generateUUID();
     }
+    deconstructor(op) {
+    }
     // 绑定函数监听
     Bind(func, callback) {
         if (!func) {

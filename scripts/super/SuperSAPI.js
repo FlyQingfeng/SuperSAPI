@@ -11,6 +11,7 @@ import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
 import * as std from "./Public/stdlib";
 import * as msuper from "./Super/Super";
+import * as db from "./Public/debug";
 //版本说明
 export const version_information = {
     name: "SuperSAPI",
@@ -39,6 +40,8 @@ export const SuperSystem = run.SuperSystem;
 export const ClassManager = run.ClassManager;
 export const CommandManager = cm.CommandManager;
 export const CustomComponentManager = ccm.CustomComponentManager;
+export const Debug = db.Debug;
+Debug.debug = version_information.beta;
 //枚举
 export const NativeClassType = run.NativeClassType;
 export const System = run.runtime;
