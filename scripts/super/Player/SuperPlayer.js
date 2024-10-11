@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance) {
         super(source_instance);
@@ -22,8 +23,16 @@ export class SuperPlayer extends SuperEntity {
         this.selectedSlotIndex = source_instance.selectedSlotIndex;
         this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
+        this.readCustomComponent();
     }
     ;
+    addCustomComponent(identifier) {
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.PlayerComponentType) {
+            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to player components`);
+        }
+        return super.addCustomComponent(identifier);
+    }
     onItemStopUseOnAfterEvent(event) {
     }
     onItemStartUseAfterEvent(event) {
@@ -56,7 +65,7 @@ export class SuperPlayer extends SuperEntity {
     }
     onDimensionChangeAfterEvent(event) {
     }
-    onAfterBreakBlockEvent(event) {
+    onBreakBlockAfterEvent(event) {
     }
     onLeaveBeforeEvent(event) {
     }
@@ -74,7 +83,7 @@ export class SuperPlayer extends SuperEntity {
     }
     onBreakPlaceBeforeEvent(event) {
     }
-    onBeforeBreakBlockEvent(event) {
+    onBreakBlockBeforeEvent(event) {
     }
     /**
     * @remarks
@@ -481,7 +490,7 @@ __decorate([
 ], SuperPlayer.prototype, "onDimensionChangeAfterEvent", null);
 __decorate([
     registerAsSubscribable
-], SuperPlayer.prototype, "onAfterBreakBlockEvent", null);
+], SuperPlayer.prototype, "onBreakBlockAfterEvent", null);
 __decorate([
     registerAsSubscribable
 ], SuperPlayer.prototype, "onLeaveBeforeEvent", null);
@@ -508,4 +517,4 @@ __decorate([
 ], SuperPlayer.prototype, "onBreakPlaceBeforeEvent", null);
 __decorate([
     registerAsSubscribable
-], SuperPlayer.prototype, "onBeforeBreakBlockEvent", null);
+], SuperPlayer.prototype, "onBreakBlockBeforeEvent", null);

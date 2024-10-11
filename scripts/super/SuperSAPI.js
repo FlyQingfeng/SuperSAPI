@@ -7,8 +7,10 @@ import * as mc from "@minecraft/server";
 import * as sc from "./Component/SuperComponent";
 import * as ccm from "./Component/CustomComponentManager";
 import * as sec from "./Component/SuperEntityComponent";
+import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
 import * as std from "./Public/stdlib";
+import * as msuper from "./Super/Super";
 //版本说明
 export const version_information = {
     name: "SuperSAPI",
@@ -28,6 +30,7 @@ export const World = sw.SuperWorld;
 export const Player = sp.SuperPlayer;
 export const Entity = se.SuperEntity;
 //组件类
+export const PlayerComponent = spc.PlayerSuperComponent;
 export const EntityComponent = sec.EntitySuperComponent;
 export const ItemComponent = sic.ItemSuperComponent;
 export const SuperComponent = sc.SuperComponent;
@@ -40,4 +43,5 @@ export const CustomComponentManager = ccm.CustomComponentManager;
 export const NativeClassType = run.NativeClassType;
 export const System = run.runtime;
 export const CustomComponentType = ccm.ComponentType;
+export const registerAsSubscribable = msuper.registerAsSubscribable;
 console.log(version_information.toString());

@@ -1,6 +1,7 @@
 import { Player, Camera, PlayerInputPermissions, ScreenDisplay, ItemStack, GameMode, DimensionLocation, MusicOptions, PlayerSoundOptions, RawMessage, Vector3, MolangVariableMap, WorldBeforeEvents, WorldAfterEvents, PlayerBreakBlockBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerSpawnAfterEvent } from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 export class SuperPlayer extends SuperEntity {
     source_instance: Player;
     constructor(source_instance: Player) {
@@ -18,85 +19,118 @@ export class SuperPlayer extends SuperEntity {
         this.selectedSlotIndex = source_instance.selectedSlotIndex;
         this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
+        this.readCustomComponent();
     };
+    addCustomComponent(identifier: string):boolean {
+        let type=CustomComponentManager.GetType(identifier);
+        if (type!=ComponentType.PlayerComponentType) {
+            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to player components`);
+        }
+        return super.addCustomComponent(identifier)
+    }
+
     @registerAsSubscribable
     onItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent) {
     }
+
     @registerAsSubscribable
     onItemStartUseAfterEvent(event: ItemStartUseAfterEvent) {
     }
+
     @registerAsSubscribable
     onItemReleaseAfterEvent(event: ItemReleaseUseAfterEvent) {
     }
+
     @registerAsSubscribable
     onItemCompleteAfterEvent(event: ItemCompleteUseEvent) {
     }
+
     @registerAsSubscribable
     onItemUseOnAfterEvent(event: ItemUseOnAfterEvent) {
     }
+
     @registerAsSubscribable
     onItemUseAfterEvent(event: ItemUseAfterEvent) {
     }
+
     @registerAsSubscribable
     onPlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
     }
+
     @registerAsSubscribable
     onPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent) {
     }
+
     @registerAsSubscribable
     onLeaveAfterEvent(event: PlayerLeaveAfterEvent) {
     }
+
     @registerAsSubscribable
     onJoinAfterEvent(event: PlayerJoinAfterEvent) {
     }
+
     @registerAsSubscribable
     onInteractWithEntityAfterEvent(event: PlayerInteractWithEntityAfterEvent) {
     }
+
     @registerAsSubscribable
     onInteractWithBlockAfterEvent(event: PlayerInteractWithBlockAfterEvent) {
     }
+
     @registerAsSubscribable
     onInputPermissionCategoryChangeAfterEvent(event: PlayerInputPermissionCategoryChangeAfterEvent) {
     }
+
     @registerAsSubscribable
     onGameModeChangeAfterEvent(event: PlayerGameModeChangeAfterEvent) {
     }
+
     @registerAsSubscribable
     onEmoteAfterEvent(event: PlayerEmoteAfterEvent) {
     }
+
     @registerAsSubscribable
     onDimensionChangeAfterEvent(event: PlayerDimensionChangeAfterEvent) {
     }
-    @registerAsSubscribable
-    onAfterBreakBlockEvent(event: PlayerBreakBlockAfterEvent) {
-    }
-    @registerAsSubscribable
-    onLeaveBeforeEvent(event:PlayerLeaveBeforeEvent){
-    }
-    @registerAsSubscribable
-    onInteractWithEntityBeforeEvent(event:PlayerInteractWithEntityBeforeEvent){
-    }
-    @registerAsSubscribable
-    onInteractWithBlockBeforeEvent(event:PlayerInteractWithBlockBeforeEvent){
-    }
-    @registerAsSubscribable
-    onGameModeChangeBeforeEvent(event:PlayerGameModeChangeBeforeEvent){
-    }
-    @registerAsSubscribable
-    onItemUseOnBeforeEvent(event:ItemUseOnBeforeEvent){
-    }
-    @registerAsSubscribable
-    onItemUseBeforeEvent(event:ItemUseBeforeEvent){
-    }
-    @registerAsSubscribable
-    onChatSendBeforeEvent(event:ChatSendBeforeEvent){
-    }
-    @registerAsSubscribable
-    onBreakPlaceBeforeEvent(event:PlayerPlaceBlockBeforeEvent){
-    }
-    @registerAsSubscribable
-    onBeforeBreakBlockEvent(event: PlayerBreakBlockBeforeEvent) {
 
+    @registerAsSubscribable
+    onBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent) {
+    }
+
+    @registerAsSubscribable
+    onLeaveBeforeEvent(event: PlayerLeaveBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onInteractWithEntityBeforeEvent(event: PlayerInteractWithEntityBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onInteractWithBlockBeforeEvent(event: PlayerInteractWithBlockBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onGameModeChangeBeforeEvent(event: PlayerGameModeChangeBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onItemUseOnBeforeEvent(event: ItemUseOnBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onItemUseBeforeEvent(event: ItemUseBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onChatSendBeforeEvent(event: ChatSendBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onBreakPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent) {
+    }
+
+    @registerAsSubscribable
+    onBreakBlockBeforeEvent(event: PlayerBreakBlockBeforeEvent) {
     }
     /**
     * @remarks

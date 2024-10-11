@@ -7,6 +7,7 @@ export type SuperComponentClass = typeof SuperComponent;
 
 export enum ComponentType {
     EntityComponentType,
+    PlayerComponentType,
     ItemComponentType
 }
 

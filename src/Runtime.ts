@@ -355,7 +355,7 @@ export class SuperSystem {
         if (player == undefined) {
             return
         }
-        player.onAfterBreakBlockEvent(event)
+        player.onBreakBlockAfterEvent(event)
     }
 
     private PlayerLeaveBeforeEvent(event: PlayerLeaveBeforeEvent) {
@@ -419,7 +419,7 @@ export class SuperSystem {
         if (player == undefined) {
             return
         }
-        player.onBeforeBreakBlockEvent(event)
+        player.onBreakBlockBeforeEvent(event)
     }
 
 

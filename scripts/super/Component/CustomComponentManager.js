@@ -1,7 +1,8 @@
 export var ComponentType;
 (function (ComponentType) {
     ComponentType[ComponentType["EntityComponentType"] = 0] = "EntityComponentType";
-    ComponentType[ComponentType["ItemComponentType"] = 1] = "ItemComponentType";
+    ComponentType[ComponentType["PlayerComponentType"] = 1] = "PlayerComponentType";
+    ComponentType[ComponentType["ItemComponentType"] = 2] = "ItemComponentType";
 })(ComponentType || (ComponentType = {}));
 export class CustomComponentManager {
     static registrationCustomComponent(identifier, CustomClass, type) {

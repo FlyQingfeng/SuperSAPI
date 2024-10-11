@@ -6,10 +6,16 @@ import * as SuperSAPI from "./SuperSAPI";
 
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity)
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer)
-SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.EntityComponentType)
+SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.PlayerComponentType)
 
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
     
+})
+SuperSAPI.CommandManager.registerCommand('has', "获取玩家的全部组件", (player, arg) => {
+    let coms= player.getCustomComponents()
+    for (const com of coms) {
+        console.log(com.typeId);
+    }
 })
 SuperSAPI.CommandManager.registerCommand('add', "<组件ID> 添加组件", (player, arg) => {
     let id = arg[0];
@@ -45,9 +51,7 @@ SuperSAPI.CommandManager.registerCommand('setMana', "<设置的值> 设置组件
         player.sendMessage(`缺少<设置的值>参数`)
     }
     let mana = player.getCustomComponent<PlayerManaComponent>("id");
-    console.log(typeof mana);
-    // mana.=parseInt(value);
-    // player.sendMessage(`设置成功${value}`)
+    mana.mana=parseInt(value);
 })
 SuperSAPI.CommandManager.registerCommand('putMana', "打印组件的Mana值", (player, arg) => {
     let mana = player.getCustomComponent("id") as PlayerManaComponent;
@@ -56,7 +60,12 @@ SuperSAPI.CommandManager.registerCommand('putMana', "打印组件的Mana值", (p
 
 SuperSAPI.System.init();
 
+function test() {
+    console.log("fun test");
+    
+}
 system.run(() => {
-
+    let player=SuperSAPI.SuperSystem.getWorld().getAllPlayers()[0]
+    player.Bind(player.onItemUseAfterEvent,test);
 })
 

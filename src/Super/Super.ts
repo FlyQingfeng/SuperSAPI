@@ -16,12 +16,13 @@ function generateUUID(): string {
 export function registerAsSubscribable(target: Super, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
     const originalMethod = descriptor.value;
     let fun = function (...args: any[]) {
+        this.CanBindFunMap[propertyKey]=originalMethod;//添加到绑定函数
         eventManager.emit(this.uuid, propertyKey,...args);
         // 在原始方法执行前后添加自定义行为
-        const result = originalMethod(...args);
+        const result = originalMethod.apply(this,args);
         return result;
     };
-    let proxyFun = new Proxy(fun, {//构造函数名字，便于Bind函数进行绑定
+    let proxyFun = new Proxy(fun, {//修改函数名字，便于Bind函数进行绑定
         get(target, key, receiver) {
           if (key === 'name') {
             return propertyKey;
@@ -36,14 +37,21 @@ export function registerAsSubscribable(target: Super, propertyKey: string, descr
 //保证每个Super类只要一个唯一的UUID
 export class Super {
     readonly uuid: string = ""
+    CanBindFunMap:{[funname:string]:(...args: any[]) => void}={};
     constructor() {
         this.uuid = generateUUID()
     }
     // 绑定函数监听
     Bind(func: (...args: any[]) => void, callback: (...args: any[]) => void): void {
+        if (!func) {
+            return
+        }
         eventManager.on(this.uuid, func.name, callback);//注册绑定
     }
     UnBind(func: (...args: any[]) => void, callback: (...args: any[]) => void): void {
+        if (!func) {
+            return
+        }
         eventManager.off(this.uuid, func.name, callback);//注册绑定
     }
     getAllFun(): string[] {

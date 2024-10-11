@@ -12,9 +12,10 @@ function generateUUID() {
 export function registerAsSubscribable(target, propertyKey, descriptor) {
     const originalMethod = descriptor.value;
     let fun = function (...args) {
+        this.CanBindFunMap[propertyKey] = originalMethod; //添加到绑定函数
         eventManager.emit(this.uuid, propertyKey, ...args);
         // 在原始方法执行前后添加自定义行为
-        const result = originalMethod(...args);
+        const result = originalMethod.apply(this, args);
         return result;
     };
     let proxyFun = new Proxy(fun, {
@@ -32,13 +33,20 @@ export function registerAsSubscribable(target, propertyKey, descriptor) {
 export class Super {
     constructor() {
         this.uuid = "";
+        this.CanBindFunMap = {};
         this.uuid = generateUUID();
     }
     // 绑定函数监听
     Bind(func, callback) {
+        if (!func) {
+            return;
+        }
         eventManager.on(this.uuid, func.name, callback); //注册绑定
     }
     UnBind(func, callback) {
+        if (!func) {
+            return;
+        }
         eventManager.off(this.uuid, func.name, callback); //注册绑定
     }
     getAllFun() {

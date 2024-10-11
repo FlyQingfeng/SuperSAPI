@@ -8,8 +8,10 @@ export class mPlayer extends SuperSAPI.Player {
         this.enable_tick=true;
         this.attribute.init("use_num",0);
     }
+    @SuperSAPI.registerAsSubscribable
     tick(t: number): void {
     }
+    @SuperSAPI.registerAsSubscribable
     onItemUseAfterEvent(event: mc.ItemUseAfterEvent): void {
         let use_num=this.attribute.get("use_num");
         use_num++;

@@ -1,7 +1,7 @@
 import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityComponentTypeMap, EntityComponent, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent, Player } from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { SuperComponent } from "../Component/SuperComponent";
-import { CustomComponentManager } from "../Component/CustomComponentManager";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
@@ -48,7 +48,7 @@ export class SuperEntity extends Super{
     getAttributeMap(): Attribute {
         return this.attribute
     }
-    private readCustomComponent(){
+    readCustomComponent(){
         let data=this.getDynamicProperty("CustomComponent") as string;
         if (data) {
             let json=JSON.parse(data);
@@ -61,7 +61,7 @@ export class SuperEntity extends Super{
             }
         }
     }
-    private saveCustomComponent(){//保存玩家自定义组件
+    saveCustomComponent(){//保存玩家自定义组件
         let components={};
         for (let [key,value] of Object.entries(this.custom_components)) {
             //抹除对自己的引用
@@ -77,6 +77,10 @@ export class SuperEntity extends Super{
         this.setDynamicProperty("CustomComponent",data);
     }
     addCustomComponent(identifier: string):boolean {
+        let type=CustomComponentManager.GetType(identifier);
+        if (type!=ComponentType.EntityComponentType) {
+            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to entity components`);
+        }
         let com=CustomComponentManager.CreateComponentInstance(identifier,this);
         if (!this.custom_components.hasOwnProperty(identifier)) {
             com.onStart();

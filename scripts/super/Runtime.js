@@ -340,7 +340,7 @@ export class SuperSystem {
         if (player == undefined) {
             return;
         }
-        player.onAfterBreakBlockEvent(event);
+        player.onBreakBlockAfterEvent(event);
     }
     PlayerLeaveBeforeEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];
@@ -403,7 +403,7 @@ export class SuperSystem {
         if (player == undefined) {
             return;
         }
-        player.onBeforeBreakBlockEvent(event);
+        player.onBreakBlockBeforeEvent(event);
     }
     static getWorld() {
         return SuperSystem.sp_world;

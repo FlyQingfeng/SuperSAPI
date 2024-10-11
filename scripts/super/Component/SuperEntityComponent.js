@@ -8,6 +8,17 @@ export class EntitySuperComponent extends SuperComponent {
     ;
     init() {
         if (this.entity) {
+            let entity = this.entity;
+            entity.Bind(entity.onDieAfterEvent, this.onDieAfterEvent);
+            entity.Bind(entity.onHealthChangedAfterEvent, this.onHealthChangedAfterEvent);
+            entity.Bind(entity.onHitBlockAfterEvent, this.onHitBlockAfterEvent);
+            entity.Bind(entity.onHitEntityAfterEvent, this.onHitEntityAfterEvent);
+            entity.Bind(entity.onHurtAfterEvent, this.onHurtAfterEvent);
+            entity.Bind(entity.onHurtAfterEvent, this.onHurtAfterEvent);
+            entity.Bind(entity.onLoadAfterEvent, this.onLoadAfterEvent);
+            entity.Bind(entity.onRemoveAfterEvent, this.onRemoveAfterEvent);
+            entity.Bind(entity.onEntitySpawnAfterEvent, this.onEntitySpawnAfterEvent);
+            entity.Bind(entity.onRemoveBeforeEvent, this.onRemoveBeforeEvent);
         }
     }
     //绑定到对应实体的触发事件

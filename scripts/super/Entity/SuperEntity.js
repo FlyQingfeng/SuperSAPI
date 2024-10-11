@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Attribute } from "../Public/attribute";
-import { CustomComponentManager } from "../Component/CustomComponentManager";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
@@ -75,6 +75,10 @@ export class SuperEntity extends Super {
         this.setDynamicProperty("CustomComponent", data);
     }
     addCustomComponent(identifier) {
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.EntityComponentType) {
+            throw new Error(`Attempting to add ${ComponentType.PlayerComponentType.toString()} components to entity components`);
+        }
         let com = CustomComponentManager.CreateComponentInstance(identifier, this);
         if (!this.custom_components.hasOwnProperty(identifier)) {
             com.onStart();
