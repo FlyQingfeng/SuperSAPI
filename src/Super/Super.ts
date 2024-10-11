@@ -13,12 +13,12 @@ function generateUUID(): string {
 }
 
 //装饰器,注册成可绑定函数
-function registerAsSubscribable(target: Super, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+export function registerAsSubscribable(target: Super, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor {
     const originalMethod = descriptor.value;
     let fun = function (...args: any[]) {
-        eventManager.emit(this.uuid, propertyKey)
+        eventManager.emit(this.uuid, propertyKey,...args);
         // 在原始方法执行前后添加自定义行为
-        const result = originalMethod.apply(this, args);
+        const result = originalMethod(...args);
         return result;
     };
     let proxyFun = new Proxy(fun, {//构造函数名字，便于Bind函数进行绑定
@@ -61,10 +61,5 @@ export class Super {
             prototype = Object.getPrototypeOf(prototype);
         }
         return funnames
-    }
-    //注册函数可绑定例子
-    @registerAsSubscribable
-    test() {
-        console.log("test");
     }
 }

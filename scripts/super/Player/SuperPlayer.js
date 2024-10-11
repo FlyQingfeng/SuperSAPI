@@ -1,4 +1,11 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import { SuperEntity } from "../Entity/SuperEntity";
+import { registerAsSubscribable } from "../Super/Super";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance) {
         super(source_instance);
@@ -424,3 +431,81 @@ export class SuperPlayer extends SuperEntity {
     }
     ;
 }
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemStopUseOnAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemStartUseAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemReleaseAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemCompleteAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemUseOnAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemUseAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onPlayerSpawnAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onPlaceBlockAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onLeaveAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onJoinAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onInteractWithEntityAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onInteractWithBlockAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onInputPermissionCategoryChangeAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onGameModeChangeAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onEmoteAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onDimensionChangeAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onAfterBreakBlockEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onLeaveBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onInteractWithEntityBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onInteractWithBlockBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onGameModeChangeBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemUseOnBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onItemUseBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onChatSendBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onBreakPlaceBeforeEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperPlayer.prototype, "onBeforeBreakBlockEvent", null);

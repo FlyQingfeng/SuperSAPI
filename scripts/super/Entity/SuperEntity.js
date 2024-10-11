@@ -1,8 +1,14 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import { Attribute } from "../Public/attribute";
 import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
-import { Super } from "../Super/Super";
+import { registerAsSubscribable, Super } from "../Super/Super";
 export class SuperEntity extends Super {
     constructor(source_instance) {
         super();
@@ -96,8 +102,6 @@ export class SuperEntity extends Super {
             }
         }
         return coms;
-    }
-    registeredToEventManager() {
     }
     //触发事件
     onDieAfterEvent(event) {
@@ -1031,3 +1035,33 @@ export class SuperEntity extends Super {
     }
     ;
 }
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "tick", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onDieAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onHealthChangedAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onHitBlockAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onHitEntityAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onHurtAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onLoadAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onRemoveAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onEntitySpawnAfterEvent", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "onRemoveBeforeEvent", null);

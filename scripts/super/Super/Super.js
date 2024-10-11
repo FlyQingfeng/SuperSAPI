@@ -1,9 +1,3 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 import { eventManager } from "../EventManager/EventManager";
 //构建UUID
 function generateUUID() {
@@ -14,16 +8,13 @@ function generateUUID() {
         return v.toString(16);
     });
 }
-function createNamedFunction(name, body) {
-    return new Function(`return function ${name}() { ${body} }`)();
-}
 //装饰器,注册成可绑定函数
-function registerAsSubscribable(target, propertyKey, descriptor) {
+export function registerAsSubscribable(target, propertyKey, descriptor) {
     const originalMethod = descriptor.value;
     let fun = function (...args) {
-        eventManager.emit(this.uuid, propertyKey);
+        eventManager.emit(this.uuid, propertyKey, ...args);
         // 在原始方法执行前后添加自定义行为
-        const result = originalMethod.apply(this, args);
+        const result = originalMethod(...args);
         return result;
     };
     let proxyFun = new Proxy(fun, {
@@ -66,11 +57,4 @@ export class Super {
         }
         return funnames;
     }
-    //注册函数可绑定例子
-    test() {
-        console.log("test");
-    }
 }
-__decorate([
-    registerAsSubscribable
-], Super.prototype, "test", null);

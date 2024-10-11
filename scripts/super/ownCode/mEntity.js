@@ -6,4 +6,6 @@ export class mEntity extends SuperSAPI.Entity {
     }
     tick(t) {
     }
+    onDieAfterEvent(event) {
+    }
 }

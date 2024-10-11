@@ -7,7 +7,6 @@ SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.EntityComponentType);
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
-    player.test();
 });
 SuperSAPI.CommandManager.registerCommand('add', "<组件ID> 添加组件", (player, arg) => {
     let id = arg[0];

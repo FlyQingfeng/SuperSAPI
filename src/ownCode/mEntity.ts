@@ -9,4 +9,7 @@ export class mEntity extends SuperSAPI.Entity {
     tick(t: number): void {
         
     }
+    onDieAfterEvent(event: mc.EntityDieAfterEvent): void {
+        
+    }
 }

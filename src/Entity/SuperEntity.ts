@@ -4,7 +4,7 @@ import { SuperComponent } from "../Component/SuperComponent";
 import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
 import { cast } from "../Public/stdlib";
-import { Super } from "../Super/Super";
+import { registerAsSubscribable, Super } from "../Super/Super";
 
 export class SuperEntity extends Super{
     source_instance: Entity;
@@ -38,6 +38,7 @@ export class SuperEntity extends Super{
     cast<T>(){
         return cast<T>(this)
     }
+    @registerAsSubscribable
     tick(t: number) {
 
     }
@@ -104,25 +105,32 @@ export class SuperEntity extends Super{
         }
         return coms
     }
-    registeredToEventManager(){//注册函数到事件管理，用于绑定事件
-    }
     //触发事件
+    @registerAsSubscribable
     onDieAfterEvent(event: EntityDieAfterEvent) {
     }
+    @registerAsSubscribable
     onHealthChangedAfterEvent(event: EntityHealthChangedAfterEvent) {
     }
+    @registerAsSubscribable
     onHitBlockAfterEvent(event: EntityHitBlockAfterEvent) {
     }
+    @registerAsSubscribable
     onHitEntityAfterEvent(event: EntityHitEntityAfterEvent) {
     }
+    @registerAsSubscribable
     onHurtAfterEvent(event: EntityHurtAfterEvent) {
     }
+    @registerAsSubscribable
     onLoadAfterEvent(event: EntityLoadAfterEvent) {
     }
+    @registerAsSubscribable
     onRemoveAfterEvent(event: EntityRemoveAfterEvent) {
     }
+    @registerAsSubscribable
     onEntitySpawnAfterEvent(event: EntitySpawnAfterEvent) {
     }
+    @registerAsSubscribable
     onRemoveBeforeEvent(event: EntityRemoveBeforeEvent) {
     }
 

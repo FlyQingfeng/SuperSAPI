@@ -3,18 +3,12 @@ import { mEntity } from "./ownCode/mEntity";
 import { mPlayer } from "./ownCode/mPlayer";
 import { PlayerManaComponent } from "./ownCode/mPlayerComponent";
 import * as SuperSAPI from "./SuperSAPI";
-import { eventManager } from "./EventManager/EventManager";
-
-
-
 
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity)
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer)
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", PlayerManaComponent, SuperSAPI.CustomComponentType.EntityComponentType)
 
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
-    
-    player.test();
     
 })
 SuperSAPI.CommandManager.registerCommand('add', "<组件ID> 添加组件", (player, arg) => {
@@ -61,7 +55,6 @@ SuperSAPI.CommandManager.registerCommand('putMana', "打印组件的Mana值", (p
 })
 
 SuperSAPI.System.init();
-
 
 system.run(() => {
 
