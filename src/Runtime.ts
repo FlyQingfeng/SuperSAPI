@@ -103,9 +103,7 @@ export class SuperSystem {
         //重新加载实体
         SuperWorld.ReloadEntitys();
         SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
-            this.runTimeout(() => {
-                SuperWorld.CreateEntityInstance(event.entity);
-            }, 20)
+            SuperWorld.CreateEntityInstance(event.entity);
         })
         SuperSystem.sp_world.afterEvents.entityRemove.subscribe((event) => {
             let id=event.removedEntityId;

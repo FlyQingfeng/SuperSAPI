@@ -14,7 +14,9 @@ export class SuperEntity extends Super {
         super();
         this.enable_tick = false;
         this.source_instance = source_instance;
-        this.dimension = source_instance.dimension;
+        if ("dimension" in this.source_instance) {
+            this.dimension = this.source_instance.dimension;
+        }
         this.id = source_instance.id;
         this.isClimbing = source_instance.isClimbing;
         this.isFalling = source_instance.isFalling;
@@ -35,6 +37,9 @@ export class SuperEntity extends Super {
         this.readCustomComponent();
     }
     ;
+    getDimension() {
+        return this.source_instance.dimension;
+    }
     cast() {
         return cast(this);
     }

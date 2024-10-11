@@ -14,7 +14,9 @@ export class SuperEntity extends Super {
     constructor(source_instance: Entity) {
         super()
         this.source_instance = source_instance;
-        this.dimension = source_instance.dimension;
+        if ("dimension" in this.source_instance) {
+            this.dimension=this.source_instance.dimension
+        }
         this.id = source_instance.id;
         this.isClimbing = source_instance.isClimbing;
         this.isFalling = source_instance.isFalling;
@@ -35,6 +37,9 @@ export class SuperEntity extends Super {
         //加载存储的组件
         this.readCustomComponent();
     };
+    getDimension(){
+        return this.source_instance.dimension;
+    }
     cast<T>() {
         return cast<T>(this)
     }
@@ -154,7 +159,7 @@ export class SuperEntity extends Super {
      *
      * @throws This property can throw when used.
      */
-    readonly dimension: Dimension;
+    dimension: Dimension;
     /**
      * @remarks
      * Unique identifier of the entity. This identifier is intended
