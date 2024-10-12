@@ -6,6 +6,7 @@ import { EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfter
 export class EntitySuperComponent extends SuperComponent {
     constructor(typeId: string, owner: SuperEntity) {
         super(typeId, owner)
+        this.owner=owner;
         let entity = this.getOwner();
         if (entity.isValid()) {
             entity.Bind(entity.onDieAfterEvent, this.onDieAfterEvent)
@@ -34,6 +35,9 @@ export class EntitySuperComponent extends SuperComponent {
             entity.UnBind(entity.onEntitySpawnAfterEvent, this.onEntitySpawnAfterEvent)
             entity.UnBind(entity.onRemoveBeforeEvent, this.onRemoveBeforeEvent)
         }
+    }
+    detach(){//脱离，从owner上移除自己这个组件
+        this.getOwner()?.removeCustomComponent(this.typeId);
     }
     getOwner(): SuperEntity {
         return this.owner as SuperEntity

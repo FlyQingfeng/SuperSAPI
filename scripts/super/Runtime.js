@@ -91,7 +91,6 @@ export class SuperSystem {
         SuperWorld.ReloadEntitys();
         SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
             SuperWorld.CreateEntityInstance(event.entity);
-            console.log("entitySpawn id:", event.entity.id);
         });
         SuperSystem.sp_world.afterEvents.entityRemove.subscribe((event) => {
             let id = event.removedEntityId;

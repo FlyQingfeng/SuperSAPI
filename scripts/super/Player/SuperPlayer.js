@@ -38,9 +38,9 @@ export class SuperPlayer extends SuperEntity {
                     for (let [key, value] of Object.entries(json)) {
                         com[key] = value;
                     }
-                    if (!this.custom_components.hasOwnProperty(id)) {
+                    if (!this.custom_component.hasOwnProperty(id)) {
                         com.onStart();
-                        this.custom_components[id] = com;
+                        this.custom_component[id] = com;
                     }
                 }
             }
@@ -52,9 +52,9 @@ export class SuperPlayer extends SuperEntity {
             throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to player components`);
         }
         let com = CustomComponentManager.CreateComponentInstance(identifier, this);
-        if (!this.custom_components.hasOwnProperty(identifier)) {
+        if (!this.custom_component.hasOwnProperty(identifier)) {
             com.onStart();
-            this.custom_components[identifier] = com;
+            this.custom_component[identifier] = com;
             this.saveCustomComponent();
             return true;
         }

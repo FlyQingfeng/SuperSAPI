@@ -2,6 +2,7 @@ import { SuperComponent } from "../Component/SuperComponent";
 export class EntitySuperComponent extends SuperComponent {
     constructor(typeId, owner) {
         super(typeId, owner);
+        this.owner = owner;
         let entity = this.getOwner();
         if (entity.isValid()) {
             entity.Bind(entity.onDieAfterEvent, this.onDieAfterEvent);
@@ -31,6 +32,9 @@ export class EntitySuperComponent extends SuperComponent {
             entity.UnBind(entity.onEntitySpawnAfterEvent, this.onEntitySpawnAfterEvent);
             entity.UnBind(entity.onRemoveBeforeEvent, this.onRemoveBeforeEvent);
         }
+    }
+    detach() {
+        this.getOwner()?.removeCustomComponent(this.typeId);
     }
     getOwner() {
         return this.owner;

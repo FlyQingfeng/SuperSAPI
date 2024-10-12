@@ -23,26 +23,11 @@ export class mPlayer extends SuperSAPI.Player {
     }
     @SuperSAPI.registerAsSubscribable
     onHitEntityAfterEvent(event: mc.EntityHitEntityAfterEvent): void {
-        if (!(event.damagingEntity instanceof mc.Player)) {
-            return
-        }
-        // this.applyDamage(1);
-        console.log("event id:",event.hitEntity.id);
         let hitEntity=SuperSAPI.SuperSystem.getWorld().getEntity(event.hitEntity.id);
-        if (hitEntity) {
-            console.log("hitEntity id:",hitEntity.id);
-            hitEntity.kill();
-        }
-        // let t1=mc.system.runInterval(()=>{
-        //     mc.system.run(()=>{
-        //         event.hitEntity.applyDamage(5);
-        //     })
-        // },20)
-        // mc.system.runTimeout(()=>{
-        //     console.log("remove mEntityComponent");
-        //     mc.system.clearRun(t1);
-        // },100);
-        
+        hitEntity.addCustomComponent("damage");
+        let damage=hitEntity.getCustomComponent("damage")
+        // damage.detach();
+        // hitEntity.removeCustomComponent("damage")
     }
 }
 

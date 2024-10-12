@@ -9,11 +9,10 @@ SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
 SuperSAPI.CustomComponentManager.registrationCustomComponent("damage", mEntityComponent, SuperSAPI.CustomComponentType.EntityComponentType);
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
-    let num = world.getDimension("overworld").getEntities().length;
-    num += world.getDimension("nether").getEntities().length;
-    num += world.getDimension("the_end").getEntities().length;
-    console.log("world entitys:", num);
-    console.log("super_world entitys:", SuperSAPI.SuperSystem.getWorld().getAllEntitys().length);
+    let ets = world.getDimension("overworld").getEntities();
+    for (const e of ets) {
+        console.log("cc:", e.getDynamicProperty("CustomComponent"));
+    }
 });
 system.runInterval(() => {
     SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e) => {

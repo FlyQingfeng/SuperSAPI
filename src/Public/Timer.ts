@@ -7,10 +7,12 @@ export class Timer {
 
     // 设置一个单次定时器
     public setTimeout(callback: () => void, delay: number): void {
-        if (this.timeoutId) {
-            system.clearRun(this.timeoutId);
-        }
-        this.timeoutId = system.runTimeout(callback, delay);
+        system.run(()=>{
+            if (this.timeoutId) {
+                system.clearRun(this.timeoutId);
+            }
+            this.timeoutId = system.runTimeout(callback, delay);
+        })
     }
 
     // 设置一个重复定时器

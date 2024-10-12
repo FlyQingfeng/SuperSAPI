@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Attribute } from "../Public/attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
-import { cast, enumKeyToString } from "../Public/stdlib";
+import { cast, enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 export class SuperEntity extends Super {
     constructor(source_instance) {
@@ -31,7 +31,7 @@ export class SuperEntity extends Super {
         this.scoreboardIdentity = source_instance.scoreboardIdentity;
         this.target = source_instance.target;
         this.typeId = source_instance.typeId;
-        this.custom_components = {};
+        this.custom_component = {};
         this.attribute = new Attribute(source_instance);
         //加载存储的组件
         this.readCustomComponent();
@@ -58,42 +58,26 @@ export class SuperEntity extends Super {
     readCustomComponent() {
         let data = this.getDynamicProperty("CustomComponent");
         if (data) {
-            let json = JSON.parse(data);
-            console.log(data);
-            for (let [id, cm_data] of Object.entries(json)) {
+            let json = fromJSON(data);
+            for (let [id, cm_data] of Object.entries(json)) { //读取每个组件
                 let type = CustomComponentManager.GetType(id);
                 if (type == ComponentType.EntityComponentType) {
                     let com = CustomComponentManager.CreateComponentInstance(id, this);
-                    for (let [key, value] of Object.entries(json)) {
-                        if (typeof value != "function") {
+                    for (let [key, value] of Object.entries(cm_data)) {
+                        if (typeof value != "function" && typeof value != "object") { //不复制函数，不拷贝对象
                             com[key] = value;
                         }
                     }
-                    if (!this.custom_components.hasOwnProperty(id)) {
+                    if (!this.custom_component.hasOwnProperty(id)) {
                         com.onStart();
-                        this.custom_components[id] = com;
+                        this.custom_component[id] = com;
                     }
                 }
             }
         }
     }
     saveCustomComponent() {
-        let components = {};
-        for (let [key, value] of Object.entries(this.custom_components)) {
-            //抹除对自己的引用
-            if (value.hasOwnProperty("entity")) {
-                value["entity"] = undefined;
-            }
-            if (value.hasOwnProperty("owner")) {
-                value["owner"] = undefined;
-            }
-            if (value.hasOwnProperty("player")) {
-                value["player"] = undefined;
-            }
-            components[key] = value;
-        }
-        let data = JSON.stringify(components);
-        // console.log(data);
+        let data = toJSON(this.custom_component);
         this.setDynamicProperty("CustomComponent", data);
     }
     addCustomComponent(identifier) {
@@ -102,30 +86,39 @@ export class SuperEntity extends Super {
             throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to entity components`);
         }
         let com = CustomComponentManager.CreateComponentInstance(identifier, this);
-        if (!this.custom_components.hasOwnProperty(identifier)) {
-            com.onStart();
-            this.custom_components[identifier] = com;
-            this.saveCustomComponent();
-            return true;
+        if (this.custom_component.hasOwnProperty(identifier) || this.custom_component[identifier]) {
+            return false;
         }
-        return false;
+        com.onStart();
+        this.custom_component[identifier] = com;
+        this.saveCustomComponent();
+        return true;
     }
     removeCustomComponent(identifier) {
-        this.custom_components[identifier].deconstructor();
-        delete this.custom_components[identifier];
+        let com = this.custom_component[identifier];
+        if (com) {
+            com.deconstructor();
+        }
+        delete this.custom_component[identifier];
         this.saveCustomComponent();
+        // if (this.custom_component.hasOwnProperty(identifier)) {
+        //     for (const [key,com] of Object.entries(this.custom_component)) {
+        //         if (key==identifier) {
+        //         }
+        //     }
+        // }
     }
     getCustomComponent(identifier) {
-        if (this.custom_components.hasOwnProperty(identifier)) {
-            return this.custom_components[identifier];
+        if (this.custom_component.hasOwnProperty(identifier)) {
+            return this.custom_component[identifier];
         }
         return undefined;
     }
     getCustomComponents() {
         let coms = [];
-        for (const key in this.custom_components) {
-            if (this.custom_components.hasOwnProperty(key)) {
-                coms.push(this.custom_components[key]);
+        for (const key in this.custom_component) {
+            if (this.custom_component.hasOwnProperty(key)) {
+                coms.push(this.custom_component[key]);
             }
         }
         return coms;
@@ -256,13 +249,13 @@ export class SuperEntity extends Super {
      * @example applyDamageThenHeal.ts
      * ```typescript
      * // A function that applies damage and then heals the entity
-     * import { Entity, EntityComponentTypes, system, world } from '@minecraft/server';
+     * import { Entity, EntitySuperComponentTypes, system, world } from '@minecraft/server';
      *
      * function applyDamageAndHeal(entity: Entity) {
      *     entity.applyDamage(19); // Many mobs have max damage of 20 so this is a near-death mob
      *
      *     system.runTimeout(() => {
-     *         const health = entity.getComponent(EntityComponentTypes.Health);
+     *         const health = entity.getComponent(EntitySuperComponentTypes.Health);
      *         if (health) {
      *             world.sendMessage(`Entity health before heal: ${health.currentValue}`);
      *
@@ -405,13 +398,13 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      * @example setEntityOnFire.ts
      * ```typescript
-     * import { world, Entity, EntityComponentTypes, system } from "@minecraft/server";
+     * import { world, Entity, EntitySuperComponentTypes, system } from "@minecraft/server";
      *
      * function setAblaze(entity: Entity) {
      *     entity.setOnFire(20, true);
      *
      *     system.runTimeout(() => {
-     *         const onfire = entity.getComponent(EntityComponentTypes.OnFire);
+     *         const onfire = entity.getComponent(EntitySuperComponentTypes.OnFire);
      *         if (onfire) {
      *             world.sendMessage(`${onfire.onFireTicksRemaining} fire ticks remaining, extinguishing the entity.`);
      *         }
@@ -451,7 +444,7 @@ export class SuperEntity extends Super {
      * The identifier of the component (e.g., 'minecraft:health').
      * If no namespace prefix is specified, 'minecraft:' is
      * assumed. Available component IDs can be found as part of the
-     * {@link EntityComponentTypes} enum.
+     * {@link EntitySuperComponentTypes} enum.
      * @returns
      * Returns the component if it exists on the entity, otherwise
      * undefined.
@@ -702,7 +695,10 @@ export class SuperEntity extends Super {
      * Whether the entity is valid.
      */
     isValid() {
-        return this.source_instance.isValid();
+        if (this.source_instance && this.source_instance.isValid()) {
+            return true;
+        }
+        return false;
     }
     ;
     /**
@@ -903,6 +899,9 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     setDynamicProperty(identifier, value) {
+        if (!this.source_instance) {
+            return;
+        }
         return this.source_instance.setDynamicProperty(identifier, value);
     }
     ;
@@ -927,13 +926,13 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      * @example setEntityOnFire.ts
      * ```typescript
-     * import { world, Entity, EntityComponentTypes, system } from "@minecraft/server";
+     * import { world, Entity, EntitySuperComponentTypes, system } from "@minecraft/server";
      *
      * function setAblaze(entity: Entity) {
      *     entity.setOnFire(20, true);
      *
      *     system.runTimeout(() => {
-     *         const onfire = entity.getComponent(EntityComponentTypes.OnFire);
+     *         const onfire = entity.getComponent(EntitySuperComponentTypes.OnFire);
      *         if (onfire) {
      *             world.sendMessage(`${onfire.onFireTicksRemaining} fire ticks remaining, extinguishing the entity.`);
      *         }
