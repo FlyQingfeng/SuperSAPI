@@ -312,12 +312,12 @@ export class SuperWorld extends Super {
         }
         if (entity instanceof Player) {
             let sp_player = SuperWorld.Players.find((e) => {
-                return id = entity.id;
+                return entity.id == e.id;
             });
             return sp_player;
         }
         let sp_entity = SuperWorld.Entitys.find((e) => {
-            return id = entity.id;
+            return entity.id == e.id;
         });
         return sp_entity;
     }

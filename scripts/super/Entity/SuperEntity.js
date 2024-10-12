@@ -51,16 +51,23 @@ export class SuperEntity extends Super {
     getAttributeMap() {
         return this.attribute;
     }
+    isFunctionAndInstanceOf(obj, key, constructor) {
+        const value = obj[key];
+        return typeof value === 'function' && value instanceof constructor;
+    }
     readCustomComponent() {
         let data = this.getDynamicProperty("CustomComponent");
         if (data) {
             let json = JSON.parse(data);
+            console.log(data);
             for (let [id, cm_data] of Object.entries(json)) {
                 let type = CustomComponentManager.GetType(id);
                 if (type == ComponentType.EntityComponentType) {
                     let com = CustomComponentManager.CreateComponentInstance(id, this);
                     for (let [key, value] of Object.entries(json)) {
-                        com[key] = value;
+                        if (typeof value != "function") {
+                            com[key] = value;
+                        }
                     }
                     if (!this.custom_components.hasOwnProperty(id)) {
                         com.onStart();
@@ -77,15 +84,16 @@ export class SuperEntity extends Super {
             if (value.hasOwnProperty("entity")) {
                 value["entity"] = undefined;
             }
-            if (value.hasOwnProperty("entity")) {
+            if (value.hasOwnProperty("owner")) {
                 value["owner"] = undefined;
             }
-            if (value.hasOwnProperty("entity")) {
+            if (value.hasOwnProperty("player")) {
                 value["player"] = undefined;
             }
             components[key] = value;
         }
         let data = JSON.stringify(components);
+        // console.log(data);
         this.setDynamicProperty("CustomComponent", data);
     }
     addCustomComponent(identifier) {

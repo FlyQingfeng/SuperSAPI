@@ -8,7 +8,6 @@ export class mPlayerComponent extends SuperSAPI.PlayerComponent {
         super(typeId,owner)
     }
     onBreakBlockAfterEvent(event: mc.PlayerBreakBlockAfterEvent): void {
-
     }
     init(): void {
     }

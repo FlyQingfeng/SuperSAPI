@@ -10,6 +10,7 @@ import * as sec from "./Component/SuperEntityComponent";
 import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
 import * as std from "./Public/stdlib";
+import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
 import * as db from "./Public/debug";
 
@@ -47,6 +48,8 @@ export const ClassManager=run.ClassManager;
 export const CommandManager=cm.CommandManager
 export const CustomComponentManager=ccm.CustomComponentManager
 export const Debug=db.Debug
+
+export const Timer=tm.Timer;
 
 Debug.debug=version_information.beta
 //枚举

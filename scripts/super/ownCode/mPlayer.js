@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import * as SuperSAPI from "../SuperSAPI";
+import * as mc from "@minecraft/server";
 export class mPlayer extends SuperSAPI.Player {
     constructor(player) {
         super(player);
@@ -23,6 +24,27 @@ export class mPlayer extends SuperSAPI.Player {
         this.attribute.set("use_num", use_num);
         this.sendMessage(`${use_num}`);
     }
+    onHitEntityAfterEvent(event) {
+        if (!(event.damagingEntity instanceof mc.Player)) {
+            return;
+        }
+        // this.applyDamage(1);
+        console.log("event id:", event.hitEntity.id);
+        let hitEntity = SuperSAPI.SuperSystem.getWorld().getEntity(event.hitEntity.id);
+        if (hitEntity) {
+            console.log("hitEntity id:", hitEntity.id);
+            hitEntity.kill();
+        }
+        // let t1=mc.system.runInterval(()=>{
+        //     mc.system.run(()=>{
+        //         event.hitEntity.applyDamage(5);
+        //     })
+        // },20)
+        // mc.system.runTimeout(()=>{
+        //     console.log("remove mEntityComponent");
+        //     mc.system.clearRun(t1);
+        // },100);
+    }
 }
 __decorate([
     SuperSAPI.registerAsSubscribable
@@ -30,3 +52,6 @@ __decorate([
 __decorate([
     SuperSAPI.registerAsSubscribable
 ], mPlayer.prototype, "onItemUseAfterEvent", null);
+__decorate([
+    SuperSAPI.registerAsSubscribable
+], mPlayer.prototype, "onHitEntityAfterEvent", null);

@@ -3,9 +3,11 @@ import { mEntity } from "./ownCode/mEntity";
 import { mPlayer } from "./ownCode/mPlayer";
 import { mPlayerComponent } from "./ownCode/mPlayerComponent";
 import * as SuperSAPI from "./SuperSAPI";
+import { mEntityComponent } from "./ownCode/mEntityComponent";
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
+SuperSAPI.CustomComponentManager.registrationCustomComponent("damage", mEntityComponent, SuperSAPI.CustomComponentType.EntityComponentType);
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
     let num = world.getDimension("overworld").getEntities().length;
     num += world.getDimension("nether").getEntities().length;
