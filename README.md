@@ -10,16 +10,23 @@ SuperSAPI 是一个针对 Minecraft 基岩版 ScriptAPI 开发的前置 API。�
 
 ## 安装
 
-要使用 SuperSAPI，你需要将其下载并放置到你的 ScriptAPI 项目目录中。
+### 方法1：安装js版本
 
-1. 下载 SuperSAPI 文件。
-2. 将下载的文件解压到你的 ScriptAPI 项目目录。
-3. 在你的 ScriptAPI 项目中引入 SuperSAPI。
+* 下载 SuperSAPI ，也可以直接克隆到本地。
+* 将下载的文件解压到你的本地的任意位置，把SuperSAPI文件夹下的scripts/super文件夹复制到行为包项目目录下的scripts下。
+* 在你的 行为包 项目中的main.js中引入SuperSAPI（如下）。
 
 ```javascript
 // 引入 SuperSAPI
 import * as SuperSAPI from "./SuperSAPI";
 ```
+
+### 方法2：安装ts版本（推荐）：
+
+* 克隆SuperSAPI到本地
+* 更改SuperSAPI目录下的manifest.json文件，改成你对应行为包的信息
+* 打开SuperSAPI目录下的src/main.ts 开始编写你的代码
+* 在编写完成了代码后 在vs code 控制台输入`npx tsc`将ts转出js文件（前提是已经安装配置了ts环境）
 
 ## 使用方法
 
@@ -31,38 +38,30 @@ SuperSAPI 允许你通过继承和替换原有的 ScriptAPI内的类 来扩展�
 //mEntity.ts
 import * as SuperSAPI from "../SuperSAPI";
 import * as mc from "@minecraft/server";
-
 export class mEntity extends SuperSAPI.Entity {
-    constructor(entity:mc.Entity) {
-        super(entity)
-        this.enable_tick=true;
+    constructor(entity:SuperSAPI.MC_Entity,world:SuperSAPI.SuperWorld) {
+        super(entity,world)
     }
-    tick(t: number): void {
-  
+    onDieAfterEvent(event: mc.EntityDieAfterEvent): void {
+        console.log("onDieAfterEvent");
     }
 }
 ```
 
 ```ts
-
 //mPlyer.ts
 import * as SuperSAPI from "../SuperSAPI";
 import * as mc from "@minecraft/server";
 
 export class mPlayer extends SuperSAPI.Player {
-    constructor(player: mc.Player) {
-        super(player)
-        this.atribute.set("value",0);
-        // this.enable_tick=true;
+    constructor(player: SuperSAPI.MC_Player,world:SuperSAPI.SuperWorld) {
+        super(player,world)
+        this.enable_tick=true;
     }
-    tick(t: number): void {
-        this.sendMessage(`${this.name}`)
+    @SuperSAPI.registerAsSubscribable
+    onItemUseAfterEvent(event: mc.ItemUseAfterEvent): void {
+        console.log("use item");
     }
-    //玩家破坏方块之后
-    onAfterBreakBlockEvent(event: mc.PlayerBreakBlockAfterEvent): void {
-        this.sendMessage(`${event.brokenBlockPermutation.type.id}`)
-    }
-  
 }
 ```
 
