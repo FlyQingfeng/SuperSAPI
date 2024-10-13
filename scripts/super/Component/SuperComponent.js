@@ -1,10 +1,11 @@
 import { Super } from "../Super/Super";
 export class SuperComponent extends Super {
-    constructor(typeId, owner) {
+    constructor(typeId, owner, options) {
         super();
         this.enable_tick = false;
         this.typeId = typeId;
         this.owner = owner;
+        this.create_options = options;
     }
     ;
     deconstructor(op) {

@@ -31,7 +31,10 @@ export class ClassManager {
     static replaceClass(type: NativeClassType, NewClass: _Class) {
         this.mclass[type.toString()] = NewClass;
     }
-    static CreateInstance(type: NativeClassType,origin:any){
+    static CreateInstance(type: NativeClassType,origin:any,...args:any[]){
+        if (args) {
+            return new (this.mclass[type.toString()])(origin,...args)
+        }
         return new (this.mclass[type.toString()])(origin)
     }
 }
@@ -101,20 +104,20 @@ export class SuperSystem {
 
         //运行时管理world内的实体和玩家
         //重新加载实体
-        SuperWorld.ReloadEntitys();
+        SuperSystem.getWorld().ReloadEntitys();
         SuperSystem.sp_world.afterEvents.entitySpawn.subscribe((event) => {
-            SuperWorld.CreateEntityInstance(event.entity);
+            SuperSystem.getWorld().CreateEntityInstance(event.entity);
         })
         SuperSystem.sp_world.afterEvents.entityRemove.subscribe((event) => {
             let id=event.removedEntityId;
-            SuperWorld.RemoveEntitysForID(id);
+            SuperSystem.getWorld().RemoveEntitysForID(id);
         })
         SuperSystem.sp_world.afterEvents.entityDie.subscribe((event) => {
-            SuperWorld.RemoveFromEntitys(event.deadEntity);
+            SuperSystem.getWorld().RemoveFromEntitys(event.deadEntity);
         })
         //玩家
         SuperSystem.sp_world.afterEvents.playerSpawn.subscribe((event) => {
-            SuperWorld.CreateEntityInstance(event.player);
+            SuperSystem.getWorld().CreateEntityInstance(event.player);
         })
 
 

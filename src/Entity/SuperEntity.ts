@@ -5,18 +5,25 @@ import { vec3 } from "../Public/vec3";
 import { cast, enumKeyToString ,fromJSON,toJSON} from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { EntitySuperComponent } from "../Component/SuperEntityComponent";
+import { SuperComponentCreateOptions } from "../Component/SuperComponent";
+import { SuperWorld } from "../World/SuperWorld";
+import { SuperSystem } from "../Runtime";
 
 
 export class SuperEntity extends Super {
     source_instance: Entity;
+    world:SuperWorld;
     attribute: Attribute;
     custom_component: { [id: string]: EntitySuperComponent };
     enable_tick: boolean = false
-    constructor(source_instance: Entity) {
+    constructor(source_instance: Entity,world:SuperWorld) {
         super()
+        this.world=world;
         this.source_instance = source_instance;
-        if ("dimension" in this.source_instance) {
-            this.dimension = this.source_instance.dimension
+        try {//这个属性可能出错
+            this.dimension = source_instance.dimension
+        } catch (error) {
+            this.dimension=this.world.getDimension("overworld")
         }
         this.id = source_instance.id;
         this.isClimbing = source_instance.isClimbing;
@@ -39,6 +46,9 @@ export class SuperEntity extends Super {
         //加载存储的组件
         this.readCustomComponent();
     };
+    getWorld():SuperWorld{
+        return this.world;
+    }
     getDimension() {
         return this.source_instance.dimension;
     }
@@ -68,6 +78,9 @@ export class SuperEntity extends Super {
                 if (type == ComponentType.EntityComponentType) {
                     let com = CustomComponentManager.CreateComponentInstance<EntitySuperComponent,SuperEntity>(id, this);
                     for (let [key, value] of Object.entries(cm_data)) {
+                        if (key=="create_options") {
+                            console.log(toJSON(value));
+                        }
                         if (typeof value!= "function" && typeof value!="object") {//不复制函数，不拷贝对象
                             com[key] = value;
                         }
@@ -84,12 +97,12 @@ export class SuperEntity extends Super {
         let data = toJSON(this.custom_component);
         this.setDynamicProperty("CustomComponent", data);
     }
-    addCustomComponent(identifier: string): boolean {
+    addCustomComponent(identifier: string,options?:SuperComponentCreateOptions): boolean {
         let type = CustomComponentManager.GetType(identifier);
         if (type != ComponentType.EntityComponentType) {
             throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to entity components`);
         }
-        let com = CustomComponentManager.CreateComponentInstance<EntitySuperComponent,SuperEntity>(identifier, this);
+        let com = CustomComponentManager.CreateComponentInstance<EntitySuperComponent,SuperEntity>(identifier, this,options);
         if (this.custom_component.hasOwnProperty(identifier)||this.custom_component[identifier]) {
             return false
         }

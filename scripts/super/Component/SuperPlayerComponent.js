@@ -1,7 +1,7 @@
 import { EntitySuperComponent } from "./SuperEntityComponent";
 export class PlayerSuperComponent extends EntitySuperComponent {
-    constructor(typeId, owner) {
-        super(typeId, owner);
+    constructor(typeId, owner, options) {
+        super(typeId, owner, options);
         let player = this.getOwner();
         if (player.isValid()) {
             player.Bind(player.onItemStopUseOnAfterEvent, this.onItemStopUseOnAfterEvent);

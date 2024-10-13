@@ -1,10 +1,11 @@
 import { SuperPlayer } from "../Player/SuperPlayer";
+import { SuperComponentCreateOptions } from "./SuperComponent";
 import { EntitySuperComponent } from "./SuperEntityComponent";
 import { ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerBreakBlockAfterEvent, PlayerBreakBlockBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, PlayerSpawnAfterEvent } from "@minecraft/server";
 
 export class PlayerSuperComponent extends EntitySuperComponent {
-    constructor(typeId: string, owner: SuperPlayer) {
-        super(typeId, owner)
+    constructor(typeId: string, owner: SuperPlayer,options?:SuperComponentCreateOptions) {
+        super(typeId, owner,options)
         let player = this.getOwner();
         if (player.isValid()) {
             player.Bind(player.onItemStopUseOnAfterEvent, this.onItemStopUseOnAfterEvent);

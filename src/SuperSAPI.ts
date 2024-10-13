@@ -27,19 +27,37 @@ export const version_information={
 }
 
 //代导入
-export const MC=mc;
-export const Std = std
+export const MC=await import("@minecraft/server");
+export const Std = await import("./Public/stdlib");
 
+
+//原生类类型
+export type MC_World=mc.World
+export type MC_Player=mc.Player
+export type MC_Entity=mc.Entity
+export type MC_ItemStack=mc.ItemStack
 
 //super类
 export const World = sw.SuperWorld
 export const Player = sp.SuperPlayer
 export const Entity = se.SuperEntity
+//super类类型
+export type SuperWorld = sw.SuperWorld
+export type SuperPlayer = sp.SuperPlayer
+export type SuperEntity = se.SuperEntity
+
 //组件类
 export const PlayerComponent=spc.PlayerSuperComponent
 export const EntityComponent=sec.EntitySuperComponent
 export const ItemComponent=sic.ItemSuperComponent
 export const SuperComponent=sc.SuperComponent
+
+//组件类类型
+export type PlayerComponent=spc.PlayerSuperComponent
+export type EntityComponent=sec.EntitySuperComponent
+export type ItemComponent=sic.ItemSuperComponent
+export type SuperComponent=sc.SuperComponent
+export type SuperComponentCreateOptions=sc.SuperComponentCreateOptions
 
 export const SuperSystem=run.SuperSystem;
 
@@ -49,7 +67,9 @@ export const CommandManager=cm.CommandManager
 export const CustomComponentManager=ccm.CustomComponentManager
 export const Debug=db.Debug
 
+//定时器类
 export const Timer=tm.Timer;
+export type Timer=tm.Timer;
 
 Debug.debug=version_information.beta
 //枚举

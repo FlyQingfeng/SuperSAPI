@@ -6,8 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import * as SuperSAPI from "../SuperSAPI";
 export class mPlayer extends SuperSAPI.Player {
-    constructor(player) {
-        super(player);
+    constructor(player, world) {
+        super(player, world);
         this.enable_tick = true;
         this.attribute.init("use_num", 0);
         SuperSAPI.Debug.log("Player constructor:", this.id);
@@ -24,11 +24,11 @@ export class mPlayer extends SuperSAPI.Player {
         this.sendMessage(`${use_num}`);
     }
     onHitEntityAfterEvent(event) {
-        let hitEntity = SuperSAPI.SuperSystem.getWorld().getEntity(event.hitEntity.id);
-        hitEntity.addCustomComponent("damage");
+        let hitEntity = this.getWorld().getEntity(event.hitEntity.id);
+        hitEntity.addCustomComponent("damage", {
+            Target: this
+        });
         let damage = hitEntity.getCustomComponent("damage");
-        // damage.detach();
-        // hitEntity.removeCustomComponent("damage")
     }
 }
 __decorate([

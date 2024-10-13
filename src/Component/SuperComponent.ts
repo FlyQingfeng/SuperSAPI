@@ -1,14 +1,22 @@
 import { Attribute } from "../Public/attribute";
-import { CustomComponentManager } from "../Component/CustomComponentManager";
 import { Super } from "../Super/Super";
+import { vec3 } from "../Public/vec3";
+
+export type SuperComponentCreateOptions={
+    Target?:Super,
+    Location?:vec3,
+    Other?:any
+}
 
 export class SuperComponent extends Super{
     owner:any;
     enable_tick:boolean=false;
-    constructor(typeId:string,owner: any) {
+    create_options:SuperComponentCreateOptions;
+    constructor(typeId:string,owner: any,options?:SuperComponentCreateOptions) {
         super()
         this.typeId=typeId;
         this.owner=owner;
+        this.create_options=options;
     };
     deconstructor(op?: string): void {
         

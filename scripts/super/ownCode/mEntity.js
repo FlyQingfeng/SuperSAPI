@@ -1,7 +1,7 @@
 import * as SuperSAPI from "../SuperSAPI";
 export class mEntity extends SuperSAPI.Entity {
-    constructor(entity) {
-        super(entity);
+    constructor(entity, world) {
+        super(entity, world);
         this.enable_tick = false;
     }
     tick(t) {

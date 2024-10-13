@@ -11,10 +11,10 @@ export class CustomComponentManager {
             class: CustomClass
         };
     }
-    static CreateComponentInstance(identifier, owner) {
+    static CreateComponentInstance(identifier, owner, options) {
         const componentMap = CustomComponentManager.Get(identifier);
         if (componentMap) {
-            return new componentMap.class(identifier, owner);
+            return new componentMap.class(identifier, owner, options);
         }
         throw new Error(`Component with identifier '${identifier}' not found.`);
     }

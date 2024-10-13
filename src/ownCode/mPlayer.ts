@@ -2,8 +2,8 @@ import * as SuperSAPI from "../SuperSAPI";
 import * as mc from "@minecraft/server";
 
 export class mPlayer extends SuperSAPI.Player {
-    constructor(player: mc.Player) {
-        super(player)
+    constructor(player: SuperSAPI.MC_Player,world:SuperSAPI.SuperWorld) {
+        super(player,world)
         this.enable_tick=true;
         this.attribute.init("use_num",0);
         SuperSAPI.Debug.log("Player constructor:",this.id)
@@ -23,11 +23,11 @@ export class mPlayer extends SuperSAPI.Player {
     }
     @SuperSAPI.registerAsSubscribable
     onHitEntityAfterEvent(event: mc.EntityHitEntityAfterEvent): void {
-        let hitEntity=SuperSAPI.SuperSystem.getWorld().getEntity(event.hitEntity.id);
-        hitEntity.addCustomComponent("damage");
+        let hitEntity=this.getWorld().getEntity(event.hitEntity.id);
+        hitEntity.addCustomComponent("damage",{
+            Target: this
+        });
         let damage=hitEntity.getCustomComponent("damage")
-        // damage.detach();
-        // hitEntity.removeCustomComponent("damage")
     }
 }
 

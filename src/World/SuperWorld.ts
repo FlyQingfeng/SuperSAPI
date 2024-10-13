@@ -19,33 +19,32 @@ export class SuperWorld extends Super {
         this.scoreboard = source_instance.scoreboard;
         this.structureManager = source_instance.structureManager;
     };
-    static UpDataPlayers() {
+    UpDataPlayers() {
         SuperWorld.Players = SuperWorld.Entitys.filter((e) => {
             return e instanceof SuperPlayer
         })
-        // Debug.log(SuperWorld.Players.length);
     }
-    static ReloadEntitys() {//重新获取实体
+    ReloadEntitys() {//重新获取实体
         SuperWorld.Entitys = [];
         world.getDimension("overworld").getEntities().forEach((e) => {
-            SuperWorld.CreateEntityInstance(e);
+            this.CreateEntityInstance(e);
         });
         world.getDimension("nether").getEntities().forEach((e) => {
-            SuperWorld.CreateEntityInstance(e);
+            this.CreateEntityInstance(e);
         });
         world.getDimension("the_end").getEntities().forEach((e) => {
-            SuperWorld.CreateEntityInstance(e);
+            this.CreateEntityInstance(e);
         });
         this.UpDataPlayers();
     }
-    static AddToEntitys(sp_entity: SuperEntity) {
+    AddToEntitys(sp_entity: SuperEntity) {
         let found = SuperWorld.Entitys.find(e => e.id == sp_entity.id)
         if (!found) {
             SuperWorld.Entitys.push(sp_entity)
         }
         this.UpDataPlayers()
     }
-    static RemoveEntitysForID(id: string) {
+    RemoveEntitysForID(id: string) {
         let sp_entity = SuperWorld.Entitys.find((e) => {
             return e.id == id
         })
@@ -57,7 +56,7 @@ export class SuperWorld extends Super {
             this.UpDataPlayers()
         }
     }
-    static RemoveFromEntitys(entity: Entity | SuperEntity) {
+    RemoveFromEntitys(entity: Entity | SuperEntity) {
         let sp_entity = SuperWorld.Entitys.find((e) => {
             return e.id == entity.id
         })
@@ -69,32 +68,16 @@ export class SuperWorld extends Super {
             this.UpDataPlayers()
         }
     }
-    static CreateEntityInstance<T extends SuperEntity>(entity: Entity): T {
+    CreateEntityInstance<T extends SuperEntity>(entity: Entity): T {
         if (entity instanceof Player) {
-            let player = ClassManager.CreateInstance(NativeClassType.Player, entity);
-            SuperWorld.AddToEntitys(player)
+            let player = ClassManager.CreateInstance(NativeClassType.Player, entity,this);
+            this.AddToEntitys(player)
             return player;
         } else {
-            let e = ClassManager.CreateInstance(NativeClassType.Entity, entity);
-            SuperWorld.AddToEntitys(e)
+            let e = ClassManager.CreateInstance(NativeClassType.Entity, entity,this);
+            this.AddToEntitys(e)
             return e;
         }
-    }
-    toSuperEntitys(entitys: Entity[]): SuperEntity[] {
-        let mentitys = []
-        for (let entity of entitys) {
-            let newentity = new (ClassManager.getClass(NativeClassType.Entity))(entity);
-            mentitys.push(newentity)
-        }
-        return mentitys
-    }
-    toSuperPlayers(players: Player[]): SuperPlayer[] {
-        let mplayers = []
-        for (let player of players) {
-            let newplayer = new (ClassManager.getClass(NativeClassType.Player))(player);
-            mplayers.push(newplayer)
-        }
-        return mplayers
     }
     getAllEntitys() {
         return SuperWorld.Entitys
@@ -184,7 +167,7 @@ export class SuperWorld extends Super {
      * @throws This function can throw errors.
      */
     getAllPlayers(): SuperPlayer[] {
-        SuperWorld.UpDataPlayers();
+        this.UpDataPlayers();
         return SuperWorld.Players
     };
     /**

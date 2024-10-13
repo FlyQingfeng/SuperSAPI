@@ -1,4 +1,4 @@
-import { SuperComponent } from "../Component/SuperComponent";
+import { SuperComponent, SuperComponentCreateOptions } from "../Component/SuperComponent";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { SuperPlayer } from "../Player/SuperPlayer";
 import { SuperItemStack } from "../Item/SuperItemStack";
@@ -21,10 +21,10 @@ export class CustomComponentManager {
         };
     }
 
-    static CreateComponentInstance<C extends SuperComponent,O extends SuperEntity|SuperPlayer|SuperItemStack>(identifier: string, owner: O): C {
+    static CreateComponentInstance<C extends SuperComponent,O extends SuperEntity|SuperPlayer|SuperItemStack>(identifier: string, owner: O,options?:SuperComponentCreateOptions): C {
         const componentMap = CustomComponentManager.Get(identifier);
         if (componentMap) {
-            return new componentMap.class(identifier, owner) as C;
+            return new componentMap.class(identifier, owner,options) as C;
         }
         throw new Error(`Component with identifier '${identifier}' not found.`);
     }

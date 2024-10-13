@@ -1,7 +1,7 @@
 import { SuperComponent } from "../Component/SuperComponent";
 export class EntitySuperComponent extends SuperComponent {
-    constructor(typeId, owner) {
-        super(typeId, owner);
+    constructor(typeId, owner, options) {
+        super(typeId, owner, options);
         this.owner = owner;
         let entity = this.getOwner();
         if (entity.isValid()) {

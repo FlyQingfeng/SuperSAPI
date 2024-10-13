@@ -38,7 +38,19 @@ export class Timer {
             this.intervalId = undefined;
         }
     }
-
+    //持久定时器,在持续时间内持续触发
+    public lasting(interval:number,loop_event:()=>void,duration:number,out_event:()=>void):void{
+        if (interval>duration) {
+            throw new Error("Interval cannot be greater than duration.");
+        }
+        this.setInterval(()=>{
+            loop_event();
+        },interval)
+        this.setTimeout(()=>{
+            out_event();
+            this.clearAll();
+        },duration);
+    }
     // 清除所有定时器
     public clearAll(): void {
         this.clearTimeout();

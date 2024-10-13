@@ -4,11 +4,12 @@ import { registerAsSubscribable, Super } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { enumKeyToString } from "../Public/stdlib";
 import { PlayerSuperComponent } from "../Component/SuperPlayerComponent";
+import { SuperWorld } from "../World/SuperWorld";
 
 export class SuperPlayer extends SuperEntity {
     source_instance: Player;
-    constructor(source_instance: Player) {
-        super(source_instance)
+    constructor(source_instance: Player,world:SuperWorld) {
+        super(source_instance,world)
         this.source_instance = source_instance;
         this.camera = source_instance.camera;
         this.inputPermissions = source_instance.inputPermissions;
@@ -43,7 +44,7 @@ export class SuperPlayer extends SuperEntity {
             }
         }
     }
-    addCustomComponent(identifier: string):boolean {
+    addCustomComponent(identifier: string,options?):boolean {
         let type=CustomComponentManager.GetType(identifier);
         if (type!=ComponentType.PlayerComponentType) {
             throw new Error(`Attempting to add ${enumKeyToString(ComponentType,ComponentType.PlayerComponentType)} components to player components`);

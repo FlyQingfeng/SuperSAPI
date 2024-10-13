@@ -1,11 +1,11 @@
 import { SuperEntity } from "../Entity/SuperEntity";
-import { SuperComponent } from "../Component/SuperComponent";
+import { SuperComponent, SuperComponentCreateOptions } from "../Component/SuperComponent";
 import { EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntitySpawnAfterEvent, EntityRemoveBeforeEvent } from "@minecraft/server";
 
 
 export class EntitySuperComponent extends SuperComponent {
-    constructor(typeId: string, owner: SuperEntity) {
-        super(typeId, owner)
+    constructor(typeId: string, owner: SuperEntity,options?:SuperComponentCreateOptions) {
+        super(typeId, owner,options)
         this.owner=owner;
         let entity = this.getOwner();
         if (entity.isValid()) {
