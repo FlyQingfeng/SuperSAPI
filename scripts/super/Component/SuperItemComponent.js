@@ -7,4 +7,18 @@ export class ItemSuperComponent extends SuperComponent {
     getOwner() {
         return this.owner;
     }
+    onStart() {
+    }
+    onUse(player) {
+    }
+    onUseOn(player, block, blockFace, faceLocation, isFirstEvent) {
+    }
+    onStartUse(player, useDuration) {
+    }
+    onStopUse(player, block) {
+    }
+    onItemRelease(player, useDuration) {
+    }
+    onItemComplete(player) {
+    }
 }

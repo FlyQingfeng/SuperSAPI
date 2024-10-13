@@ -4,6 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { EntityComponentTypes } from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
@@ -26,6 +27,26 @@ export class SuperPlayer extends SuperEntity {
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
     }
     ;
+    getInventory() {
+        return this.getComponent(EntityComponentTypes.Inventory);
+    }
+    getInventoryContainer() {
+        return this.getInventory().container;
+    }
+    getEquipment() {
+        return this.getComponent(EntityComponentTypes.Equippable);
+    }
+    getHandItem() {
+        let item = this.getInventoryContainer().getItem(this.selectedSlotIndex);
+        return item;
+    }
+    setHandItem(item) {
+        this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+    }
+    giveItem(item) {
+        let container = this.getComponent(EntityComponentTypes.Inventory).container;
+        container.addItem(item.getItem());
+    }
     readCustomComponent() {
         super.readCustomComponent();
         let data = this.getDynamicProperty("CustomComponent");

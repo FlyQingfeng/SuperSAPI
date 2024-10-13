@@ -24,7 +24,7 @@ export class CustomComponentManager {
     static CreateComponentInstance<C extends SuperComponent,O extends SuperEntity|SuperPlayer|SuperItemStack>(identifier: string, owner: O,options?:SuperComponentCreateOptions): C {
         const componentMap = CustomComponentManager.Get(identifier);
         if (componentMap) {
-            return new componentMap.class(identifier, owner,options) as C;
+            return new componentMap.class(identifier, owner, options) as C;
         }
         throw new Error(`Component with identifier '${identifier}' not found.`);
     }

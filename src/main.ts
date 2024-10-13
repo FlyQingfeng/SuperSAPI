@@ -1,9 +1,11 @@
-import { StructureSaveMode, system, world } from "@minecraft/server";
+import { ItemStack, system, world } from "@minecraft/server";
 import { mEntity } from "./ownCode/mEntity";
 import { mPlayer } from "./ownCode/mPlayer";
 import { mPlayerComponent } from "./ownCode/mPlayerComponent";
 import * as SuperSAPI from "./SuperSAPI";
 import { mEntityComponent } from "./ownCode/mEntityComponent";
+import { mItemsatckComponent } from "./ownCode/mItemStackComponent";
+import { ItemStackManager } from "./Item/SuperItemManager";
 
 
 
@@ -11,12 +13,14 @@ SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity)
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer)
 SuperSAPI.CustomComponentManager.registrationCustomComponent("id", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType)
 SuperSAPI.CustomComponentManager.registrationCustomComponent("damage", mEntityComponent, SuperSAPI.CustomComponentType.EntityComponentType)
+SuperSAPI.CustomComponentManager.registrationCustomComponent("item", mItemsatckComponent, SuperSAPI.CustomComponentType.ItemComponentType)
 
 SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
-    let ets=world.getDimension("overworld").getEntities()
-    for (const e of ets) {
-        console.log("cc:",e.getDynamicProperty("CustomComponent"));
-    }
+    // let newitem=ItemStackManager.CreateItemFromTypeID("minecraft:diamond_sword")
+    let newitem=ItemStackManager.CreateItemFromTypeID("minecraft:trident")
+    newitem.addCustomComponent("item",{Target:player});
+    player.getInventory()
+    player.giveItem(newitem);
 })
 system.runInterval(()=>{
     SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e)=>{

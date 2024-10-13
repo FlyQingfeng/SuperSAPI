@@ -1,15 +1,9 @@
-import { ItemStack } from "@minecraft/server";
+import * as mc from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { Super } from "../Super/Super";
+import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 export class SuperItemStack extends Super {
-    /**
-     * @remarks
-     * Creates a new instance of a stack of items for use in the
-     * world.
-     *
-     * @param source_instance
-     * 传入一个ItemStack对象
-     */
     constructor(source_instance) {
         super();
         this.source_instance = source_instance;
@@ -22,9 +16,122 @@ export class SuperItemStack extends Super {
         this.type = source_instance.type;
         this.typeId = source_instance.typeId;
         this.attribute = new Attribute(source_instance);
-        return this.source_instance.constructor(source_instance.type, source_instance.amount);
+        this.custom_component = {};
+        this.readCustomComponent();
     }
-    ;
+    onUse(player) {
+        this.getCustomComponents().forEach((c) => {
+            c.onUse(player);
+        });
+    }
+    onUseOn(player, block, blockFace, faceLocation, isFirstEvent) {
+        this.getCustomComponents().forEach((c) => {
+            c.onUseOn(player, block, blockFace, faceLocation, isFirstEvent);
+        });
+    }
+    onStartUse(player, useDuration) {
+        this.getCustomComponents().forEach((c) => {
+            c.onStartUse(player, useDuration);
+        });
+    }
+    onStopUse(player, block) {
+        this.getCustomComponents().forEach((c) => {
+            c.onStopUse(player, block);
+        });
+    }
+    onItemRelease(player, useDuration) {
+        this.getCustomComponents().forEach((c) => {
+            c.onItemRelease(player, useDuration);
+        });
+    }
+    onItemComplete(player) {
+        this.getCustomComponents().forEach((c) => {
+            c.onItemComplete(player);
+        });
+    }
+    getItem() {
+        return this.source_instance;
+    }
+    readCustomComponent() {
+        if (this.isStackable) {
+            return;
+        }
+        let data = this.getDynamicProperty("CustomComponent");
+        if (data) {
+            let json = fromJSON(data);
+            for (let [id, cm_data] of Object.entries(json)) { //读取每个组件
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.ItemComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance(id, this);
+                    for (let [key, value] of Object.entries(cm_data)) {
+                        if (typeof value != "function" && typeof value != "object") { //不复制函数，不拷贝对象
+                            com[key] = value;
+                        }
+                    }
+                    if (!this.custom_component.hasOwnProperty(id)) {
+                        com.onStart();
+                        this.custom_component[id] = com;
+                    }
+                }
+            }
+        }
+    }
+    saveCustomComponent() {
+        if (this.isStackable) {
+            return;
+        }
+        let data = toJSON(this.custom_component);
+        this.setDynamicProperty("CustomComponent", data);
+    }
+    addCustomComponent(identifier, options) {
+        if (this.isStackable) {
+            throw new Error("You cannot add custom components to stackable items");
+        }
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.ItemComponentType) {
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to item components`);
+        }
+        let com = CustomComponentManager.CreateComponentInstance(identifier, this, options);
+        if (this.custom_component.hasOwnProperty(identifier) || this.custom_component[identifier]) {
+            return false;
+        }
+        com.onStart();
+        this.custom_component[identifier] = com;
+        this.saveCustomComponent();
+        return true;
+    }
+    removeCustomComponent(identifier) {
+        if (this.isStackable) {
+            return;
+        }
+        let com = this.custom_component[identifier];
+        if (com) {
+            com.deconstructor();
+        }
+        delete this.custom_component[identifier];
+        this.saveCustomComponent();
+    }
+    getCustomComponent(identifier) {
+        if (this.isStackable) {
+            return undefined;
+        }
+        if (this.custom_component.hasOwnProperty(identifier)) {
+            return this.custom_component[identifier];
+        }
+        return undefined;
+    }
+    getCustomComponents() {
+        if (this.isStackable) {
+            return [];
+        }
+        let coms = [];
+        for (const key in this.custom_component) {
+            if (this.custom_component.hasOwnProperty(key)) {
+                coms.push(this.custom_component[key]);
+            }
+        }
+        return coms;
+    }
     /**
      * @remarks
      * Clears all dynamic properties that have been set on this
@@ -32,6 +139,9 @@ export class SuperItemStack extends Super {
      *
      */
     clearDynamicProperties() {
+        if (!this.source_instance) {
+            return;
+        }
         return this.source_instance.clearDynamicProperties();
     }
     ;
@@ -131,6 +241,9 @@ export class SuperItemStack extends Super {
      * property has not been set.
      */
     getDynamicProperty(identifier) {
+        if (!this.source_instance) {
+            return undefined;
+        }
         return this.source_instance.getDynamicProperty(identifier);
     }
     ;
@@ -143,6 +256,9 @@ export class SuperItemStack extends Super {
      * A string array of the dynamic properties set on this entity.
      */
     getDynamicPropertyIds() {
+        if (!this.source_instance) {
+            return [];
+        }
         return this.source_instance.getDynamicPropertyIds();
     }
     ;
@@ -157,6 +273,9 @@ export class SuperItemStack extends Super {
      *
      */
     getDynamicPropertyTotalByteCount() {
+        if (!this.source_instance) {
+            return 0;
+        }
         return this.source_instance.getDynamicPropertyTotalByteCount();
     }
     ;
@@ -333,6 +452,9 @@ export class SuperItemStack extends Super {
      * Throws if the item stack is stackable.
      */
     setDynamicProperty(identifier, value) {
+        if (!this.source_instance) {
+            return;
+        }
         return this.source_instance.setDynamicProperty(identifier, value);
     }
     ;
@@ -385,7 +507,7 @@ export class SuperItemStack extends Super {
      * @throws This function can throw errors.
      */
     static createPotion(options) {
-        return ItemStack.createPotion(options);
+        return mc.ItemStack.createPotion(options);
     }
     ;
 }

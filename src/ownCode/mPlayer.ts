@@ -16,10 +16,7 @@ export class mPlayer extends SuperSAPI.Player {
     }
     @SuperSAPI.registerAsSubscribable
     onItemUseAfterEvent(event: mc.ItemUseAfterEvent): void {
-        let use_num=this.attribute.get("use_num");
-        use_num++;
-        this.attribute.set("use_num",use_num);
-        this.sendMessage(`${use_num}`)
+        
     }
     @SuperSAPI.registerAsSubscribable
     onHitEntityAfterEvent(event: mc.EntityHitEntityAfterEvent): void {

@@ -1,20 +1,17 @@
-import { ItemStack, ItemLockMode, ItemType, ItemComponentTypeMap, ItemComponent, Vector3, PotionOptions } from "@minecraft/server";
+import * as mc from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { Super } from "../Super/Super";
+import { ItemSuperComponent } from "../Component/SuperItemComponent";
+import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
+import { SuperComponentCreateOptions } from "../Component/SuperComponent";
+import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
+import { SuperPlayer } from "../Player/SuperPlayer";
 
 export class SuperItemStack extends Super{
-
-    source_instance: ItemStack;
+    source_instance: mc.ItemStack;
     attribute:Attribute;
-    /**
-     * @remarks
-     * Creates a new instance of a stack of items for use in the
-     * world.
-     *
-     * @param source_instance
-     * 传入一个ItemStack对象
-     */
-    constructor(source_instance:ItemStack) {
+    custom_component:{ [id: string]: ItemSuperComponent };
+    constructor(source_instance:mc.ItemStack){
         super()
         this.source_instance = source_instance;
         this.amount = source_instance.amount;
@@ -26,8 +23,124 @@ export class SuperItemStack extends Super{
         this.type = source_instance.type;
         this.typeId = source_instance.typeId;
         this.attribute=new Attribute(source_instance);
-        return this.source_instance.constructor(source_instance.type, source_instance.amount);
-    };
+        this.custom_component={};
+        this.readCustomComponent();
+    }
+    onUse(player:SuperPlayer){
+        this.getCustomComponents().forEach((c)=>{
+            c.onUse(player);
+        })
+    }
+    onUseOn(player: SuperPlayer, block: mc.Block, blockFace: mc.Direction, faceLocation: mc.Vector3, isFirstEvent: boolean){
+        this.getCustomComponents().forEach((c)=>{
+            c.onUseOn(player,block,blockFace,faceLocation,isFirstEvent);
+        })
+    }
+    onStartUse(player: SuperPlayer, useDuration: number){
+        this.getCustomComponents().forEach((c)=>{
+            c.onStartUse(player,useDuration);
+        })
+    }
+    onStopUse(player: SuperPlayer, block: mc.Block){
+        this.getCustomComponents().forEach((c)=>{
+            c.onStopUse(player,block);
+        })
+    }
+    onItemRelease(player: SuperPlayer, useDuration: number) {
+        this.getCustomComponents().forEach((c)=>{
+            c.onItemRelease(player,useDuration);
+        })
+    }
+    onItemComplete(player:SuperPlayer) {
+        this.getCustomComponents().forEach((c)=>{
+            c.onItemComplete(player);
+        })
+    }
+
+    getItem():mc.ItemStack{
+        return this.source_instance as mc.ItemStack
+    }
+    readCustomComponent() {
+        if (this.isStackable) {
+            return
+        }
+        let data = this.getDynamicProperty("CustomComponent") as string;
+        if (data) {
+            let json = fromJSON(data);
+            for (let [id, cm_data] of Object.entries(json)) {//读取每个组件
+                let type = CustomComponentManager.GetType(id);
+                if (type == ComponentType.ItemComponentType) {
+                    let com = CustomComponentManager.CreateComponentInstance<ItemSuperComponent,SuperItemStack>(id, this);
+                    for (let [key, value] of Object.entries(cm_data)) {
+                        if (typeof value!= "function" && typeof value!="object") {//不复制函数，不拷贝对象
+                            com[key] = value;
+                        }
+                    }
+                    if (!this.custom_component.hasOwnProperty(id)) {
+                        com.onStart();
+                        this.custom_component[id] = com;
+                    }
+                }
+            }
+        }
+    }
+    saveCustomComponent() {//保存自定义组件
+        if (this.isStackable) {
+            return
+        }
+        let data = toJSON(this.custom_component);
+        this.setDynamicProperty("CustomComponent", data);
+    }
+    addCustomComponent(identifier: string,options?:SuperComponentCreateOptions): boolean {
+        if (this.isStackable) {
+            throw new Error("You cannot add custom components to stackable items");
+        }
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.ItemComponentType) {
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to item components`);
+        }
+        let com = CustomComponentManager.CreateComponentInstance<ItemSuperComponent,SuperItemStack>(identifier,this,options);
+        if (this.custom_component.hasOwnProperty(identifier)||this.custom_component[identifier]) {
+            return false
+        }
+        com.onStart();
+        this.custom_component[identifier] = com;
+        this.saveCustomComponent();
+        return true
+    }
+    removeCustomComponent(identifier: string) {
+        if (this.isStackable) {
+            return
+        }
+        let com=this.custom_component[identifier];
+        if (com) {
+            com.deconstructor();
+        }
+        delete this.custom_component[identifier]
+        this.saveCustomComponent();
+    }
+    getCustomComponent<C extends ItemSuperComponent>(identifier: string): C | undefined {
+        if (this.isStackable) {
+            return undefined
+        }
+        if (this.custom_component.hasOwnProperty(identifier)) {
+            return this.custom_component[identifier] as C
+        }
+        return undefined
+    }
+    getCustomComponents(): ItemSuperComponent[] {
+        if (this.isStackable) {
+            return []
+        }
+        let coms: ItemSuperComponent[] = [];
+        for (const key in this.custom_component) {
+            if (this.custom_component.hasOwnProperty(key)) {
+                coms.push(this.custom_component[key])
+            }
+        }
+        return coms
+    }
+
     /**
      * @remarks
      * Number of the items in the stack. Valid values range between
@@ -64,7 +177,7 @@ export class SuperItemStack extends Super{
      * This property can't be edited in read-only mode.
      *
      */
-    lockMode: ItemLockMode;
+    lockMode: mc.ItemLockMode;
     /**
      * @remarks
      * The maximum stack size. This value varies depending on the
@@ -90,7 +203,7 @@ export class SuperItemStack extends Super{
      * The type of the item.
      *
      */
-    readonly type: ItemType;
+    readonly type: mc.ItemType;
     /**
      * @remarks
      * Identifier of the type of items for the stack. If a
@@ -106,6 +219,9 @@ export class SuperItemStack extends Super{
      *
      */
     clearDynamicProperties(): void {
+        if (!this.source_instance) {
+            return
+        }
         return this.source_instance.clearDynamicProperties();
     };
     /**
@@ -116,7 +232,7 @@ export class SuperItemStack extends Super{
      * @returns
      * Returns a copy of this item stack.
      */
-    clone(): ItemStack {
+    clone(): mc.ItemStack {
         return this.source_instance.clone();
     };
     /**
@@ -176,7 +292,7 @@ export class SuperItemStack extends Super{
      * }
      * ```
      */
-    getComponent<T extends keyof ItemComponentTypeMap>(componentId: T): ItemComponentTypeMap[T] | undefined {
+    getComponent<T extends keyof mc.ItemComponentTypeMap>(componentId: T): mc.ItemComponentTypeMap[T] | undefined {
         return this.source_instance.getComponent(componentId);
     };
     /**
@@ -185,7 +301,7 @@ export class SuperItemStack extends Super{
      * stack and supported by the API.
      *
      */
-    getComponents(): ItemComponent[] {
+    getComponents(): mc.ItemComponent[] {
         return this.source_instance.getComponents();
     };
     /**
@@ -198,7 +314,10 @@ export class SuperItemStack extends Super{
      * Returns the value for the property, or undefined if the
      * property has not been set.
      */
-    getDynamicProperty(identifier: string): boolean | number | string | Vector3 | undefined {
+    getDynamicProperty(identifier: string): boolean | number | string | mc.Vector3 | undefined {
+        if (!this.source_instance) {
+            return undefined
+        }
         return this.source_instance.getDynamicProperty(identifier);
     };
     /**
@@ -210,6 +329,9 @@ export class SuperItemStack extends Super{
      * A string array of the dynamic properties set on this entity.
      */
     getDynamicPropertyIds(): string[] {
+        if (!this.source_instance) {
+            return []
+        }
         return this.source_instance.getDynamicPropertyIds();
     };
     /**
@@ -223,6 +345,9 @@ export class SuperItemStack extends Super{
      *
      */
     getDynamicPropertyTotalByteCount(): number {
+        if (!this.source_instance) {
+            return 0
+        }
         return this.source_instance.getDynamicPropertyTotalByteCount();
     };
     /**
@@ -286,7 +411,7 @@ export class SuperItemStack extends Super{
      * True if the Item Stack is stackable with the itemStack
      * passed in.
      */
-    isStackableWith(itemStack: ItemStack): boolean {
+    isStackableWith(itemStack: mc.ItemStack): boolean {
         return this.source_instance.isStackableWith(itemStack);
     };
     /**
@@ -389,7 +514,10 @@ export class SuperItemStack extends Super{
      * @throws
      * Throws if the item stack is stackable.
      */
-    setDynamicProperty(identifier: string, value?: boolean | number | string | Vector3): void {
+    setDynamicProperty(identifier: string, value?: boolean | number | string | mc.Vector3): void {
+        if (!this.source_instance) {
+            return
+        }
         return this.source_instance.setDynamicProperty(identifier, value);
     };
     /**
@@ -439,7 +567,7 @@ export class SuperItemStack extends Super{
      *
      * @throws This function can throw errors.
      */
-    static createPotion(options: PotionOptions): ItemStack {
-        return ItemStack.createPotion(options);
+    static createPotion(options: mc.PotionOptions): mc.ItemStack {
+        return mc.ItemStack.createPotion(options);
     };
 }

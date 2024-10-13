@@ -9,6 +9,7 @@ import * as ccm from "./Component/CustomComponentManager";
 import * as sec from "./Component/SuperEntityComponent";
 import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
+import * as si from "./Item/SuperItemStack";
 import * as std from "./Public/stdlib";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
@@ -41,10 +42,12 @@ export type MC_ItemStack=mc.ItemStack
 export const World = sw.SuperWorld
 export const Player = sp.SuperPlayer
 export const Entity = se.SuperEntity
+export const ItemStack = si.SuperItemStack
 //super类类型
 export type SuperWorld = sw.SuperWorld
 export type SuperPlayer = sp.SuperPlayer
 export type SuperEntity = se.SuperEntity
+export type SuperItemStack = si.SuperItemStack
 
 //组件类
 export const PlayerComponent=spc.PlayerSuperComponent

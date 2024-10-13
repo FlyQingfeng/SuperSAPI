@@ -8,6 +8,7 @@ import * as ccm from "./Component/CustomComponentManager";
 import * as sec from "./Component/SuperEntityComponent";
 import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
+import * as si from "./Item/SuperItemStack";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
 import * as db from "./Public/debug";
@@ -29,6 +30,7 @@ export const Std = await import("./Public/stdlib");
 export const World = sw.SuperWorld;
 export const Player = sp.SuperPlayer;
 export const Entity = se.SuperEntity;
+export const ItemStack = si.SuperItemStack;
 //组件类
 export const PlayerComponent = spc.PlayerSuperComponent;
 export const EntityComponent = sec.EntitySuperComponent;

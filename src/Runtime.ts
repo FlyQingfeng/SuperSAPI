@@ -5,6 +5,7 @@ import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { Debug } from "./Public/debug";
+import { ItemStackManager } from "./Item/SuperItemManager";
 
 
 export enum NativeClassType {//可被替换的类和原型
@@ -138,6 +139,13 @@ export class SuperSystem {
                     }
                 }
             }
+            for (const item of Object.values(ItemStackManager.getItems())) {
+                for (const item_com of item.getCustomComponents()) {
+                    if (item_com.enable_tick) {
+                        item_com.tick(t);
+                    }
+                }
+            }
         }
     }
     //实体
@@ -217,6 +225,11 @@ export class SuperSystem {
             return
         }
         player.onItemStopUseOnAfterEvent(event)
+        
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        let {block}=event;
+        item.onStopUse(player,block);
     }
     private PlayerItemStartUseAfterEvent(event: ItemStartUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -224,6 +237,11 @@ export class SuperSystem {
             return
         }
         player.onItemStartUseAfterEvent(event)
+        
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        let {useDuration}=event;
+        item.onStartUse(player,useDuration);
     }
     private PlayerItemReleaseUseAfterEvent(event: ItemReleaseUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -231,6 +249,11 @@ export class SuperSystem {
             return
         }
         player.onItemReleaseAfterEvent(event)
+        
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        let {useDuration}=event;
+        item.onItemRelease(player,useDuration);
     }
     private PlayerItemCompleteAfterEvent(event: ItemCompleteUseEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -238,6 +261,10 @@ export class SuperSystem {
             return
         }
         player.onItemCompleteAfterEvent(event)
+        
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        item.onItemComplete(player);
     }
     private PlayerItemUseOnAfterEvent(event: ItemUseOnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -245,6 +272,11 @@ export class SuperSystem {
             return
         }
         player.onItemUseOnAfterEvent(event)
+        
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        let {block,blockFace,faceLocation,isFirstEvent}=event;
+        item.onUseOn(player,block,blockFace,faceLocation,isFirstEvent);
     }
     private PlayerItemUseAfterEvent(event: ItemUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -252,6 +284,9 @@ export class SuperSystem {
             return
         }
         player.onItemUseAfterEvent(event)
+        let item=ItemStackManager.CreateItem(player.getHandItem());
+        player.setHandItem(item);
+        item.onUse(player);
     }
     private PlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]

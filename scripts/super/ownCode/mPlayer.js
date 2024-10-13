@@ -18,10 +18,6 @@ export class mPlayer extends SuperSAPI.Player {
     tick(t) {
     }
     onItemUseAfterEvent(event) {
-        let use_num = this.attribute.get("use_num");
-        use_num++;
-        this.attribute.set("use_num", use_num);
-        this.sendMessage(`${use_num}`);
     }
     onHitEntityAfterEvent(event) {
         let hitEntity = this.getWorld().getEntity(event.hitEntity.id);

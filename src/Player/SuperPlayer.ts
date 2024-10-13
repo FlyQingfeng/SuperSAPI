@@ -1,10 +1,11 @@
-import { Player, Camera, PlayerInputPermissions, ScreenDisplay, ItemStack, GameMode, DimensionLocation, MusicOptions, PlayerSoundOptions, RawMessage, Vector3, MolangVariableMap, WorldBeforeEvents, WorldAfterEvents, PlayerBreakBlockBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerSpawnAfterEvent } from "@minecraft/server";
+import { Player, Camera, PlayerInputPermissions, ScreenDisplay, ItemStack, GameMode, DimensionLocation, MusicOptions, PlayerSoundOptions, RawMessage, Vector3, MolangVariableMap, WorldBeforeEvents, WorldAfterEvents, PlayerBreakBlockBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerSpawnAfterEvent, EntityComponentTypes, Container, EntityInventoryComponent, EquipmentSlot, EntityEquippableComponent } from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { enumKeyToString } from "../Public/stdlib";
 import { PlayerSuperComponent } from "../Component/SuperPlayerComponent";
 import { SuperWorld } from "../World/SuperWorld";
+import { SuperItemStack } from "Item/SuperItemStack";
 
 export class SuperPlayer extends SuperEntity {
     source_instance: Player;
@@ -24,6 +25,26 @@ export class SuperPlayer extends SuperEntity {
         this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
         this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
     };
+    getInventory():EntityInventoryComponent{
+        return this.getComponent(EntityComponentTypes.Inventory)
+    }
+    getInventoryContainer():Container{
+        return this.getInventory().container
+    }
+    getEquipment():EntityEquippableComponent{
+        return this.getComponent(EntityComponentTypes.Equippable)
+    }
+    getHandItem():ItemStack|undefined{
+        let item=this.getInventoryContainer().getItem(this.selectedSlotIndex)
+        return item
+    }
+    setHandItem(item:SuperItemStack){
+        this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+    }
+    giveItem(item:SuperItemStack){
+        let container=this.getComponent(EntityComponentTypes.Inventory).container
+        container.addItem(item.getItem())
+    }
     readCustomComponent() {
         super.readCustomComponent();
         let data = this.getDynamicProperty("CustomComponent") as string;
