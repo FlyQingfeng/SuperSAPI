@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { EntityComponentTypes } from "@minecraft/server";
+import * as mc from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
@@ -13,38 +13,74 @@ export class SuperPlayer extends SuperEntity {
     constructor(source_instance, world) {
         super(source_instance, world);
         this.source_instance = source_instance;
-        this.camera = source_instance.camera;
-        this.inputPermissions = source_instance.inputPermissions;
-        this.isEmoting = source_instance.isEmoting;
-        this.isFlying = source_instance.isFlying;
-        this.isGliding = source_instance.isGliding;
-        this.isJumping = source_instance.isJumping;
-        this.level = source_instance.level;
-        this.name = source_instance.name;
-        this.onScreenDisplay = source_instance.onScreenDisplay;
-        this.selectedSlotIndex = source_instance.selectedSlotIndex;
-        this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
-        this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
     }
     ;
+    get camera() {
+        return this.source_instance.camera;
+    }
+    get inputPermissions() {
+        return this.source_instance.inputPermissions;
+    }
+    get isEmoting() {
+        return this.source_instance.isEmoting;
+    }
+    get isFlying() {
+        return this.source_instance.isFlying;
+    }
+    get isGliding() {
+        return this.source_instance.isGliding;
+    }
+    get isJumping() {
+        return this.source_instance.isJumping;
+    }
+    get level() {
+        return this.source_instance.level;
+    }
+    get name() {
+        return this.source_instance.name;
+    }
+    get onScreenDisplay() {
+        return this.source_instance.onScreenDisplay;
+    }
+    get totalXpNeededForNextLevel() {
+        return this.source_instance.totalXpNeededForNextLevel;
+    }
+    get xpEarnedAtCurrentLevel() {
+        return this.source_instance.xpEarnedAtCurrentLevel;
+    }
+    get selectedSlotIndex() {
+        return this.source_instance.selectedSlotIndex;
+    }
     getInventory() {
-        return this.getComponent(EntityComponentTypes.Inventory);
+        return this.getComponent(mc.EntityComponentTypes.Inventory);
     }
     getInventoryContainer() {
         return this.getInventory().container;
     }
     getEquipment() {
-        return this.getComponent(EntityComponentTypes.Equippable);
+        return this.getComponent(mc.EntityComponentTypes.Equippable);
     }
     getHandItem() {
         let item = this.getInventoryContainer().getItem(this.selectedSlotIndex);
         return item;
     }
     setHandItem(item) {
-        this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+        let handitem = this.getHandItem();
+        let found = handitem.getDynamicPropertyIds().find(id => {
+            return id = "uuid";
+        });
+        if (found) {
+            let uuid = handitem.getDynamicProperty("uuid");
+            if (uuid !== item.uuid) {
+                this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+            }
+        }
+        else {
+            this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+        }
     }
     giveItem(item) {
-        let container = this.getComponent(EntityComponentTypes.Inventory).container;
+        let container = this.getComponent(mc.EntityComponentTypes.Inventory).container;
         container.addItem(item.getItem());
     }
     readCustomComponent() {
@@ -133,20 +169,6 @@ export class SuperPlayer extends SuperEntity {
     }
     onBreakBlockBeforeEvent(event) {
     }
-    /**
-    * @remarks
-    * Adds/removes experience to/from the Player and returns the
-    * current experience of the Player.
-    *
-    * This function can't be called in read-only mode.
-    *
-    * @param amount
-    * Amount of experience to add. Note that this can be negative.
-    * Min/max bounds at -2^24 ~ 2^24
-    * @returns
-    * Returns the current experience of the Player.
-    * @throws This function can throw errors.
-    */
     addExperience(amount) {
         return this.source_instance.addExperience(amount);
     }

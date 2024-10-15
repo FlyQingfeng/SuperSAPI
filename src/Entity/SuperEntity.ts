@@ -1,4 +1,4 @@
-import { Entity, Dimension, ScoreboardIdentity, EffectType, EntityEffectOptions, Effect, EntityApplyDamageByProjectileOptions, EntityApplyDamageOptions, BlockRaycastOptions, BlockRaycastHit, EntityRaycastOptions, EntityRaycastHit, Vector2, EntityQueryOptions, PlayAnimationOptions, CommandResult, TeleportOptions, Vector3, WorldInitializeBeforeEvent, WorldInitializeAfterEvent, EntityDieAfterEvent, EntityHealthChangedAfterEvent, EntityHitBlockAfterEvent, EntityHitEntityAfterEvent, EntityHurtAfterEvent, EntityLoadAfterEvent, EntityRemoveAfterEvent, EntityRemoveBeforeEvent, EntitySpawnAfterEvent, Player, EntityComponentTypeMap, EntityComponent } from "@minecraft/server";
+import * as mc from "@minecraft/server";
 import { Attribute } from "../Public/attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { vec3 } from "../Public/vec3";
@@ -7,45 +7,72 @@ import { registerAsSubscribable, Super } from "../Super/Super";
 import { EntitySuperComponent } from "../Component/SuperEntityComponent";
 import { SuperComponentCreateOptions } from "../Component/SuperComponent";
 import { SuperWorld } from "../World/SuperWorld";
-import { SuperSystem } from "../Runtime";
 
 
 export class SuperEntity extends Super {
-    source_instance: Entity;
+    source_instance: mc.Entity;
     world:SuperWorld;
     attribute: Attribute;
     custom_component: { [id: string]: EntitySuperComponent };
     enable_tick: boolean = false
-    constructor(source_instance: Entity,world:SuperWorld) {
+    constructor(source_instance: mc.Entity,world:SuperWorld) {
         super()
         this.world=world;
         this.source_instance = source_instance;
-        try {//这个属性可能出错
-            this.dimension = source_instance.dimension
-        } catch (error) {
-            this.dimension=this.world.getDimension("overworld")
-        }
-        this.id = source_instance.id;
-        this.isClimbing = source_instance.isClimbing;
-        this.isFalling = source_instance.isFalling;
-        this.isInWater = source_instance.isInWater;
-        this.isOnGround = source_instance.isOnGround;
-        this.isSleeping = source_instance.isSleeping;
-        this.isSneaking = source_instance.isSneaking;
-        this.isSprinting = source_instance.isSprinting;
-        this.isSwimming = source_instance.isSwimming;
-        this.location = source_instance.location;
-        this.nameTag = source_instance.nameTag;
-        this.scoreboardIdentity = source_instance.scoreboardIdentity;
-        this.target = source_instance.target;
-        this.typeId = source_instance.typeId;
-
         this.custom_component = {};
         this.attribute = new Attribute(source_instance);
         
         //加载存储的组件
         this.readCustomComponent();
     };
+    
+    public get dimension() : mc.Dimension {
+        return this.source_instance.dimension
+    }
+    public get id() : string {
+        return this.source_instance.id
+    }
+    public get isClimbing() : boolean {
+        return this.source_instance.isClimbing
+    }
+    public get isFalling() : boolean {
+        return this.source_instance.isFalling
+    }
+    public get isSneaking() : boolean {
+        return this.source_instance.isSneaking
+    }
+    public get isInWater() : boolean {
+        return this.source_instance.isInWater
+    }
+    public get isOnGround() : boolean {
+        return this.source_instance.isOnGround
+    }
+    public get isSleeping() : boolean {
+        return this.source_instance.isSleeping
+    }
+    public get isSprinting() : boolean {
+        return this.source_instance.isSprinting
+    }
+    public get isSwimming() : boolean {
+        return this.source_instance.isSwimming
+    }
+    public get location() : vec3 {
+        return vec3.fromObj(this.source_instance.location)
+    }
+    
+    public get nameTag() : string {
+        return this.source_instance.nameTag
+    }
+    public get scoreboardIdentity() : mc.ScoreboardIdentity {
+        return this.source_instance.scoreboardIdentity
+    }
+    public get target() : mc.Entity {
+        return this.source_instance.target
+    }
+    public get typeId() : string {
+        return this.source_instance.typeId
+    }
+    
     getWorld():SuperWorld{
         return this.world;
     }
@@ -145,224 +172,34 @@ export class SuperEntity extends Super {
     }
     //触发事件
     @registerAsSubscribable
-    onDieAfterEvent(event: EntityDieAfterEvent) {
+    onDieAfterEvent(event: mc.EntityDieAfterEvent) {
     }
     @registerAsSubscribable
-    onHealthChangedAfterEvent(event: EntityHealthChangedAfterEvent) {
+    onHealthChangedAfterEvent(event: mc.EntityHealthChangedAfterEvent) {
     }
     @registerAsSubscribable
-    onHitBlockAfterEvent(event: EntityHitBlockAfterEvent) {
+    onHitBlockAfterEvent(event: mc.EntityHitBlockAfterEvent) {
     }
     @registerAsSubscribable
-    onHitEntityAfterEvent(event: EntityHitEntityAfterEvent) {
+    onHitEntityAfterEvent(event: mc.EntityHitEntityAfterEvent) {
     }
     @registerAsSubscribable
-    onHurtAfterEvent(event: EntityHurtAfterEvent) {
+    onHurtAfterEvent(event: mc.EntityHurtAfterEvent) {
     }
     @registerAsSubscribable
-    onLoadAfterEvent(event: EntityLoadAfterEvent) {
+    onLoadAfterEvent(event: mc.EntityLoadAfterEvent) {
     }
     @registerAsSubscribable
-    onRemoveAfterEvent(event: EntityRemoveAfterEvent) {
+    onRemoveAfterEvent(event: mc.EntityRemoveAfterEvent) {
     }
     @registerAsSubscribable
-    onEntitySpawnAfterEvent(event: EntitySpawnAfterEvent) {
+    onEntitySpawnAfterEvent(event: mc.EntitySpawnAfterEvent) {
     }
     @registerAsSubscribable
-    onRemoveBeforeEvent(event: EntityRemoveBeforeEvent) {
+    onRemoveBeforeEvent(event: mc.EntityRemoveBeforeEvent) {
     }
 
-    /**
-     * @remarks
-     * Dimension that the entity is currently within.
-     *
-     * @throws This property can throw when used.
-     */
-    dimension: Dimension;
-    /**
-     * @remarks
-     * Unique identifier of the entity. This identifier is intended
-     * to be consistent across loads of a world instance. No
-     * meaning should be inferred from the value and structure of
-     * this unique identifier - do not parse or interpret it. This
-     * property is accessible even if {@link Entity.isValid} is
-     * false.
-     *
-     */
-    readonly id: string;
-    /**
-     * @remarks
-     * Whether the entity is touching a climbable block. For
-     * example, a player next to a ladder or a spider next to a
-     * stone wall.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isClimbing: boolean;
-    /**
-     * @remarks
-     * Whether the entity has a fall distance greater than 0, or
-     * greater than 1 while gliding.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isFalling: boolean;
-    /**
-     * @remarks
-     * Whether any part of the entity is inside a water block.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isInWater: boolean;
-    /**
-     * @remarks
-     * Whether the entity is on top of a solid block. This property
-     * may behave in unexpected ways. This property will always be
-     * true when an Entity is first spawned, and if the Entity has
-     * no gravity this property may be incorrect.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isOnGround: boolean;
-    /**
-     * @remarks
-     * If true, the entity is currently sleeping.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isSleeping: boolean;
-    /**
-     * @remarks
-     * Whether the entity is sneaking - that is, moving more slowly
-     * and more quietly.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     */
-    isSneaking: boolean;
-    /**
-     * @remarks
-     * Whether the entity is sprinting. For example, a player using
-     * the sprint action, an ocelot running away or a pig boosting
-     * with Carrot on a Stick.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isSprinting: boolean;
-    /**
-     * @remarks
-     * Whether the entity is in the swimming state. For example, a
-     * player using the swim action or a fish in water.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly isSwimming: boolean;
-    /**
-     * @remarks
-     * Current location of the entity.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly location: Vector3;
-    /**
-     * @remarks
-     * Given name of the entity.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     */
-    nameTag: string;
-    /**
-     * @remarks
-     * Returns a scoreboard identity that represents this entity.
-     * Will remain valid when the entity is killed.
-     *
-     */
-    readonly scoreboardIdentity?: ScoreboardIdentity;
-    /**
-     * @beta
-     * @remarks
-     * Retrieves or sets an entity that is used as the target of
-     * AI-related behaviors, like attacking. If the entity
-     * currently has no target returns undefined.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly target?: Entity;
-    /**
-     * @remarks
-     * Identifier of the type of the entity - for example,
-     * 'minecraft:skeleton'. This property is accessible even if
-     * {@link Entity.isValid} is false.
-     *
-     */
-    readonly typeId: string;
-    /**
-     * @remarks
-     * Adds or updates an effect, like poison, to the entity.
-     *
-     * This function can't be called in read-only mode.
-     *
-     * @param effectType
-     * Type of effect to add to the entity.
-     * @param duration
-     * Amount of time, in ticks, for the effect to apply. There are
-     * 20 ticks per second. Use {@link TicksPerSecond} constant to
-     * convert between ticks and seconds. The value must be within
-     * the range [0, 20000000].
-     * @param options
-     * Additional options for the effect.
-     * @returns
-     * Returns nothing if the effect was added or updated
-     * successfully. This can throw an error if the duration or
-     * amplifier are outside of the valid ranges, or if the effect
-     * does not exist.
-     * @throws This function can throw errors.
-     * @example poisonVillager.ts
-     * ```typescript
-     * // Spawns a villager and gives it the poison effect
-     * import {
-     *     DimensionLocation,
-     * } from '@minecraft/server';
-     * import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
-     *
-     * function spawnPoisonedVillager(location: DimensionLocation) {
-     *     const villagerType = 'minecraft:villager_v2<minecraft:ageable_grow_up>';
-     *     const villager = location.dimension.spawnEntity(villagerType, location);
-     *     const duration = 20;
-     *
-     *     villager.addEffect(MinecraftEffectTypes.Poison, duration, { amplifier: 1 });
-     * }
-     *
-     * ```
-     * @example quickFoxLazyDog.ts
-     * ```typescript
-     * // Spawns a fox over a dog
-     * import { DimensionLocation } from '@minecraft/server';
-     * import { MinecraftEntityTypes } from '@minecraft/vanilla-data';
-     *
-     * function spawnAdultHorse(location: DimensionLocation) {
-     *     // Create fox (our quick brown fox)
-     *     const fox = location.dimension.spawnEntity(MinecraftEntityTypes.Fox, {
-     *         x: location.x,
-     *         y: location.y + 2,
-     *         z: location.z,
-     *     });
-     *
-     *     fox.addEffect('speed', 10, {
-     *         amplifier: 2,
-     *     });
-     *
-     *     // Create wolf (our lazy dog)
-     *     const wolf = location.dimension.spawnEntity(MinecraftEntityTypes.Wolf, location);
-     *     wolf.addEffect('slowness', 10, {
-     *         amplifier: 2,
-     *     });
-     *     wolf.isSneaking = true;
-     * }
-     * ```
-     */
-    addEffect(effectType: EffectType | string, duration: number, options?: EntityEffectOptions): Effect | undefined {
+    addEffect(effectType: mc.EffectType | string, duration: number, options?: mc.EntityEffectOptions): mc.Effect | undefined {
         return this.source_instance.addEffect(effectType, duration, options);
     };
     /**
@@ -422,7 +259,7 @@ export class SuperEntity extends Super {
      * }
      * ```
      */
-    applyDamage(amount: number, options?: EntityApplyDamageByProjectileOptions | EntityApplyDamageOptions): boolean {
+    applyDamage(amount: number, options?: mc.EntityApplyDamageByProjectileOptions | mc.EntityApplyDamageOptions): boolean {
         return this.source_instance.applyDamage(amount, options);
     };
     /**
@@ -450,7 +287,7 @@ export class SuperEntity extends Super {
      * }
      * ```
      */
-    applyImpulse(vector: Vector3): void {
+    applyImpulse(vector: mc.Vector3): void {
         return this.source_instance.applyImpulse(vector);
     };
     /**
@@ -578,7 +415,7 @@ export class SuperEntity extends Super {
      * this entity is looking at.
      * @throws This function can throw errors.
      */
-    getBlockFromViewDirection(options?: BlockRaycastOptions): BlockRaycastHit | undefined {
+    getBlockFromViewDirection(options?: mc.BlockRaycastOptions): mc.BlockRaycastHit | undefined {
         return this.source_instance.getBlockFromViewDirection(options);
     };
     /**
@@ -595,7 +432,7 @@ export class SuperEntity extends Super {
      * Returns the component if it exists on the entity, otherwise
      * undefined.
      */
-    getComponent<T extends keyof EntityComponentTypeMap>(componentId: T): EntityComponentTypeMap[T] | undefined {
+    getComponent<T extends keyof mc.EntityComponentTypeMap>(componentId: T): mc.EntityComponentTypeMap[T] | undefined {
         return this.source_instance.getComponent(componentId);
     };
     /**
@@ -607,7 +444,7 @@ export class SuperEntity extends Super {
      * Returns all components that are both present on this entity
      * and supported by the API.
      */
-    getComponents(): EntityComponent[] {
+    getComponents(): mc.EntityComponent[] {
         return this.source_instance.getComponents();
     };
     /**
@@ -621,7 +458,7 @@ export class SuperEntity extends Super {
      * property has not been set.
      * @throws This function can throw errors.
      */
-    getDynamicProperty(identifier: string): boolean | number | string | Vector3 | undefined {
+    getDynamicProperty(identifier: string): boolean | number | string | mc.Vector3 | undefined {
         return this.source_instance.getDynamicProperty(identifier);
     };
     /**
@@ -664,7 +501,7 @@ export class SuperEntity extends Super {
      * not exist.
      * @throws This function can throw errors.
      */
-    getEffect(effectType: EffectType | string): Effect | undefined {
+    getEffect(effectType: mc.EffectType | string): mc.Effect | undefined {
         return this.source_instance.getEffect(effectType);
     };
     /**
@@ -675,7 +512,7 @@ export class SuperEntity extends Super {
      * List of effects.
      * @throws This function can throw errors.
      */
-    getEffects(): Effect[] {
+    getEffects(): mc.Effect[] {
         return this.source_instance.getEffects();
     };
     /**
@@ -690,7 +527,7 @@ export class SuperEntity extends Super {
      * entity is looking at.
      * @throws This function can throw errors.
      */
-    getEntitiesFromViewDirection(options?: EntityRaycastOptions): EntityRaycastHit[] {
+    getEntitiesFromViewDirection(options?: mc.EntityRaycastOptions): mc.EntityRaycastHit[] {
         return this.source_instance.getEntitiesFromViewDirection(options);
     };
     /**
@@ -703,7 +540,7 @@ export class SuperEntity extends Super {
      * entity.
      * @throws This function can throw errors.
      */
-    getHeadLocation(): Vector3 {
+    getHeadLocation(): mc.Vector3 {
         return this.source_instance.getHeadLocation();
     };
     /**
@@ -734,7 +571,7 @@ export class SuperEntity extends Super {
      * degrees).
      * @throws This function can throw errors.
      */
-    getRotation(): Vector2 {
+    getRotation(): mc.Vector2 {
         return this.source_instance.getRotation();
     };
     /**
@@ -772,7 +609,7 @@ export class SuperEntity extends Super {
      * }
      * ```
      */
-    getVelocity(): Vector3 {
+    getVelocity(): mc.Vector3 {
         return this.source_instance.getVelocity();
     };
     /**
@@ -783,7 +620,7 @@ export class SuperEntity extends Super {
      * Returns the current view direction of the entity.
      * @throws This function can throw errors.
      */
-    getViewDirection(): Vector3 {
+    getViewDirection(): mc.Vector3 {
         return this.source_instance.getViewDirection();
     };
     /**
@@ -881,7 +718,7 @@ export class SuperEntity extends Super {
      * @throws
      * Throws if the query options are misconfigured.
      */
-    matches(options: EntityQueryOptions): boolean {
+    matches(options: mc.EntityQueryOptions): boolean {
         return this.source_instance.matches(options);
     };
     /**
@@ -897,7 +734,7 @@ export class SuperEntity extends Super {
      * of the animation.
      * @throws This function can throw errors.
      */
-    playAnimation(animationName: string, options?: PlayAnimationOptions): void {
+    playAnimation(animationName: string, options?: mc.PlayAnimationOptions): void {
         return this.source_instance.playAnimation(animationName, options);
     };
     /**
@@ -927,7 +764,7 @@ export class SuperEntity extends Super {
      * if the effect is not found or does not exist.
      * @throws This function can throw errors.
      */
-    removeEffect(effectType: EffectType | string): boolean {
+    removeEffect(effectType: mc.EffectType | string): boolean {
         return this.source_instance.removeEffect(effectType);
     };
     /**
@@ -988,7 +825,7 @@ export class SuperEntity extends Super {
      *
      * {@link Error}
      */
-    runCommand(commandString: string): CommandResult {
+    runCommand(commandString: string): mc.CommandResult {
         return this.source_instance.runCommand(commandString);
     };
     /**
@@ -1005,7 +842,7 @@ export class SuperEntity extends Super {
      * command response values.
      * @throws This function can throw errors.
      */
-    runCommandAsync(commandString: string): Promise<CommandResult> {
+    runCommandAsync(commandString: string): Promise<mc.CommandResult> {
         return this.source_instance.runCommandAsync(commandString);
     };
     /**
@@ -1018,7 +855,7 @@ export class SuperEntity extends Super {
      * Data value of the property to set.
      * @throws This function can throw errors.
      */
-    setDynamicProperty(identifier: string, value?: boolean | number | string | Vector3): void {
+    setDynamicProperty(identifier: string, value?: boolean | number | string | mc.Vector3): void {
         if (!this.source_instance) {
             return
         }
@@ -1102,7 +939,7 @@ export class SuperEntity extends Super {
      * rotation controls the body rotation.
      * @throws This function can throw errors.
      */
-    setRotation(rotation: Vector2): void {
+    setRotation(rotation: mc.Vector2): void {
         return this.source_instance.setRotation(rotation);
     };
     /**
@@ -1118,7 +955,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      * @example teleportMovement.ts
      */
-    teleport(location: vec3, teleportOptions?: TeleportOptions): void {
+    teleport(location: vec3, teleportOptions?: mc.TeleportOptions): void {
         return this.source_instance.teleport(location, teleportOptions);
     };
     /**
@@ -1170,7 +1007,7 @@ export class SuperEntity extends Super {
      * result in intersecting with blocks.
      * @throws This function can throw errors.
      */
-    tryTeleport(location: vec3, teleportOptions?: TeleportOptions): boolean {
+    tryTeleport(location: vec3, teleportOptions?: mc.TeleportOptions): boolean {
         return this.source_instance.tryTeleport(location, teleportOptions);
     };
 }

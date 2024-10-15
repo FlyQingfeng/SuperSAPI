@@ -9,30 +9,11 @@ export class mPlayer extends SuperSAPI.Player {
     constructor(player, world) {
         super(player, world);
         this.enable_tick = true;
-        this.attribute.init("use_num", 0);
-        SuperSAPI.Debug.log("Player constructor:", this.id);
-    }
-    deconstructor() {
-        SuperSAPI.Debug.log("Player deconstructor:", this.id);
-    }
-    tick(t) {
     }
     onItemUseAfterEvent(event) {
-    }
-    onHitEntityAfterEvent(event) {
-        let hitEntity = this.getWorld().getEntity(event.hitEntity.id);
-        hitEntity.addCustomComponent("damage", {
-            Target: this
-        });
-        let damage = hitEntity.getCustomComponent("damage");
+        console.log("use item");
     }
 }
 __decorate([
     SuperSAPI.registerAsSubscribable
-], mPlayer.prototype, "tick", null);
-__decorate([
-    SuperSAPI.registerAsSubscribable
 ], mPlayer.prototype, "onItemUseAfterEvent", null);
-__decorate([
-    SuperSAPI.registerAsSubscribable
-], mPlayer.prototype, "onHitEntityAfterEvent", null);

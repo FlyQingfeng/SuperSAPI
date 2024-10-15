@@ -1,4 +1,4 @@
-import { Player, Camera, PlayerInputPermissions, ScreenDisplay, ItemStack, GameMode, DimensionLocation, MusicOptions, PlayerSoundOptions, RawMessage, Vector3, MolangVariableMap, WorldBeforeEvents, WorldAfterEvents, PlayerBreakBlockBeforeEvent, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ChatSendBeforeEvent, ItemCompleteUseEvent, ItemReleaseUseAfterEvent, ItemStartUseAfterEvent, ItemStopUseOnAfterEvent, ItemUseAfterEvent, ItemUseBeforeEvent, ItemUseOnAfterEvent, ItemUseOnBeforeEvent, PlayerDimensionChangeAfterEvent, PlayerEmoteAfterEvent, PlayerGameModeChangeAfterEvent, PlayerGameModeChangeBeforeEvent, PlayerInputPermissionCategoryChangeAfterEvent, PlayerInteractWithBlockAfterEvent, PlayerInteractWithBlockBeforeEvent, PlayerInteractWithEntityAfterEvent, PlayerInteractWithEntityBeforeEvent, PlayerJoinAfterEvent, PlayerLeaveAfterEvent, PlayerLeaveBeforeEvent, PlayerSpawnAfterEvent, EntityComponentTypes, Container, EntityInventoryComponent, EquipmentSlot, EntityEquippableComponent } from "@minecraft/server";
+import * as mc from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
@@ -8,41 +8,77 @@ import { SuperWorld } from "../World/SuperWorld";
 import { SuperItemStack } from "Item/SuperItemStack";
 
 export class SuperPlayer extends SuperEntity {
-    source_instance: Player;
-    constructor(source_instance: Player,world:SuperWorld) {
+    source_instance: mc.Player;
+    constructor(source_instance: mc.Player,world:SuperWorld) {
         super(source_instance,world)
         this.source_instance = source_instance;
-        this.camera = source_instance.camera;
-        this.inputPermissions = source_instance.inputPermissions;
-        this.isEmoting = source_instance.isEmoting;
-        this.isFlying = source_instance.isFlying;
-        this.isGliding = source_instance.isGliding;
-        this.isJumping = source_instance.isJumping;
-        this.level = source_instance.level;
-        this.name = source_instance.name;
-        this.onScreenDisplay = source_instance.onScreenDisplay;
-        this.selectedSlotIndex = source_instance.selectedSlotIndex;
-        this.totalXpNeededForNextLevel = source_instance.totalXpNeededForNextLevel;
-        this.xpEarnedAtCurrentLevel = source_instance.xpEarnedAtCurrentLevel;
     };
-    getInventory():EntityInventoryComponent{
-        return this.getComponent(EntityComponentTypes.Inventory)
+    
+    public get camera() : mc.Camera {
+        return this.source_instance.camera
     }
-    getInventoryContainer():Container{
+    public get inputPermissions() : mc.PlayerInputPermissions {
+        return this.source_instance.inputPermissions
+    }
+    public get isEmoting() : boolean {
+        return this.source_instance.isEmoting
+    }
+    public get isFlying() : boolean {
+        return this.source_instance.isFlying
+    }
+    public get isGliding() : boolean {
+        return this.source_instance.isGliding
+    }
+    public get isJumping() : boolean {
+        return this.source_instance.isJumping
+    }
+    public get level() : number {
+        return this.source_instance.level
+    }
+    public get name() : string {
+        return this.source_instance.name
+    }
+    public get onScreenDisplay() : mc.ScreenDisplay {
+        return this.source_instance.onScreenDisplay
+    }
+    public get totalXpNeededForNextLevel() : number {
+        return this.source_instance.totalXpNeededForNextLevel
+    }
+    public get xpEarnedAtCurrentLevel() : number {
+        return this.source_instance.xpEarnedAtCurrentLevel
+    }
+    public get selectedSlotIndex() : number {
+        return this.source_instance.selectedSlotIndex
+    }
+    getInventory():mc.EntityInventoryComponent{
+        return this.getComponent(mc.EntityComponentTypes.Inventory)
+    }
+    getInventoryContainer():mc.Container{
         return this.getInventory().container
     }
-    getEquipment():EntityEquippableComponent{
-        return this.getComponent(EntityComponentTypes.Equippable)
+    getEquipment():mc.EntityEquippableComponent{
+        return this.getComponent(mc.EntityComponentTypes.Equippable)
     }
-    getHandItem():ItemStack|undefined{
+    getHandItem():mc.ItemStack|undefined{
         let item=this.getInventoryContainer().getItem(this.selectedSlotIndex)
         return item
     }
     setHandItem(item:SuperItemStack){
-        this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+        let handitem=this.getHandItem();
+        let found=handitem.getDynamicPropertyIds().find(id=>{
+            return id="uuid"
+        })
+        if (found) {
+            let uuid=handitem.getDynamicProperty("uuid") as string
+            if (uuid!==item.uuid) {
+                this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+            }
+        }else{
+            this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+        }
     }
     giveItem(item:SuperItemStack){
-        let container=this.getComponent(EntityComponentTypes.Inventory).container
+        let container=this.getComponent(mc.EntityComponentTypes.Inventory).container
         container.addItem(item.getItem())
     }
     readCustomComponent() {
@@ -81,209 +117,109 @@ export class SuperPlayer extends SuperEntity {
     }
 
     @registerAsSubscribable
-    onItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent) {
+    onItemStopUseOnAfterEvent(event: mc.ItemStopUseOnAfterEvent) {
     }
 
     @registerAsSubscribable
-    onItemStartUseAfterEvent(event: ItemStartUseAfterEvent) {
+    onItemStartUseAfterEvent(event: mc.ItemStartUseAfterEvent) {
     }
 
     @registerAsSubscribable
-    onItemReleaseAfterEvent(event: ItemReleaseUseAfterEvent) {
+    onItemReleaseAfterEvent(event: mc.ItemReleaseUseAfterEvent) {
     }
 
     @registerAsSubscribable
-    onItemCompleteAfterEvent(event: ItemCompleteUseEvent) {
+    onItemCompleteAfterEvent(event: mc.ItemCompleteUseEvent) {
     }
 
     @registerAsSubscribable
-    onItemUseOnAfterEvent(event: ItemUseOnAfterEvent) {
+    onItemUseOnAfterEvent(event: mc.ItemUseOnAfterEvent) {
     }
 
     @registerAsSubscribable
-    onItemUseAfterEvent(event: ItemUseAfterEvent) {
+    onItemUseAfterEvent(event: mc.ItemUseAfterEvent) {
     }
 
     @registerAsSubscribable
-    onPlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
+    onPlayerSpawnAfterEvent(event: mc.PlayerSpawnAfterEvent) {
     }
 
     @registerAsSubscribable
-    onPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent) {
+    onPlaceBlockAfterEvent(event: mc.PlayerPlaceBlockAfterEvent) {
     }
 
     @registerAsSubscribable
-    onLeaveAfterEvent(event: PlayerLeaveAfterEvent) {
+    onLeaveAfterEvent(event: mc.PlayerLeaveAfterEvent) {
     }
 
     @registerAsSubscribable
-    onJoinAfterEvent(event: PlayerJoinAfterEvent) {
+    onJoinAfterEvent(event: mc.PlayerJoinAfterEvent) {
     }
 
     @registerAsSubscribable
-    onInteractWithEntityAfterEvent(event: PlayerInteractWithEntityAfterEvent) {
+    onInteractWithEntityAfterEvent(event: mc.PlayerInteractWithEntityAfterEvent) {
     }
 
     @registerAsSubscribable
-    onInteractWithBlockAfterEvent(event: PlayerInteractWithBlockAfterEvent) {
+    onInteractWithBlockAfterEvent(event: mc.PlayerInteractWithBlockAfterEvent) {
     }
 
     @registerAsSubscribable
-    onInputPermissionCategoryChangeAfterEvent(event: PlayerInputPermissionCategoryChangeAfterEvent) {
+    onInputPermissionCategoryChangeAfterEvent(event: mc.PlayerInputPermissionCategoryChangeAfterEvent) {
     }
 
     @registerAsSubscribable
-    onGameModeChangeAfterEvent(event: PlayerGameModeChangeAfterEvent) {
+    onGameModeChangeAfterEvent(event: mc.PlayerGameModeChangeAfterEvent) {
     }
 
     @registerAsSubscribable
-    onEmoteAfterEvent(event: PlayerEmoteAfterEvent) {
+    onEmoteAfterEvent(event: mc.PlayerEmoteAfterEvent) {
     }
 
     @registerAsSubscribable
-    onDimensionChangeAfterEvent(event: PlayerDimensionChangeAfterEvent) {
+    onDimensionChangeAfterEvent(event: mc.PlayerDimensionChangeAfterEvent) {
     }
 
     @registerAsSubscribable
-    onBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent) {
+    onBreakBlockAfterEvent(event: mc.PlayerBreakBlockAfterEvent) {
     }
 
     @registerAsSubscribable
-    onLeaveBeforeEvent(event: PlayerLeaveBeforeEvent) {
+    onLeaveBeforeEvent(event: mc.PlayerLeaveBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onInteractWithEntityBeforeEvent(event: PlayerInteractWithEntityBeforeEvent) {
+    onInteractWithEntityBeforeEvent(event: mc.PlayerInteractWithEntityBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onInteractWithBlockBeforeEvent(event: PlayerInteractWithBlockBeforeEvent) {
+    onInteractWithBlockBeforeEvent(event: mc.PlayerInteractWithBlockBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onGameModeChangeBeforeEvent(event: PlayerGameModeChangeBeforeEvent) {
+    onGameModeChangeBeforeEvent(event: mc.PlayerGameModeChangeBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onItemUseOnBeforeEvent(event: ItemUseOnBeforeEvent) {
+    onItemUseOnBeforeEvent(event: mc.ItemUseOnBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onItemUseBeforeEvent(event: ItemUseBeforeEvent) {
+    onItemUseBeforeEvent(event: mc.ItemUseBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onChatSendBeforeEvent(event: ChatSendBeforeEvent) {
+    onChatSendBeforeEvent(event: mc.ChatSendBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent) {
+    onPlaceBeforeEvent(event: mc.PlayerPlaceBlockBeforeEvent) {
     }
 
     @registerAsSubscribable
-    onBreakBlockBeforeEvent(event: PlayerBreakBlockBeforeEvent) {
+    onBreakBlockBeforeEvent(event: mc.PlayerBreakBlockBeforeEvent) {
     }
-    /**
-    * @remarks
-    * The player's Camera.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly camera: Camera;
-    /**
-    * @remarks
-    * Input permissions of the player.
-    *
-    */
-    readonly inputPermissions: PlayerInputPermissions;
-    /**
-    * @remarks
-    * If true, the player is currently emoting.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly isEmoting: boolean;
-    /**
-    * @remarks
-    * Whether the player is flying. For example, in Creative or
-    * Spectator mode.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly isFlying: boolean;
-    /**
-    * @remarks
-    * Whether the player is gliding with Elytra.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly isGliding: boolean;
-    /**
-    * @remarks
-    * Whether the player is jumping. This will remain true while
-    * the player is holding the jump action.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly isJumping: boolean;
-    /**
-    * @remarks
-    * The current overall level for the player, based on their
-    * experience.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly level: number;
-    /**
-    * @remarks
-    * Name of the player.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly name: string;
-    /**
-    * @remarks
-    * Contains methods for manipulating the on-screen display of a
-    * Player.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly onScreenDisplay: ScreenDisplay;
-    /**
-    * @remarks
-    * This property can't be edited in read-only mode.
-    *
-    */
-    selectedSlotIndex: number;
-    /**
-    * @remarks
-    * The overall total set of experience needed to achieve the
-    * next level for a player.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly totalXpNeededForNextLevel: number;
-    /**
-    * @remarks
-    * The current set of experience achieved for the player.
-    *
-    * @throws This property can throw when used.
-    */
-    readonly xpEarnedAtCurrentLevel: number;
-    /**
-    * @remarks
-    * Adds/removes experience to/from the Player and returns the
-    * current experience of the Player.
-    *
-    * This function can't be called in read-only mode.
-    *
-    * @param amount
-    * Amount of experience to add. Note that this can be negative.
-    * Min/max bounds at -2^24 ~ 2^24
-    * @returns
-    * Returns the current experience of the Player.
-    * @throws This function can throw errors.
-    */
+
     addExperience(amount: number): number {
         return this.source_instance.addExperience(amount);
     };
@@ -316,7 +252,7 @@ export class SuperPlayer extends SuperEntity {
     * @throws
     * Throws if the item is not a food item.
     */
-    eatItem(itemStack: ItemStack): void {
+    eatItem(itemStack: mc.ItemStack): void {
         return this.source_instance.eatItem(itemStack);
     };
     /**
@@ -325,7 +261,7 @@ export class SuperPlayer extends SuperEntity {
     *
     * @throws This function can throw errors.
     */
-    getGameMode(): GameMode {
+    getGameMode(): mc.GameMode {
         return this.source_instance.getGameMode();
     };
     /**
@@ -347,7 +283,7 @@ export class SuperPlayer extends SuperEntity {
     *
     * @throws This function can throw errors.
     */
-    getSpawnPoint(): DimensionLocation | undefined {
+    getSpawnPoint(): mc.DimensionLocation | undefined {
         return this.source_instance.getSpawnPoint();
     };
     /**
@@ -382,7 +318,7 @@ export class SuperPlayer extends SuperEntity {
     * Additional options for the music track.
     * @throws This function can throw errors.
     */
-    playMusic(trackId: string, musicOptions?: MusicOptions): void {
+    playMusic(trackId: string, musicOptions?: mc.MusicOptions): void {
         return this.source_instance.playMusic(trackId, musicOptions);
     };
     /**
@@ -395,7 +331,7 @@ export class SuperPlayer extends SuperEntity {
     * Additional optional options for the sound.
     * @throws This function can throw errors.
     */
-    playSound(soundId: string, soundOptions?: PlayerSoundOptions): void {
+    playSound(soundId: string, soundOptions?: mc.PlayerSoundOptions): void {
         return this.source_instance.playSound(soundId, soundOptions);
     };
     /**
@@ -428,7 +364,7 @@ export class SuperPlayer extends SuperEntity {
     * An error will be thrown if fade is less than 0.0.
     *
     */
-    queueMusic(trackId: string, musicOptions?: MusicOptions): void {
+    queueMusic(trackId: string, musicOptions?: mc.MusicOptions): void {
         return this.source_instance.queueMusic(trackId, musicOptions);
     };
     /**
@@ -480,7 +416,7 @@ export class SuperPlayer extends SuperEntity {
     * }
     * ```
     */
-    sendMessage(message: (RawMessage | string)[] | RawMessage | string): void {
+    sendMessage(message: (mc.RawMessage | string)[] | mc.RawMessage | string): void {
         return this.source_instance.sendMessage(message);
     };
     /**
@@ -493,7 +429,7 @@ export class SuperPlayer extends SuperEntity {
     * Active gamemode.
     * @throws This function can throw errors.
     */
-    setGameMode(gameMode?: GameMode): void {
+    setGameMode(gameMode?: mc.GameMode): void {
         return this.source_instance.setGameMode(gameMode);
     };
     /**
@@ -522,7 +458,7 @@ export class SuperPlayer extends SuperEntity {
     *
     * {@link LocationOutOfWorldBoundariesError}
     */
-    setSpawnPoint(spawnPoint?: DimensionLocation): void {
+    setSpawnPoint(spawnPoint?: mc.DimensionLocation): void {
         return this.source_instance.setSpawnPoint(spawnPoint);
     };
     /**
@@ -572,7 +508,7 @@ export class SuperPlayer extends SuperEntity {
     * });
     * ```
     */
-    spawnParticle(effectName: string, location: Vector3, molangVariables?: MolangVariableMap): void {
+    spawnParticle(effectName: string, location: mc.Vector3, molangVariables?: mc.MolangVariableMap): void {
         return this.source_instance.spawnParticle(effectName, location, molangVariables);
     };
     /**

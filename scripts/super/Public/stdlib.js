@@ -1,8 +1,15 @@
 export function cast(obj) {
     return obj;
 }
-export function hasFun(obj, funName) {
-    return (funName in obj);
+export function hasFun(obj, funcName) {
+    let currentProto = Object.getPrototypeOf(obj);
+    while (currentProto) {
+        if (typeof currentProto[funcName] === 'function') {
+            return true;
+        }
+        currentProto = Object.getPrototypeOf(currentProto);
+    }
+    return typeof obj[funcName] === 'function';
 }
 export function enumKeyToString(enumObj, enumValue) {
     const keys = Reflect.ownKeys(enumObj);

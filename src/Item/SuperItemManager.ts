@@ -3,25 +3,34 @@ import { SuperItemStack } from "./SuperItemStack";
 
 
 export class ItemStackManager {
-    static Items:{[uuid:string]:SuperItemStack}={}
-    static CreateItem(item:mc.ItemStack):SuperItemStack{
-        let uuid=item.getDynamicProperty("uuid") as string
-        if (uuid) {
-            if(ItemStackManager.Items.hasOwnProperty(uuid)){
-                return ItemStackManager.Items[uuid]
+    static Items: { [uuid: string]: SuperItemStack } = {}
+    static CreateItem(item: mc.ItemStack): SuperItemStack {
+        let found = item.getDynamicPropertyIds().find(id => {
+            return id == "uuid"
+        })
+        let new_item:SuperItemStack;
+        if (found) {
+            let uuid = item.getDynamicProperty("uuid") as string
+            if (ItemStackManager.Items.hasOwnProperty(uuid)) {
+                new_item = ItemStackManager.Items[uuid]
+            }else{//防止重新加载Items里面已经没有这个物品了
+                new_item = new SuperItemStack(item);
+                ItemStackManager.Items[new_item.uuid] = new_item;
+                new_item.setDynamicProperty("uuid", new_item.uuid);
             }
+        }else{
+            new_item = new SuperItemStack(item);
+            new_item.setDynamicProperty("uuid", new_item.uuid);
+            ItemStackManager.Items[new_item.uuid] = new_item;
         }
-        let new_item=new SuperItemStack(item);
-        item.setDynamicProperty("uuid",new_item.uuid);
-        ItemStackManager.Items[new_item.uuid]=new_item;
         return new_item
     }
-    static CreateItemFromTypeID(itemType: mc.ItemType | string, amount?: number):SuperItemStack{
-        let item = new mc.ItemStack(itemType,amount);
+    static CreateNewItemFromTypeID(itemType: mc.ItemType | string, amount?: number): SuperItemStack {
+        let item = new mc.ItemStack(itemType, amount);
         return ItemStackManager.CreateItem(item);
     }
-    static getItems(){
+    static getItems() {
         return ItemStackManager.Items
     }
-    
+
 }

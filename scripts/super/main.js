@@ -1,63 +1,36 @@
-import { system } from "@minecraft/server";
-import { mEntity } from "./ownCode/mEntity";
-import { mPlayer } from "./ownCode/mPlayer";
+import * as SuperSAPI from "./SuperSAPI"; //导入SSAPI
+//ownCode文件夹里面放了我们的自定义的类,注意导入路径要从src开始
+import { mEntity } from "./ownCode/mEntity"; //导入自己的mEntity类
+import { mPlayer } from "./ownCode/mPlayer"; //导入自己的mPlayer类
 import { mPlayerComponent } from "./ownCode/mPlayerComponent";
-import * as SuperSAPI from "./SuperSAPI";
 import { mEntityComponent } from "./ownCode/mEntityComponent";
 import { mItemsatckComponent } from "./ownCode/mItemStackComponent";
-import { ItemStackManager } from "./Item/SuperItemManager";
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity);
-SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer);
-SuperSAPI.CustomComponentManager.registrationCustomComponent("id", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
-SuperSAPI.CustomComponentManager.registrationCustomComponent("damage", mEntityComponent, SuperSAPI.CustomComponentType.EntityComponentType);
-SuperSAPI.CustomComponentManager.registrationCustomComponent("item", mItemsatckComponent, SuperSAPI.CustomComponentType.ItemComponentType);
-SuperSAPI.CommandManager.registerCommand('test', "测试指令", (player, arg) => {
-    // let newitem=ItemStackManager.CreateItemFromTypeID("minecraft:diamond_sword")
-    let newitem = ItemStackManager.CreateItemFromTypeID("minecraft:trident");
-    newitem.addCustomComponent("item", { Target: player });
-    player.getInventory();
-    player.giveItem(newitem);
-});
-system.runInterval(() => {
-    SuperSAPI.SuperSystem.getWorld().getAllEntitys().forEach((e) => {
-    });
-}, 10);
-SuperSAPI.CommandManager.registerCommand('has', "获取玩家的全部组件", (player, arg) => {
-    let coms = player.getCustomComponents();
-    for (const com of coms) {
-        console.log(com.typeId);
-    }
-});
-SuperSAPI.CommandManager.registerCommand('add', "<组件ID> 添加组件", (player, arg) => {
-    let id = arg[0];
-    if (!id) {
-        player.sendMessage(`缺少<组件ID>参数`);
-    }
-    if (SuperSAPI.CustomComponentManager.Has(id)) {
-        if (player.addCustomComponent(id)) {
-            player.sendMessage(`成功添加组件${id}`);
-        }
-        else {
-            player.sendMessage(`已经存在${id}组件，添加失败`);
+//把我们在ownCode文件夹写的类注册到SuperSAPI内启用
+//自定义实体类
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity); //替换掉原SSAPI的Entity类
+//自定义自定义玩家
+SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Player, mPlayer); //替换掉原SSAPI的Player类
+//注册一个实体组件
+SuperSAPI.CustomComponentManager.registrationCustomComponent("mEC", mEntityComponent, SuperSAPI.CustomComponentType.EntityComponentType);
+//注册一个玩家组件
+SuperSAPI.CustomComponentManager.registrationCustomComponent("mPC", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
+//注册一个物品组件
+SuperSAPI.CustomComponentManager.registrationCustomComponent("mIC", mItemsatckComponent, SuperSAPI.CustomComponentType.ItemComponentType);
+//注册一个聊天指令：#give <物品ID> <组件ID>
+//可以在游戏内输入#help查看所有已经注册的指令和用法
+SuperSAPI.CommandManager.registerCommand("give", "<物品ID> <组件ID>  给予一个物品，并且附加自定义组件", (player, args) => {
+    //指令回调函数
+    let item_id = args[0]; //物品ID
+    let cc_id = args[1]; //附加组件ID
+    if (item_id && cc_id) {
+        let new_item = SuperSAPI.ItemStackManager.CreateNewItemFromTypeID(item_id); //使用ItemStackManager类创建一个新物品
+        let re = new_item.addCustomComponent(cc_id); //给物品添加上组件
+        if (re) {
+            player.giveItem(new_item); //把物品给予玩家
         }
     }
     else {
-        player.sendMessage(`未发现组件${id}，请查看该组件是否注册`);
+        player.sendMessage("指令参数错误，请输入#help查看用法");
     }
 });
-SuperSAPI.CommandManager.registerCommand('remove', "<组件ID> 删除", (player, arg) => {
-    let id = arg[0];
-    if (!id) {
-        player.sendMessage(`缺少<组件ID>参数`);
-    }
-    if (SuperSAPI.CustomComponentManager.Has(id)) {
-        player.removeCustomComponent(id);
-        player.sendMessage(`移除成功`);
-    }
-    else {
-        player.sendMessage(`未发现组件${id}，请查看该组件是否注册`);
-    }
-});
-SuperSAPI.System.init();
-system.run(() => {
-});
+SuperSAPI.System.init(); //初始化SuperSAPI系统，必须初始化要不然不起作用

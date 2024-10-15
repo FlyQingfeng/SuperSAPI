@@ -1,5 +1,4 @@
 import * as mc from "@minecraft/server";
-import { Attribute } from "../Public/attribute";
 import { Super } from "../Super/Super";
 import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
@@ -7,17 +6,32 @@ export class SuperItemStack extends Super {
     constructor(source_instance) {
         super();
         this.source_instance = source_instance;
-        this.amount = source_instance.amount;
-        this.isStackable = source_instance.isStackable;
-        this.keepOnDeath = source_instance.keepOnDeath;
-        this.lockMode = source_instance.lockMode;
-        this.maxAmount = source_instance.maxAmount;
-        this.nameTag = source_instance.nameTag;
-        this.type = source_instance.type;
-        this.typeId = source_instance.typeId;
-        this.attribute = new Attribute(source_instance);
         this.custom_component = {};
         this.readCustomComponent();
+    }
+    get amount() {
+        return this.source_instance.amount;
+    }
+    get isStackable() {
+        return this.source_instance.isStackable;
+    }
+    get keepOnDeath() {
+        return this.source_instance.keepOnDeath;
+    }
+    get lockMode() {
+        return this.source_instance.lockMode;
+    }
+    get maxAmount() {
+        return this.source_instance.maxAmount;
+    }
+    get nameTag() {
+        return this.source_instance.nameTag;
+    }
+    get type() {
+        return this.source_instance.type;
+    }
+    get typeId() {
+        return this.source_instance.typeId;
     }
     onUse(player) {
         this.getCustomComponents().forEach((c) => {
@@ -50,6 +64,9 @@ export class SuperItemStack extends Super {
         });
     }
     getItem() {
+        if (!this.source_instance) {
+            return undefined;
+        }
         return this.source_instance;
     }
     readCustomComponent() {
@@ -132,12 +149,6 @@ export class SuperItemStack extends Super {
         }
         return coms;
     }
-    /**
-     * @remarks
-     * Clears all dynamic properties that have been set on this
-     * item stack.
-     *
-     */
     clearDynamicProperties() {
         if (!this.source_instance) {
             return;

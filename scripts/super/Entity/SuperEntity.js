@@ -15,32 +15,57 @@ export class SuperEntity extends Super {
         this.enable_tick = false;
         this.world = world;
         this.source_instance = source_instance;
-        try { //这个属性可能出错
-            this.dimension = source_instance.dimension;
-        }
-        catch (error) {
-            this.dimension = this.world.getDimension("overworld");
-        }
-        this.id = source_instance.id;
-        this.isClimbing = source_instance.isClimbing;
-        this.isFalling = source_instance.isFalling;
-        this.isInWater = source_instance.isInWater;
-        this.isOnGround = source_instance.isOnGround;
-        this.isSleeping = source_instance.isSleeping;
-        this.isSneaking = source_instance.isSneaking;
-        this.isSprinting = source_instance.isSprinting;
-        this.isSwimming = source_instance.isSwimming;
-        this.location = source_instance.location;
-        this.nameTag = source_instance.nameTag;
-        this.scoreboardIdentity = source_instance.scoreboardIdentity;
-        this.target = source_instance.target;
-        this.typeId = source_instance.typeId;
         this.custom_component = {};
         this.attribute = new Attribute(source_instance);
         //加载存储的组件
         this.readCustomComponent();
     }
     ;
+    get dimension() {
+        return this.source_instance.dimension;
+    }
+    get id() {
+        return this.source_instance.id;
+    }
+    get isClimbing() {
+        return this.source_instance.isClimbing;
+    }
+    get isFalling() {
+        return this.source_instance.isFalling;
+    }
+    get isSneaking() {
+        return this.source_instance.isSneaking;
+    }
+    get isInWater() {
+        return this.source_instance.isInWater;
+    }
+    get isOnGround() {
+        return this.source_instance.isOnGround;
+    }
+    get isSleeping() {
+        return this.source_instance.isSleeping;
+    }
+    get isSprinting() {
+        return this.source_instance.isSprinting;
+    }
+    get isSwimming() {
+        return this.source_instance.isSwimming;
+    }
+    get location() {
+        return vec3.fromObj(this.source_instance.location);
+    }
+    get nameTag() {
+        return this.source_instance.nameTag;
+    }
+    get scoreboardIdentity() {
+        return this.source_instance.scoreboardIdentity;
+    }
+    get target() {
+        return this.source_instance.target;
+    }
+    get typeId() {
+        return this.source_instance.typeId;
+    }
     getWorld() {
         return this.world;
     }
@@ -152,71 +177,6 @@ export class SuperEntity extends Super {
     }
     onRemoveBeforeEvent(event) {
     }
-    /**
-     * @remarks
-     * Adds or updates an effect, like poison, to the entity.
-     *
-     * This function can't be called in read-only mode.
-     *
-     * @param effectType
-     * Type of effect to add to the entity.
-     * @param duration
-     * Amount of time, in ticks, for the effect to apply. There are
-     * 20 ticks per second. Use {@link TicksPerSecond} constant to
-     * convert between ticks and seconds. The value must be within
-     * the range [0, 20000000].
-     * @param options
-     * Additional options for the effect.
-     * @returns
-     * Returns nothing if the effect was added or updated
-     * successfully. This can throw an error if the duration or
-     * amplifier are outside of the valid ranges, or if the effect
-     * does not exist.
-     * @throws This function can throw errors.
-     * @example poisonVillager.ts
-     * ```typescript
-     * // Spawns a villager and gives it the poison effect
-     * import {
-     *     DimensionLocation,
-     * } from '@minecraft/server';
-     * import { MinecraftEffectTypes } from '@minecraft/vanilla-data';
-     *
-     * function spawnPoisonedVillager(location: DimensionLocation) {
-     *     const villagerType = 'minecraft:villager_v2<minecraft:ageable_grow_up>';
-     *     const villager = location.dimension.spawnEntity(villagerType, location);
-     *     const duration = 20;
-     *
-     *     villager.addEffect(MinecraftEffectTypes.Poison, duration, { amplifier: 1 });
-     * }
-     *
-     * ```
-     * @example quickFoxLazyDog.ts
-     * ```typescript
-     * // Spawns a fox over a dog
-     * import { DimensionLocation } from '@minecraft/server';
-     * import { MinecraftEntityTypes } from '@minecraft/vanilla-data';
-     *
-     * function spawnAdultHorse(location: DimensionLocation) {
-     *     // Create fox (our quick brown fox)
-     *     const fox = location.dimension.spawnEntity(MinecraftEntityTypes.Fox, {
-     *         x: location.x,
-     *         y: location.y + 2,
-     *         z: location.z,
-     *     });
-     *
-     *     fox.addEffect('speed', 10, {
-     *         amplifier: 2,
-     *     });
-     *
-     *     // Create wolf (our lazy dog)
-     *     const wolf = location.dimension.spawnEntity(MinecraftEntityTypes.Wolf, location);
-     *     wolf.addEffect('slowness', 10, {
-     *         amplifier: 2,
-     *     });
-     *     wolf.isSneaking = true;
-     * }
-     * ```
-     */
     addEffect(effectType, duration, options) {
         return this.source_instance.addEffect(effectType, duration, options);
     }

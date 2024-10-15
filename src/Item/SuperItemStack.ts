@@ -9,23 +9,38 @@ import { SuperPlayer } from "../Player/SuperPlayer";
 
 export class SuperItemStack extends Super{
     source_instance: mc.ItemStack;
-    attribute:Attribute;
     custom_component:{ [id: string]: ItemSuperComponent };
     constructor(source_instance:mc.ItemStack){
         super()
         this.source_instance = source_instance;
-        this.amount = source_instance.amount;
-        this.isStackable = source_instance.isStackable;
-        this.keepOnDeath = source_instance.keepOnDeath;
-        this.lockMode = source_instance.lockMode;
-        this.maxAmount = source_instance.maxAmount;
-        this.nameTag = source_instance.nameTag;
-        this.type = source_instance.type;
-        this.typeId = source_instance.typeId;
-        this.attribute=new Attribute(source_instance);
         this.custom_component={};
         this.readCustomComponent();
     }
+    public get amount() : number {
+        return this.source_instance.amount
+    }
+    public get isStackable() : boolean {
+        return this.source_instance.isStackable
+    }
+    public get keepOnDeath() : boolean {
+        return this.source_instance.keepOnDeath
+    }
+    public get lockMode() : mc.ItemLockMode {
+        return this.source_instance.lockMode
+    }
+    public get maxAmount() : number {
+        return this.source_instance.maxAmount
+    }
+    public get nameTag() : string {
+        return this.source_instance.nameTag
+    }
+    public get type() : mc.ItemType {
+        return this.source_instance.type
+    }
+    public get typeId() : string {
+        return this.source_instance.typeId
+    }
+
     onUse(player:SuperPlayer){
         this.getCustomComponents().forEach((c)=>{
             c.onUse(player);
@@ -58,6 +73,9 @@ export class SuperItemStack extends Super{
     }
 
     getItem():mc.ItemStack{
+        if (!this.source_instance) {
+            return undefined
+        }
         return this.source_instance as mc.ItemStack
     }
     readCustomComponent() {
@@ -140,84 +158,6 @@ export class SuperItemStack extends Super{
         }
         return coms
     }
-
-    /**
-     * @remarks
-     * Number of the items in the stack. Valid values range between
-     * 1-255. The provided value will be clamped to the item's
-     * maximum stack size.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     * @throws
-     * Throws if the value is outside the range of 1-255.
-     */
-    amount: number;
-    /**
-     * @remarks
-     * Returns whether the item is stackable. An item is considered
-     * stackable if the item's maximum stack size is greater than 1
-     * and the item does not contain any custom data or properties.
-     *
-     */
-    readonly isStackable: boolean;
-    /**
-     * @remarks
-     * Gets or sets whether the item is kept on death.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     */
-    keepOnDeath: boolean;
-    /**
-     * @remarks
-     * Gets or sets the item's lock mode. The default value is
-     * `ItemLockMode.none`.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     */
-    lockMode: mc.ItemLockMode;
-    /**
-     * @remarks
-     * The maximum stack size. This value varies depending on the
-     * type of item. For example, torches have a maximum stack size
-     * of 64, while eggs have a maximum stack size of 16.
-     *
-     */
-    readonly maxAmount: number;
-    /**
-     * @remarks
-     * Given name of this stack of items. The name tag is displayed
-     * when hovering over the item. Setting the name tag to an
-     * empty string or `undefined` will remove the name tag.
-     *
-     * This property can't be edited in read-only mode.
-     *
-     * @throws
-     * Throws if the length exceeds 255 characters.
-     */
-    nameTag?: string;
-    /**
-     * @remarks
-     * The type of the item.
-     *
-     */
-    readonly type: mc.ItemType;
-    /**
-     * @remarks
-     * Identifier of the type of items for the stack. If a
-     * namespace is not specified, 'minecraft:' is assumed.
-     * Examples include 'wheat' or 'apple'.
-     *
-     */
-    readonly typeId: string;
-    /**
-     * @remarks
-     * Clears all dynamic properties that have been set on this
-     * item stack.
-     *
-     */
     clearDynamicProperties(): void {
         if (!this.source_instance) {
             return

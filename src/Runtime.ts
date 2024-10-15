@@ -6,6 +6,7 @@ import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { Debug } from "./Public/debug";
 import { ItemStackManager } from "./Item/SuperItemManager";
+import { toJSON } from "./Public/stdlib";
 
 
 export enum NativeClassType {//可被替换的类和原型

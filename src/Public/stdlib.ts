@@ -1,9 +1,18 @@
 export function cast<T>(obj: any): T {//转换类型仅ts可用于强制类型转化，例如SuperEntity转SuperPlayer
     return (obj as T);
 }
-export function hasFun(obj: any, funName: string) {
-    return (funName in obj)
+
+export function hasFun(obj: any, funcName: string): boolean {
+    let currentProto = Object.getPrototypeOf(obj);
+    while (currentProto) {
+        if (typeof currentProto[funcName] === 'function') {
+            return true;
+        }
+        currentProto = Object.getPrototypeOf(currentProto);
+    }
+    return typeof obj[funcName] === 'function';
 }
+
 export function enumKeyToString(enumObj: any, enumValue: any): string {
     const keys = Reflect.ownKeys(enumObj);
     for (const key of keys) {
@@ -36,7 +45,7 @@ export function toJSON(value: any): string {
 export function fromJSON(value: string): any {
     // 解析 JSON 字符串，但保留循环引用的标记
     let parsed = JSON.parse(value);
-    
+
     let refs: any[] = [];
     let refIndex: number = 0;
 
@@ -44,7 +53,7 @@ export function fromJSON(value: string): any {
     function revive(key, val) {
         if (typeof val === 'string' && val.startsWith('_CircularReference_')) {
             let refIndex = parseInt(val.split('_CircularReference_')[1], 10);
-            
+
             return refs[refIndex];
         }
         return val;
