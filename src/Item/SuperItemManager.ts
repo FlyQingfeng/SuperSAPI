@@ -5,6 +5,9 @@ import { SuperItemStack } from "./SuperItemStack";
 export class ItemStackManager {
     static Items: { [uuid: string]: SuperItemStack } = {}
     static CreateItem(item: mc.ItemStack): SuperItemStack {
+        if (!item) {
+            return undefined
+        }
         let found = item.getDynamicPropertyIds().find(id => {
             return id == "uuid"
         })
@@ -16,11 +19,15 @@ export class ItemStackManager {
             }else{//防止重新加载Items里面已经没有这个物品了
                 new_item = new SuperItemStack(item);
                 ItemStackManager.Items[new_item.uuid] = new_item;
-                new_item.setDynamicProperty("uuid", new_item.uuid);
+                if(!new_item.isStackable){
+                    new_item.setDynamicProperty("uuid", new_item.uuid);
+                }
             }
         }else{
             new_item = new SuperItemStack(item);
-            new_item.setDynamicProperty("uuid", new_item.uuid);
+            if(!new_item.isStackable){
+                new_item.setDynamicProperty("uuid", new_item.uuid);
+            }
             ItemStackManager.Items[new_item.uuid] = new_item;
         }
         return new_item

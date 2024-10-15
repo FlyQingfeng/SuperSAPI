@@ -6,8 +6,11 @@ import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
 import { SuperComponentCreateOptions } from "../Component/SuperComponent";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { SuperPlayer } from "../Player/SuperPlayer";
+import { SuperEntity } from "../Entity/SuperEntity";
+import { Timer } from "../Public/Timer";
 
 export class SuperItemStack extends Super{
+    in_hand_timer:Timer;
     source_instance: mc.ItemStack;
     custom_component:{ [id: string]: ItemSuperComponent };
     constructor(source_instance:mc.ItemStack){
@@ -15,6 +18,7 @@ export class SuperItemStack extends Super{
         this.source_instance = source_instance;
         this.custom_component={};
         this.readCustomComponent();
+        this.in_hand_timer=new Timer();
     }
     public get amount() : number {
         return this.source_instance.amount
@@ -40,7 +44,30 @@ export class SuperItemStack extends Super{
     public get typeId() : string {
         return this.source_instance.typeId
     }
-
+    onSwitchIn(player:SuperPlayer) {
+        this.getCustomComponents().forEach((c)=>{
+            c.onSwitchIn(player);
+        })
+        this.in_hand_timer.setInterval(()=>{
+            this.onHand(player);
+        },5)
+    }
+    onSwitchOut(player:SuperPlayer) {
+        this.getCustomComponents().forEach((c)=>{
+            c.onSwitchOut(player);
+        })
+        this.in_hand_timer.clearInterval();
+    }
+    onHand(player:SuperPlayer){
+        this.getCustomComponents().forEach((c)=>{
+            c.onHand(player);
+        })
+    }
+    onAttack(player:SuperPlayer,target:SuperEntity){
+        this.getCustomComponents().forEach((c)=>{
+            c.onAttack(player,target);
+        })
+    }
     onUse(player:SuperPlayer){
         this.getCustomComponents().forEach((c)=>{
             c.onUse(player);
@@ -456,6 +483,9 @@ export class SuperItemStack extends Super{
      */
     setDynamicProperty(identifier: string, value?: boolean | number | string | mc.Vector3): void {
         if (!this.source_instance) {
+            return
+        }
+        if (this.source_instance.isStackable) {
             return
         }
         return this.source_instance.setDynamicProperty(identifier, value);

@@ -1,5 +1,5 @@
+import * as mc from "@minecraft/server";
 import * as SuperSAPI from "../SuperSAPI";
-import { SuperPlayer } from "../SuperSAPI";
 
 export class mItemsatckComponent extends SuperSAPI.ItemComponent {
     useDuration:number=0;
@@ -15,14 +15,18 @@ export class mItemsatckComponent extends SuperSAPI.ItemComponent {
     }
     onStart(): void {
     }
-    onUse(player: SuperPlayer): void {
-        console.log("use");
+    onAttack(player: SuperSAPI.SuperPlayer, target: SuperSAPI.SuperEntity): void {
+        if (target) {
+            target.applyDamage(99,{damagingEntity:player.source_instance,cause:mc.EntityDamageCause.entityAttack});
+        }
     }
-    onStartUse(player: SuperPlayer, useDuration: number): void {
+    onUse(player: SuperSAPI.SuperPlayer): void {
+    }
+    onStartUse(player: SuperSAPI.SuperPlayer, useDuration: number): void {
         this.isUseing=true;
         this.useDuration=0
     }
-    onItemRelease(player: SuperPlayer, useDuration: number): void {
+    onItemRelease(player: SuperSAPI.SuperPlayer, useDuration: number): void {
         console.log("Release:",this.useDuration);
         this.isUseing=false
     }

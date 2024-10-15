@@ -8,7 +8,10 @@ import { SuperWorld } from "../World/SuperWorld";
 import { SuperItemStack } from "Item/SuperItemStack";
 
 export class SuperPlayer extends SuperEntity {
+    
+    
     source_instance: mc.Player;
+    last_selectedSlotIndex: number=0;
     constructor(source_instance: mc.Player,world:SuperWorld) {
         super(source_instance,world)
         this.source_instance = source_instance;
@@ -50,6 +53,9 @@ export class SuperPlayer extends SuperEntity {
     public get selectedSlotIndex() : number {
         return this.source_instance.selectedSlotIndex
     }
+    onSwitchSelectedSlot() {
+        
+    }
     getInventory():mc.EntityInventoryComponent{
         return this.getComponent(mc.EntityComponentTypes.Inventory)
     }
@@ -59,12 +65,33 @@ export class SuperPlayer extends SuperEntity {
     getEquipment():mc.EntityEquippableComponent{
         return this.getComponent(mc.EntityComponentTypes.Equippable)
     }
+    
     getHandItem():mc.ItemStack|undefined{
         let item=this.getInventoryContainer().getItem(this.selectedSlotIndex)
         return item
     }
+    setSelectedSlotItem(slot: number, item: SuperItemStack) {
+        let olditem=this.getInventoryContainer().getItem(slot)
+        if (!olditem||!item) {
+            return
+        }
+        let found=olditem.getDynamicPropertyIds().find(id=>{
+            return id="uuid"
+        })
+        if (found) {
+            let uuid=olditem.getDynamicProperty("uuid") as string
+            if (uuid!==item.uuid) {
+                this.getInventoryContainer().setItem(slot,item.getItem());
+            }
+        }else{
+            this.getInventoryContainer().setItem(slot,item.getItem());
+        }
+    }
     setHandItem(item:SuperItemStack){
         let handitem=this.getHandItem();
+        if (!handitem) {
+            return
+        }
         let found=handitem.getDynamicPropertyIds().find(id=>{
             return id="uuid"
         })

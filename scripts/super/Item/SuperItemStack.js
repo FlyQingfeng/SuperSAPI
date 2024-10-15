@@ -2,12 +2,14 @@ import * as mc from "@minecraft/server";
 import { Super } from "../Super/Super";
 import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
+import { Timer } from "../Public/Timer";
 export class SuperItemStack extends Super {
     constructor(source_instance) {
         super();
         this.source_instance = source_instance;
         this.custom_component = {};
         this.readCustomComponent();
+        this.in_hand_timer = new Timer();
     }
     get amount() {
         return this.source_instance.amount;
@@ -32,6 +34,30 @@ export class SuperItemStack extends Super {
     }
     get typeId() {
         return this.source_instance.typeId;
+    }
+    onSwitchIn(player) {
+        this.getCustomComponents().forEach((c) => {
+            c.onSwitchIn(player);
+        });
+        this.in_hand_timer.setInterval(() => {
+            this.onHand(player);
+        }, 5);
+    }
+    onSwitchOut(player) {
+        this.getCustomComponents().forEach((c) => {
+            c.onSwitchOut(player);
+        });
+        this.in_hand_timer.clearInterval();
+    }
+    onHand(player) {
+        this.getCustomComponents().forEach((c) => {
+            c.onHand(player);
+        });
+    }
+    onAttack(player, target) {
+        this.getCustomComponents().forEach((c) => {
+            c.onAttack(player, target);
+        });
     }
     onUse(player) {
         this.getCustomComponents().forEach((c) => {
@@ -464,6 +490,9 @@ export class SuperItemStack extends Super {
      */
     setDynamicProperty(identifier, value) {
         if (!this.source_instance) {
+            return;
+        }
+        if (this.source_instance.isStackable) {
             return;
         }
         return this.source_instance.setDynamicProperty(identifier, value);

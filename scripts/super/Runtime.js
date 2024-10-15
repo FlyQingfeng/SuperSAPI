@@ -5,6 +5,7 @@ import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { ItemStackManager } from "./Item/SuperItemManager";
+import { cast } from "./Public/stdlib";
 export var NativeClassType;
 (function (NativeClassType) {
     NativeClassType[NativeClassType["World"] = 0] = "World";
@@ -123,6 +124,14 @@ export class SuperSystem {
                         sp_com.tick(t);
                     }
                 }
+                if (entity instanceof SuperPlayer) {
+                    let player = cast(entity);
+                    if (player.last_selectedSlotIndex != player.selectedSlotIndex) {
+                        player.onSwitchSelectedSlot();
+                        this.onPlayerSwitchSelectedSlot(player, player.last_selectedSlotIndex, player.selectedSlotIndex);
+                    }
+                    player.last_selectedSlotIndex = player.selectedSlotIndex;
+                }
             }
             for (const item of Object.values(ItemStackManager.getItems())) {
                 for (const item_com of item.getCustomComponents()) {
@@ -160,6 +169,15 @@ export class SuperSystem {
             return;
         }
         entity.onHitEntityAfterEvent(event);
+        if (entity instanceof SuperPlayer) {
+            let player = cast(entity);
+            let item = ItemStackManager.CreateItem(player.getHandItem());
+            if (item) {
+                player.setHandItem(item);
+                let hitEntity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
+                item.onAttack(player, hitEntity);
+            }
+        }
     }
     EntityHurtAfterEvent(event) {
         let entity = SuperSystem.getWorld().getEntity(event.hurtEntity.id);
@@ -197,6 +215,20 @@ export class SuperSystem {
         entity.onRemoveBeforeEvent(event);
     }
     //玩家
+    onPlayerSwitchSelectedSlot(player, oldSlot, newSlot) {
+        let olditem = player.getInventoryContainer().getItem(oldSlot);
+        let newitem = player.getInventoryContainer().getItem(newSlot);
+        let sp_olditem = ItemStackManager.CreateItem(olditem);
+        let sp_newitem = ItemStackManager.CreateItem(newitem);
+        player.setSelectedSlotItem(oldSlot, sp_olditem);
+        player.setSelectedSlotItem(newSlot, sp_newitem);
+        if (sp_olditem) {
+            sp_olditem.onSwitchOut(player);
+        }
+        if (sp_newitem) {
+            sp_newitem.onSwitchIn(player);
+        }
+    }
     PlayerInputCommand(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0];
         if (player == undefined) {
@@ -211,9 +243,11 @@ export class SuperSystem {
         }
         player.onItemStopUseOnAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let { block } = event;
-        item.onStopUse(player, block);
+        if (item) {
+            player.setHandItem(item);
+            let { block } = event;
+            item.onStopUse(player, block);
+        }
     }
     PlayerItemStartUseAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0];
@@ -222,9 +256,11 @@ export class SuperSystem {
         }
         player.onItemStartUseAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let { useDuration } = event;
-        item.onStartUse(player, useDuration);
+        if (item) {
+            player.setHandItem(item);
+            let { useDuration } = event;
+            item.onStartUse(player, useDuration);
+        }
     }
     PlayerItemReleaseUseAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0];
@@ -233,9 +269,11 @@ export class SuperSystem {
         }
         player.onItemReleaseAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let { useDuration } = event;
-        item.onItemRelease(player, useDuration);
+        if (item) {
+            player.setHandItem(item);
+            let { useDuration } = event;
+            item.onItemRelease(player, useDuration);
+        }
     }
     PlayerItemCompleteAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0];
@@ -244,8 +282,10 @@ export class SuperSystem {
         }
         player.onItemCompleteAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        item.onItemComplete(player);
+        if (item) {
+            player.setHandItem(item);
+            item.onItemComplete(player);
+        }
     }
     PlayerItemUseOnAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0];
@@ -254,9 +294,11 @@ export class SuperSystem {
         }
         player.onItemUseOnAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let { block, blockFace, faceLocation, isFirstEvent } = event;
-        item.onUseOn(player, block, blockFace, faceLocation, isFirstEvent);
+        if (item) {
+            player.setHandItem(item);
+            let { block, blockFace, faceLocation, isFirstEvent } = event;
+            item.onUseOn(player, block, blockFace, faceLocation, isFirstEvent);
+        }
     }
     PlayerItemUseAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0];
@@ -265,8 +307,10 @@ export class SuperSystem {
         }
         player.onItemUseAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        item.onUse(player);
+        if (item) {
+            player.setHandItem(item);
+            item.onUse(player);
+        }
     }
     PlayerSpawnAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];

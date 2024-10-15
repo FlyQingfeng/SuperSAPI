@@ -12,6 +12,7 @@ import { enumKeyToString } from "../Public/stdlib";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance, world) {
         super(source_instance, world);
+        this.last_selectedSlotIndex = 0;
         this.source_instance = source_instance;
     }
     ;
@@ -51,6 +52,8 @@ export class SuperPlayer extends SuperEntity {
     get selectedSlotIndex() {
         return this.source_instance.selectedSlotIndex;
     }
+    onSwitchSelectedSlot() {
+    }
     getInventory() {
         return this.getComponent(mc.EntityComponentTypes.Inventory);
     }
@@ -64,8 +67,29 @@ export class SuperPlayer extends SuperEntity {
         let item = this.getInventoryContainer().getItem(this.selectedSlotIndex);
         return item;
     }
+    setSelectedSlotItem(slot, item) {
+        let olditem = this.getInventoryContainer().getItem(slot);
+        if (!olditem || !item) {
+            return;
+        }
+        let found = olditem.getDynamicPropertyIds().find(id => {
+            return id = "uuid";
+        });
+        if (found) {
+            let uuid = olditem.getDynamicProperty("uuid");
+            if (uuid !== item.uuid) {
+                this.getInventoryContainer().setItem(slot, item.getItem());
+            }
+        }
+        else {
+            this.getInventoryContainer().setItem(slot, item.getItem());
+        }
+    }
     setHandItem(item) {
         let handitem = this.getHandItem();
+        if (!handitem) {
+            return;
+        }
         let found = handitem.getDynamicPropertyIds().find(id => {
             return id = "uuid";
         });

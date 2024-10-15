@@ -6,7 +6,7 @@ import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { Debug } from "./Public/debug";
 import { ItemStackManager } from "./Item/SuperItemManager";
-import { toJSON } from "./Public/stdlib";
+import { cast, toJSON } from "./Public/stdlib";
 
 
 export enum NativeClassType {//可被替换的类和原型
@@ -15,7 +15,7 @@ export enum NativeClassType {//可被替换的类和原型
     Entity,
     ItemStack,
 }
-type _Class=new (...args: any[]) => any
+type _Class = new (...args: any[]) => any
 
 export class ClassManager {
     static mclass = {
@@ -33,9 +33,9 @@ export class ClassManager {
     static replaceClass(type: NativeClassType, NewClass: _Class) {
         this.mclass[type.toString()] = NewClass;
     }
-    static CreateInstance(type: NativeClassType,origin:any,...args:any[]){
+    static CreateInstance(type: NativeClassType, origin: any, ...args: any[]) {
         if (args) {
-            return new (this.mclass[type.toString()])(origin,...args)
+            return new (this.mclass[type.toString()])(origin, ...args)
         }
         return new (this.mclass[type.toString()])(origin)
     }
@@ -53,7 +53,7 @@ export class SuperSystem {
     };
     //初始化运行时函数
     init() {
-        SuperSystem.sp_world = ClassManager.CreateInstance(NativeClassType.World,world);
+        SuperSystem.sp_world = ClassManager.CreateInstance(NativeClassType.World, world);
         //玩家事件
         //beforeEvents事件
         SuperSystem.sp_world.beforeEvents.playerBreakBlock.subscribe(this.PlayerBreakBlockBeforeEvent)
@@ -111,7 +111,7 @@ export class SuperSystem {
             SuperSystem.getWorld().CreateEntityInstance(event.entity);
         })
         SuperSystem.sp_world.afterEvents.entityRemove.subscribe((event) => {
-            let id=event.removedEntityId;
+            let id = event.removedEntityId;
             SuperSystem.getWorld().RemoveEntitysForID(id);
         })
         SuperSystem.sp_world.afterEvents.entityDie.subscribe((event) => {
@@ -138,6 +138,14 @@ export class SuperSystem {
                     if (sp_com.enable_tick) {
                         sp_com.tick(t);
                     }
+                }
+                if (entity instanceof SuperPlayer) {
+                    let player = cast<SuperPlayer>(entity)
+                    if (player.last_selectedSlotIndex != player.selectedSlotIndex) {
+                        player.onSwitchSelectedSlot();
+                        this.onPlayerSwitchSelectedSlot(player, player.last_selectedSlotIndex, player.selectedSlotIndex);
+                    }
+                    player.last_selectedSlotIndex = player.selectedSlotIndex
                 }
             }
             for (const item of Object.values(ItemStackManager.getItems())) {
@@ -176,6 +184,15 @@ export class SuperSystem {
             return
         }
         entity.onHitEntityAfterEvent(event)
+        if (entity instanceof SuperPlayer) {
+            let player = cast<SuperPlayer>(entity)
+            let item = ItemStackManager.CreateItem(player.getHandItem());
+            if (item) {
+                player.setHandItem(item);
+                let hitEntity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
+                item.onAttack(player, hitEntity);
+            }
+        }
     }
     private EntityHurtAfterEvent(event: EntityHurtAfterEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.hurtEntity.id);
@@ -213,6 +230,20 @@ export class SuperSystem {
         entity.onRemoveBeforeEvent(event)
     }
     //玩家
+    onPlayerSwitchSelectedSlot(player: SuperPlayer, oldSlot: number, newSlot: number) {
+        let olditem = player.getInventoryContainer().getItem(oldSlot)
+        let newitem = player.getInventoryContainer().getItem(newSlot)
+        let sp_olditem = ItemStackManager.CreateItem(olditem);
+        let sp_newitem = ItemStackManager.CreateItem(newitem);
+        player.setSelectedSlotItem(oldSlot,sp_olditem);
+        player.setSelectedSlotItem(newSlot,sp_newitem);
+        if (sp_olditem) {
+            sp_olditem.onSwitchOut(player);
+        }
+        if (sp_newitem) {
+            sp_newitem.onSwitchIn(player);
+        }
+    }
     private PlayerInputCommand(event: ChatSendBeforeEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.sender.name })[0]
         if (player == undefined) {
@@ -226,11 +257,13 @@ export class SuperSystem {
             return
         }
         player.onItemStopUseOnAfterEvent(event)
-        
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let {block}=event;
-        item.onStopUse(player,block);
+
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            let { block } = event;
+            item.onStopUse(player, block);
+        }
     }
     private PlayerItemStartUseAfterEvent(event: ItemStartUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -238,11 +271,13 @@ export class SuperSystem {
             return
         }
         player.onItemStartUseAfterEvent(event)
-        
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let {useDuration}=event;
-        item.onStartUse(player,useDuration);
+
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            let { useDuration } = event;
+            item.onStartUse(player, useDuration);
+        }
     }
     private PlayerItemReleaseUseAfterEvent(event: ItemReleaseUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -250,11 +285,13 @@ export class SuperSystem {
             return
         }
         player.onItemReleaseAfterEvent(event)
-        
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let {useDuration}=event;
-        item.onItemRelease(player,useDuration);
+
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            let { useDuration } = event;
+            item.onItemRelease(player, useDuration);
+        }
     }
     private PlayerItemCompleteAfterEvent(event: ItemCompleteUseEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -262,10 +299,12 @@ export class SuperSystem {
             return
         }
         player.onItemCompleteAfterEvent(event)
-        
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        item.onItemComplete(player);
+
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            item.onItemComplete(player);
+        }
     }
     private PlayerItemUseOnAfterEvent(event: ItemUseOnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -273,11 +312,13 @@ export class SuperSystem {
             return
         }
         player.onItemUseOnAfterEvent(event)
-        
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        let {block,blockFace,faceLocation,isFirstEvent}=event;
-        item.onUseOn(player,block,blockFace,faceLocation,isFirstEvent);
+
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            let { block, blockFace, faceLocation, isFirstEvent } = event;
+            item.onUseOn(player, block, blockFace, faceLocation, isFirstEvent);
+        }
     }
     private PlayerItemUseAfterEvent(event: ItemUseAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.source.name })[0]
@@ -285,9 +326,11 @@ export class SuperSystem {
             return
         }
         player.onItemUseAfterEvent(event)
-        let item=ItemStackManager.CreateItem(player.getHandItem());
-        player.setHandItem(item);
-        item.onUse(player);
+        let item = ItemStackManager.CreateItem(player.getHandItem());
+        if (item) {
+            player.setHandItem(item);
+            item.onUse(player);
+        }
     }
     private PlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0]
