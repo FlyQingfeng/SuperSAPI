@@ -13,6 +13,7 @@ export class SuperEntity extends Super {
     constructor(source_instance, world) {
         super();
         this.enable_tick = false;
+        console.log(source_instance.id);
         this.world = world;
         this.source_instance = source_instance;
         this.custom_component = {};

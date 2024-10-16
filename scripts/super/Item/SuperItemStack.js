@@ -41,7 +41,7 @@ export class SuperItemStack extends Super {
         });
         this.in_hand_timer.setInterval(() => {
             this.onHand(player);
-        }, 5);
+        }, 1);
     }
     onSwitchOut(player) {
         this.getCustomComponents().forEach((c) => {

@@ -1,4 +1,3 @@
-import * as mc from "@minecraft/server";
 import * as SuperSAPI from "../SuperSAPI";
 export class mItemsatckComponent extends SuperSAPI.ItemComponent {
     constructor(typeId, owner, options) {
@@ -13,12 +12,12 @@ export class mItemsatckComponent extends SuperSAPI.ItemComponent {
             this.useDuration++;
         }
     }
+    onHand(player) {
+        player.addEffect(SuperSAPI.MCVD.MinecraftEffectTypes.Absorption, 5);
+    }
     onStart() {
     }
     onAttack(player, target) {
-        if (target) {
-            target.applyDamage(99, { damagingEntity: player.source_instance, cause: mc.EntityDamageCause.entityAttack });
-        }
     }
     onUse(player) {
     }

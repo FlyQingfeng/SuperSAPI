@@ -17,6 +17,8 @@ export class SuperEntity extends Super {
     enable_tick: boolean = false
     constructor(source_instance: mc.Entity,world:SuperWorld) {
         super()
+        console.log(source_instance.id);
+        
         this.world=world;
         this.source_instance = source_instance;
         this.custom_component = {};

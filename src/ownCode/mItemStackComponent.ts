@@ -1,5 +1,6 @@
 import * as mc from "@minecraft/server";
 import * as SuperSAPI from "../SuperSAPI";
+import { vec3 } from "../Public/vec3";
 
 export class mItemsatckComponent extends SuperSAPI.ItemComponent {
     useDuration:number=0;
@@ -13,12 +14,14 @@ export class mItemsatckComponent extends SuperSAPI.ItemComponent {
             this.useDuration++;
         }
     }
+    onHand(player: SuperSAPI.SuperPlayer): void {
+        player.addEffect(SuperSAPI.MCVD.MinecraftEffectTypes.Absorption,5)
+    }
     onStart(): void {
+
     }
     onAttack(player: SuperSAPI.SuperPlayer, target: SuperSAPI.SuperEntity): void {
-        if (target) {
-            target.applyDamage(99,{damagingEntity:player.source_instance,cause:mc.EntityDamageCause.entityAttack});
-        }
+       
     }
     onUse(player: SuperSAPI.SuperPlayer): void {
     }

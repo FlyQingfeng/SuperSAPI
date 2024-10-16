@@ -31,8 +31,7 @@ export const version_information={
 //代导入
 export const MC=await import("@minecraft/server");
 export const Std = await import("./Public/stdlib");
-
-
+export const MCVD = await import("./VanillaData/VanillaData");
 //原生类类型
 export type MC_World=mc.World
 export type MC_Player=mc.Player
