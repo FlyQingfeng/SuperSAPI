@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>Std</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016213641-2244apx" data-type="NodeHeading" class="h1"
+      updated="20241016213812" id="20241016213641-2244apx" title="Std">
+      <div contenteditable="false" spellcheck="false">Std</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213755-nict62d" data-type="NodeParagraph" class="p" id="20241016213755-nict62d"
+      updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">以下是一组实用工具函数的详细说明，这些函数用于类型转换、功能检测、枚举处理、JSON序列化和反序列化，包括处理循环引用的情况：
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213755-0g5z0v7" data-type="NodeHeading" class="h3"
+      id="20241016213755-0g5z0v7" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">函数列表</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="o" data-node-id="20241016213755-ee0d15v" data-type="NodeList" class="list"
+      id="20241016213755-ee0d15v" updated="20241016213755">
+      <div data-marker="1." data-subtype="o" data-node-id="20241016213755-xqdbrp1" data-type="NodeListItem" class="li"
+        id="20241016213755-xqdbrp1" updated="20241016213755">
+        <div class="protyle-action protyle-action--order" contenteditable="false" draggable="true">1.</div>
+        <div data-node-id="20241016213755-i5nbnpb" data-type="NodeParagraph" class="p" id="20241016213755-i5nbnpb"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">cast&lt;T&gt;(obj: any): T</span>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="2." data-subtype="o" data-node-id="20241016213755-rx73nng" data-type="NodeListItem" class="li"
+        updated="20241016213755" id="20241016213755-rx73nng">
+        <div class="protyle-action protyle-action--order" contenteditable="false" draggable="true">2.</div>
+        <div data-node-id="20241016213755-d7alnwc" data-type="NodeParagraph" class="p" id="20241016213755-d7alnwc"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">hasFun(obj: any, funcName: string):
+              boolean</span></div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="3." data-subtype="o" data-node-id="20241016213755-iogmpgz" data-type="NodeListItem" class="li"
+        id="20241016213755-iogmpgz" updated="20241016213755">
+        <div class="protyle-action protyle-action--order" contenteditable="false" draggable="true">3.</div>
+        <div data-node-id="20241016213755-zu0gvur" data-type="NodeParagraph" class="p" id="20241016213755-zu0gvur"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">enumKeyToString(enumObj: any,
+              enumValue: any): string</span></div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="4." data-subtype="o" data-node-id="20241016213755-xflp9tu" data-type="NodeListItem" class="li"
+        id="20241016213755-xflp9tu" updated="20241016213755">
+        <div class="protyle-action protyle-action--order" contenteditable="false" draggable="true">4.</div>
+        <div data-node-id="20241016213755-qq124ib" data-type="NodeParagraph" class="p" id="20241016213755-qq124ib"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">toJSON(value: any): string</span>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="5." data-subtype="o" data-node-id="20241016213755-m6m7ess" data-type="NodeListItem" class="li"
+        id="20241016213755-m6m7ess" updated="20241016213755">
+        <div class="protyle-action protyle-action--order" contenteditable="false" draggable="true">5.</div>
+        <div data-node-id="20241016213755-e2pz8g8" data-type="NodeParagraph" class="p" id="20241016213755-e2pz8g8"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">fromJSON(value: string): any</span>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213755-gxiwheq" data-type="NodeHeading" class="h3"
+      id="20241016213755-gxiwheq" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213755-e9kxhl5" data-type="NodeHeading" class="h4"
+      id="20241016213755-e9kxhl5" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">1. cast&lt;T&gt;(obj: any): T</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="u" data-node-id="20241016213755-8znejx4" data-type="NodeList" class="list"
+      updated="20241016213755" id="20241016213755-8znejx4">
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-fl0pyb6" data-type="NodeListItem" class="li"
+        id="20241016213755-fl0pyb6" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-cd7jkup" data-type="NodeParagraph" class="p" updated="20241016213755"
+          id="20241016213755-cd7jkup">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">描述</span>：这是一个类型转换函数，用于将任意类型的对象<span
+              data-type="code">obj</span>​转换为指定的类型<span data-type="code">T</span>​。这在TypeScript中特别有用，用于强制类型转换。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-fmfg013" data-type="NodeListItem" class="li"
+        id="20241016213755-fmfg013" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-bxgowk2" data-type="NodeParagraph" class="p" updated="20241016213755"
+          id="20241016213755-bxgowk2">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">参数</span>：</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div data-subtype="u" data-node-id="20241016213755-rqr01an" data-type="NodeList" class="list"
+          id="20241016213755-rqr01an" updated="20241016213755">
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-x2xbsoz" data-type="NodeListItem"
+            class="li" id="20241016213755-x2xbsoz" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-wcl0n7s" data-type="NodeParagraph" class="p" id="20241016213755-wcl0n7s"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">obj</span>​: <span
+                  data-type="code">any</span>​ - 要转换的对象。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-xrl68ma" data-type="NodeListItem" class="li"
+        id="20241016213755-xrl68ma" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-hmg2n9m" data-type="NodeParagraph" class="p" id="20241016213755-hmg2n9m"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">返回</span>：<span
+              data-type="code">T</span>​ - 转换后的对象。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213755-qs6i9w5" data-type="NodeHeading" class="h4"
+      updated="20241016213755" id="20241016213755-qs6i9w5">
+      <div contenteditable="false" spellcheck="false">2. hasFun(obj: any, funcName: string): boolean</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="u" data-node-id="20241016213755-i9toa6z" data-type="NodeList" class="list"
+      id="20241016213755-i9toa6z" updated="20241016213755">
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-evh1khz" data-type="NodeListItem" class="li"
+        id="20241016213755-evh1khz" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-f8kc7mv" data-type="NodeParagraph" class="p" id="20241016213755-f8kc7mv"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">描述</span>：检查对象<span
+              data-type="code">obj</span>​是否具有名为<span data-type="code">funcName</span>​的方法。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-8j8j32g" data-type="NodeListItem" class="li"
+        id="20241016213755-8j8j32g" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-9wppo6q" data-type="NodeParagraph" class="p" updated="20241016213755"
+          id="20241016213755-9wppo6q">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">参数</span>：</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div data-subtype="u" data-node-id="20241016213755-gbyon04" data-type="NodeList" class="list"
+          id="20241016213755-gbyon04" updated="20241016213755">
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-opmys5o" data-type="NodeListItem"
+            class="li" id="20241016213755-opmys5o" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-seqgr2g" data-type="NodeParagraph" class="p" id="20241016213755-seqgr2g"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">obj</span>​: <span
+                  data-type="code">any</span>​ - 要检查的对象。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-t959za6" data-type="NodeListItem"
+            class="li" updated="20241016213755" id="20241016213755-t959za6">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-2ju6ynx" data-type="NodeParagraph" class="p" id="20241016213755-2ju6ynx"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">funcName</span>​: <span
+                  data-type="code">string</span>​ - 方法的名称。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-9nb2jio" data-type="NodeListItem" class="li"
+        id="20241016213755-9nb2jio" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-0ti3h05" data-type="NodeParagraph" class="p" id="20241016213755-0ti3h05"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">返回</span>：<span
+              data-type="code">boolean</span>​ - 如果对象具有该方法，则返回<span data-type="code">true</span>​；否则返回<span
+              data-type="code">false</span>​。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213755-w6xq3e9" data-type="NodeHeading" class="h4"
+      id="20241016213755-w6xq3e9" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">3. enumKeyToString(enumObj: any, enumValue: any): string</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="u" data-node-id="20241016213755-whksy1t" data-type="NodeList" class="list"
+      id="20241016213755-whksy1t" updated="20241016213755">
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-i1s71mg" data-type="NodeListItem" class="li"
+        id="20241016213755-i1s71mg" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-0cb71b6" data-type="NodeParagraph" class="p" id="20241016213755-0cb71b6"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">描述</span>：从枚举对象<span
+              data-type="code">enumObj</span>​中找到与<span data-type="code">enumValue</span>​值对应的键名。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-o4flxac" data-type="NodeListItem" class="li"
+        updated="20241016213755" id="20241016213755-o4flxac">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-bpxtir7" data-type="NodeParagraph" class="p" updated="20241016213755"
+          id="20241016213755-bpxtir7">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">参数</span>：</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div data-subtype="u" data-node-id="20241016213755-kqa0hro" data-type="NodeList" class="list"
+          id="20241016213755-kqa0hro" updated="20241016213755">
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-d62cmxb" data-type="NodeListItem"
+            class="li" id="20241016213755-d62cmxb" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-oaiq32u" data-type="NodeParagraph" class="p" id="20241016213755-oaiq32u"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">enumObj</span>​: <span
+                  data-type="code">any</span>​ - 枚举对象。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-rarhwxc" data-type="NodeListItem"
+            class="li" id="20241016213755-rarhwxc" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-x2auz4o" data-type="NodeParagraph" class="p" id="20241016213755-x2auz4o"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">enumValue</span>​: <span
+                  data-type="code">any</span>​ - 枚举值。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-mh8mev6" data-type="NodeListItem" class="li"
+        id="20241016213755-mh8mev6" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-1j6stvw" data-type="NodeParagraph" class="p" id="20241016213755-1j6stvw"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">返回</span>：<span
+              data-type="code">string</span>​ - 与给定值对应的键名。如果未找到，则返回空字符串。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213755-6d97spp" data-type="NodeHeading" class="h4"
+      id="20241016213755-6d97spp" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">4. toJSON(value: any): string</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="u" data-node-id="20241016213755-zd37dwj" data-type="NodeList" class="list"
+      id="20241016213755-zd37dwj" updated="20241016213755">
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-dnbkn92" data-type="NodeListItem" class="li"
+        id="20241016213755-dnbkn92" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-jt3plxy" data-type="NodeParagraph" class="p" id="20241016213755-jt3plxy"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">描述</span>：将对象<span
+              data-type="code">value</span>​序列化为JSON字符串，同时处理循环引用的问题。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-rebhyk1" data-type="NodeListItem" class="li"
+        id="20241016213755-rebhyk1" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-uafsoed" data-type="NodeParagraph" class="p" id="20241016213755-uafsoed"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">参数</span>：</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div data-subtype="u" data-node-id="20241016213755-1r3pj2l" data-type="NodeList" class="list"
+          id="20241016213755-1r3pj2l" updated="20241016213755">
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-yn0e1do" data-type="NodeListItem"
+            class="li" id="20241016213755-yn0e1do" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-7uetyaq" data-type="NodeParagraph" class="p" updated="20241016213755"
+              id="20241016213755-7uetyaq">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">value</span>​: <span
+                  data-type="code">any</span>​ - 要序列化的对象。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-p3gub11" data-type="NodeListItem" class="li"
+        id="20241016213755-p3gub11" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-jpi57u5" data-type="NodeParagraph" class="p" id="20241016213755-jpi57u5"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">返回</span>：<span
+              data-type="code">string</span>​ - 序列化后的JSON字符串。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213755-vnunknw" data-type="NodeHeading" class="h4"
+      id="20241016213755-vnunknw" updated="20241016213755">
+      <div contenteditable="false" spellcheck="false">5. fromJSON(value: string): any</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="u" data-node-id="20241016213755-1jgmy22" data-type="NodeList" class="list"
+      id="20241016213755-1jgmy22" updated="20241016213755">
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-ir0o6f2" data-type="NodeListItem" class="li"
+        id="20241016213755-ir0o6f2" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-vfnydt7" data-type="NodeParagraph" class="p" id="20241016213755-vfnydt7"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">描述</span>：将JSON字符串<span
+              data-type="code">value</span>​反序列化为对象，同时恢复循环引用。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-o6gmq1s" data-type="NodeListItem" class="li"
+        id="20241016213755-o6gmq1s" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-4dr1ywk" data-type="NodeParagraph" class="p" id="20241016213755-4dr1ywk"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">参数</span>：</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div data-subtype="u" data-node-id="20241016213755-vxkr1b8" data-type="NodeList" class="list"
+          id="20241016213755-vxkr1b8" updated="20241016213755">
+          <div data-marker="*" data-subtype="u" data-node-id="20241016213755-kwmpymf" data-type="NodeListItem"
+            class="li" id="20241016213755-kwmpymf" updated="20241016213755">
+            <div class="protyle-action" draggable="true"><svg>
+                <use xlink:href="#iconDot"></use>
+              </svg></div>
+            <div data-node-id="20241016213755-q7r4q57" data-type="NodeParagraph" class="p" id="20241016213755-q7r4q57"
+              updated="20241016213755">
+              <div contenteditable="false" spellcheck="false">​<span data-type="code">value</span>​: <span
+                  data-type="code">string</span>​ - 要反序列化的JSON字符串。</div>
+              <div class="protyle-attr" contenteditable="false"></div>
+            </div>
+            <div class="protyle-attr" contenteditable="false"></div>
+          </div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-marker="*" data-subtype="u" data-node-id="20241016213755-v0e3elq" data-type="NodeListItem" class="li"
+        id="20241016213755-v0e3elq" updated="20241016213755">
+        <div class="protyle-action" draggable="true"><svg>
+            <use xlink:href="#iconDot"></use>
+          </svg></div>
+        <div data-node-id="20241016213755-bz5f8h8" data-type="NodeParagraph" class="p" id="20241016213755-bz5f8h8"
+          updated="20241016213755">
+          <div contenteditable="false" spellcheck="false"><span data-type="strong">返回</span>：<span
+              data-type="code">any</span>​ - 反序列化后的对象。</div>
+          <div class="protyle-attr" contenteditable="false"></div>
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213755-uyzt4cu" data-type="NodeHeading" class="h3"
+      id="20241016213755-uyzt4cu" updated="20241016213812">
+      <div contenteditable="false" spellcheck="false">使用示例</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213755-dvo4dqn" data-type="NodeCodeBlock" class="code-block" id="20241016213755-dvo4dqn"
+      updated="20241016213755">
+      <div class="protyle-action"><span class="protyle-action--first protyle-action__language"
+          contenteditable="false">typescript</span><span class="fn__flex-1"></span><span
+          class="protyle-icon protyle-icon--only protyle-action__copy"><svg>
+            <use xlink:href="#iconCopy"></use>
+          </svg></span></div>
+      <div class="hljs">
+        <div></div>
+        <div contenteditable="false" style="flex: 1" spellcheck="false">// 使用 cast 函数
+          const player = cast&lt;SuperPlayer&gt;(entity);
+
+          // 使用 hasFun 函数检查对象是否有特定方法
+          if (hasFun(player, 'attack')) {
+          player.attack();
+          }
+
+          // 使用 enumKeyToString 获取枚举键名
+          const key = enumKeyToString(SomeEnum, someEnumValue);
+
+          // 使用 toJSON 和 fromJSON 处理循环引用
+          const obj = { self: null };
+          obj.self = obj;
+          const json = toJSON(obj); // 处理循环引用
+          const parsedObj = fromJSON(json); // 恢复循环引用
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213809-xelz963" data-type="NodeParagraph" class="p" id="20241016213809-xelz963"
+      updated="20241016213809">
+      <div contenteditable="false" spellcheck="false">‍</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

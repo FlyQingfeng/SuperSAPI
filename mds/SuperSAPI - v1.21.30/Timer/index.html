@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>Timer</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016212800-4i53xst" data-type="NodeHeading" class="h1"
+      id="20241016212800-4i53xst" title="Timer" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">Timer</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-c8fasw6" data-type="NodeParagraph" class="p" id="20241016213340-c8fasw6"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">以下是<span data-type="code">Timer</span>​类的成员变量和成员函数的详细说明，以表格形式列出：
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213340-a9c9h50" data-type="NodeHeading" class="h3"
+      id="20241016213340-a9c9h50" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-d98bzj1" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016213340-d98bzj1" updated="20241016213340">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">private timeoutId?: number</span>​</td>
+              <td>存储单次定时器的ID，用于取消定时器。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">private intervalId?: number</span>​</td>
+              <td>存储重复定时器的ID，用于取消定时器。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213340-4orjyqj" data-type="NodeHeading" class="h3"
+      id="20241016213340-4orjyqj" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-9t64id4" data-type="NodeTable" class="table" updated="20241016213340" colgroup="|"
+      id="20241016213340-9t64id4">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor()</span>​</td>
+              <td>构造函数，初始化定时器实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public setTimeout(callback: () =&gt; void, delay: number): void</span>​</td>
+              <td>设置一个单次定时器，延迟<span data-type="code">delay</span>​毫秒后执行<span data-type="code">callback</span>​。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public setInterval(callback: () =&gt; void, interval: number): void</span>​
+              </td>
+              <td>设置一个重复定时器，每隔<span data-type="code">interval</span>​毫秒执行<span data-type="code">callback</span>​。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public clearTimeout(): void</span>​</td>
+              <td>取消单次定时器。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public clearInterval(): void</span>​</td>
+              <td>取消重复定时器。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public setLasting(interval: number, loop_event: () =&gt; void, duration:
+                  number, out_event: () =&gt; void): void</span>​</td>
+              <td>设置一个持久定时器，每隔<span data-type="code">interval</span>​毫秒执行<span
+                  data-type="code">loop_event</span>​，直到<span data-type="code">duration</span>​毫秒后执行<span
+                  data-type="code">out_event</span>​并清除定时器。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">public clearAll(): void</span>​</td>
+              <td>清除所有定时器，包括单次和重复定时器。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213340-jnbjxt0" data-type="NodeHeading" class="h3"
+      id="20241016213340-jnbjxt0" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-zrztrqt" data-type="NodeParagraph" class="p" id="20241016213340-zrztrqt"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">Timer</span>​类提供了一个简单的定时器管理机制，允许用户设置单次定时器、重复定时器，并能够取消这些定时器。此外，还提供了一个持久定时器的方法，用于在一定时间内重复执行某个操作，直到达到指定的持续时间。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-0m4d5hv" data-type="NodeHeading" class="h4"
+      id="20241016213340-0m4d5hv" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">constructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-2fulc5l" data-type="NodeParagraph" class="p" id="20241016213340-2fulc5l"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">构造函数初始化定时器实例，不执行任何操作。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-6plhm95" data-type="NodeHeading" class="h4"
+      updated="20241016213340" id="20241016213340-6plhm95">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">setTimeout</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-k42rcjd" data-type="NodeParagraph" class="p" id="20241016213340-k42rcjd"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">设置一个单次定时器，延迟<span data-type="code">delay</span>​毫秒后执行<span
+          data-type="code">callback</span>​。如果之前已经设置过单次定时器，会先清除旧的定时器。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-iy8lt6e" data-type="NodeHeading" class="h4"
+      updated="20241016213340" id="20241016213340-iy8lt6e">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">setInterval</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-9ky9vsd" data-type="NodeParagraph" class="p" id="20241016213340-9ky9vsd"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">设置一个重复定时器，每隔<span data-type="code">interval</span>​毫秒执行<span
+          data-type="code">callback</span>​。如果之前已经设置过重复定时器，会先清除旧的定时器。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-uqjmfp4" data-type="NodeHeading" class="h4"
+      id="20241016213340-uqjmfp4" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">clearTimeout</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-f0xe2c7" data-type="NodeParagraph" class="p" id="20241016213340-f0xe2c7"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">取消单次定时器，如果存在则清除。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-sveu2oi" data-type="NodeHeading" class="h4"
+      id="20241016213340-sveu2oi" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">clearInterval</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-mr0v7rt" data-type="NodeParagraph" class="p" updated="20241016213340"
+      id="20241016213340-mr0v7rt">
+      <div contenteditable="false" spellcheck="false">取消重复定时器，如果存在则清除。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-pgyk0ni" data-type="NodeHeading" class="h4"
+      id="20241016213340-pgyk0ni" updated="20241016213340">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">setLasting</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-hq04jvn" data-type="NodeParagraph" class="p" id="20241016213340-hq04jvn"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">设置一个持久定时器，每隔<span data-type="code">interval</span>​毫秒执行<span
+          data-type="code">loop_event</span>​，直到<span data-type="code">duration</span>​毫秒后执行<span
+          data-type="code">out_event</span>​并清除所有定时器。如果<span data-type="code">interval</span>​大于<span
+          data-type="code">duration</span>​，则抛出错误。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213340-kt18unk" data-type="NodeHeading" class="h4"
+      updated="20241016213340" id="20241016213340-kt18unk">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">clearAll</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-is9m3n7" data-type="NodeParagraph" class="p" id="20241016213340-is9m3n7"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">清除所有定时器，包括单次和重复定时器。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213340-ibt2zr0" data-type="NodeParagraph" class="p" id="20241016213340-ibt2zr0"
+      updated="20241016213340">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">Timer</span>​类提供了一个基本的定时器管理功能，可以用于游戏中的各种定时任务，如延迟执行、周期性执行和持久执行等场景。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

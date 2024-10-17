@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>SuperSystem</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016201552-xql628x" data-type="NodeHeading" class="h1"
+      id="20241016201552-xql628x" title="SuperSystem" updated="20241016203056">
+      <div contenteditable="false" spellcheck="false">SuperSystem</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202901-f2f5ubr" data-type="NodeBlockquote" class="bq" id="20241016202901-f2f5ubr"
+      updated="20241016203056">
+      <div data-node-id="20241016202455-pmn7zu5" data-type="NodeParagraph" class="p" id="20241016202455-pmn7zu5"
+        updated="20241016203012">
+        <div contenteditable="false" spellcheck="false">游戏内只存在一个SuperSystem，可以在导入了SuperSAPI后直接<span
+            data-type="code">SuperSAPI.System</span>​获取到这个唯一实例</div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div data-node-id="20241016203020-ipmk06d" data-type="NodeParagraph" class="p" id="20241016203020-ipmk06d"
+        updated="20241016203056">
+        <div contenteditable="false" spellcheck="false">该类是SSAPI的核心类，用于把对应的驱动事件分配给对应的实体对象</div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016202455-zc5ki3h" data-type="NodeHeading" class="h3"
+      updated="20241016202455" id="20241016202455-zc5ki3h">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202455-c1bgk21" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016202455-c1bgk21" updated="20241016202455">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">source_instance: System</span>​</td>
+              <td>保存构造函数传入的原生<span data-type="code">System</span>​实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static sp_world: SuperWorld</span>​</td>
+              <td>静态变量，存储全局的<span data-type="code">SuperWorld</span>​实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">ready: boolean = false</span>​</td>
+              <td>指示<span data-type="code">SuperSystem</span>​实例是否已准备好。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016202455-leaysgj" data-type="NodeHeading" class="h3"
+      id="20241016202455-leaysgj" updated="20241016202455">
+      <div contenteditable="false" spellcheck="false">构造函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202455-02m4i0d" data-type="NodeTable" class="table" updated="20241016202455" colgroup="|"
+      id="20241016202455-02m4i0d">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>构造函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor(source_instance: System)</span>​</td>
+              <td>初始化<span data-type="code">SuperSystem</span>​实例，设置原生<span
+                  data-type="code">System</span>​实例引用，并复制相关事件和当前刻度。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016202455-dwgxcqk" data-type="NodeHeading" class="h3"
+      id="20241016202455-dwgxcqk" updated="20241016202455">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202455-n2l8itz" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016202455-n2l8itz" updated="20241016202455">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">init()</span>​</td>
+              <td>初始化运行时函数，设置世界实例，订阅事件，并启动周期性任务。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runTick(t: number)</span>​</td>
+              <td>运行时每刻调用的函数，用于更新实体和物品的状态。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">clearJob(jobId: number)</span>​</td>
+              <td>取消之前通过<span data-type="code">runJob</span>​安排的任务。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">clearRun(runId: number)</span>​</td>
+              <td>取消之前通过<span data-type="code">run</span>​或<span data-type="code">runInterval</span>​安排的周期性执行的任务。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">run(callback: () =&gt; void): number</span>​</td>
+              <td>安排一个函数在下一个游戏刻执行，并返回一个标识符。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runInterval(callback: () =&gt; void, tickInterval?: number): number</span>​
+              </td>
+              <td>安排一个函数每隔一定游戏刻数执行，并返回一个标识符。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runJob(generator: Generator&lt;void, void, void&gt;): number</span>​</td>
+              <td>安排一个生成器函数执行，直到完成，并返回一个标识符。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runTimeout(callback: () =&gt; void, tickDelay?: number): number</span>​</td>
+              <td>安排一个函数在指定的游戏刻数后执行，并返回一个标识符。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">waitTicks(ticks: number): Promise&lt;void&gt;</span>​</td>
+              <td>返回一个Promise，该Promise在指定的游戏刻数后解析。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016202455-2tqax9f" data-type="NodeHeading" class="h3"
+      id="20241016202455-2tqax9f" updated="20241016202819">
+      <div contenteditable="false" spellcheck="false">事件处理函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202455-an89dqu" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016202455-an89dqu" updated="20241016202819">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>事件处理函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">EntityDieAfterEvent(event: EntityDieAfterEvent)</span>​</td>
+              <td>实体死亡后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityHealthChangedAfterEvent(event: EntityHealthChangedAfterEvent)</span>​
+              </td>
+              <td>实体血量改变后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityHitBlockAfterEvent(event: EntityHitBlockAfterEvent)</span>​</td>
+              <td>实体击中方块后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityHitEntityAfterEvent(event: EntityHitEntityAfterEvent)</span>​</td>
+              <td>实体击中另一个实体后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityHurtAfterEvent(event: EntityHurtAfterEvent)</span>​</td>
+              <td>实体受到伤害后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityLoadAfterEvent(event: EntityLoadAfterEvent)</span>​</td>
+              <td>实体加载后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityRemoveAfterEvent(event: EntityRemoveAfterEvent)</span>​</td>
+              <td>实体被移除后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntitySpawnAfterEvent(event: EntitySpawnAfterEvent)</span>​</td>
+              <td>实体生成后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">EntityRemoveBeforeEvent(event: EntityRemoveBeforeEvent)</span>​</td>
+              <td>实体被移除前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onPlayerSwitchSelectedSlot(player: SuperPlayer, oldSlot: number, newSlot:
+                  number)</span>​</td>
+              <td>玩家切换选择的槽位后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInputCommand(event: ChatSendBeforeEvent)</span>​</td>
+              <td>玩家输入命令前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent)</span>​</td>
+              <td>玩家停止使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemStartUseAfterEvent(event: ItemStartUseAfterEvent)</span>​</td>
+              <td>玩家开始使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemReleaseUseAfterEvent(event: ItemReleaseUseAfterEvent)</span>​</td>
+              <td>玩家释放使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemCompleteAfterEvent(event: ItemCompleteUseEvent)</span>​</td>
+              <td>玩家完成使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemUseOnAfterEvent(event: ItemUseOnAfterEvent)</span>​</td>
+              <td>玩家在方块上使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemUseAfterEvent(event: ItemUseAfterEvent)</span>​</td>
+              <td>玩家使用物品后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent)</span>​</td>
+              <td>玩家生成后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent)</span>​</td>
+              <td>玩家放置方块后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerLeaveAfterEvent(event: PlayerLeaveAfterEvent)</span>​</td>
+              <td>玩家离开后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerJoinAfterEvent(event: PlayerJoinAfterEvent)</span>​</td>
+              <td>玩家加入后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInteractWithEntityAfterEvent(event:
+                  PlayerInteractWithEntityAfterEvent)</span>​</td>
+              <td>玩家与实体互动后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInteractWithBlockAfterEvent(event:
+                  PlayerInteractWithBlockAfterEvent)</span>​</td>
+              <td>玩家与方块互动后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInputPermissionCategoryChangeAfterEvent(event:
+                  PlayerInputPermissionCategoryChangeAfterEvent)</span>​</td>
+              <td>玩家输入权限类别改变后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerGameModeChangeAfterEvent(event: PlayerGameModeChangeAfterEvent)</span>​
+              </td>
+              <td>玩家游戏模式改变后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerEmoteAfterEvent(event: PlayerEmoteAfterEvent)</span>​</td>
+              <td>玩家表情动作后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerDimensionChangeAfterEvent(event:
+                  PlayerDimensionChangeAfterEvent)</span>​</td>
+              <td>玩家维度改变后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent)</span>​</td>
+              <td>玩家破坏方块后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerLeaveBeforeEvent(event: PlayerLeaveBeforeEvent)</span>​</td>
+              <td>玩家离开前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInteractWithEntityBeforeEvent(event:
+                  PlayerInteractWithEntityBeforeEvent)</span>​</td>
+              <td>玩家与实体互动前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerInteractWithBlockBeforeEvent(event:
+                  PlayerInteractWithBlockBeforeEvent)</span>​</td>
+              <td>玩家与方块互动前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerGameModeChangeBeforeEvent(event:
+                  PlayerGameModeChangeBeforeEvent)</span>​</td>
+              <td>玩家游戏模式改变前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemUseOnBeforeEvent(event: ItemUseOnBeforeEvent)</span>​</td>
+              <td>玩家在方块上使用物品前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerItemUseBeforeEvent(event: ItemUseBeforeEvent)</span>​</td>
+              <td>玩家使用物品前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerChatSendBeforeEvent(event: ChatSendBeforeEvent)</span>​</td>
+              <td>玩家发送聊天信息前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerBreakPlaceBeforeEvent(event: PlayerPlaceBlockBeforeEvent)</span>​</td>
+              <td>玩家放置或破坏方块前的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">PlayerBreakBlockBeforeEvent(event: PlayerBreakBlockBeforeEvent)</span>​</td>
+              <td>玩家破坏方块前的事件处理。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016202455-phblxli" data-type="NodeHeading" class="h3"
+      id="20241016202455-phblxli" updated="20241016202506">
+      <div contenteditable="false" spellcheck="false">静态方法</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016202455-hq6vl5r" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016202455-hq6vl5r" updated="20241016202455">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>静态方法</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static getWorld(): SuperWorld</span>​</td>
+              <td>获取全局的<span data-type="code">SuperWorld</span>​实例。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>
