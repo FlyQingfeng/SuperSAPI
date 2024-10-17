@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>PlayerSuperComponent</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016210834-caapxq6" data-type="NodeHeading" class="h1"
+      id="20241016210834-caapxq6" title="PlayerSuperComponent" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">PlayerSuperComponent</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-hl0k7wz" data-type="NodeParagraph" class="p" id="20241016211857-hl0k7wz"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">以下是<span
+          data-type="code">PlayerSuperComponent</span>​类的成员变量、类型定义和成员函数的详细说明，以表格形式列出：</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211857-4mj4ggf" data-type="NodeHeading" class="h3"
+      id="20241016211857-4mj4ggf" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">类型定义</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-a2o7inm" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016211857-a2o7inm" updated="20241016211857">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>类型定义</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">SuperComponentCreateOptions</span>​</td>
+              <td>一个类型别名，定义了创建组件时的选项结构，包含目标对象、位置和其他任意数据。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211857-jyts4gc" data-type="NodeHeading" class="h3"
+      id="20241016211857-jyts4gc" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-cg6aqqx" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016211857-cg6aqqx" updated="20241016211857">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">owner: SuperPlayer</span>​</td>
+              <td>保存组件所有者的引用，类型为<span data-type="code">SuperPlayer</span>​。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211857-9bco8m2" data-type="NodeHeading" class="h3"
+      id="20241016211857-9bco8m2" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-dysuk6j" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016211857-dysuk6j" updated="20241016211857">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor(typeId: string, owner: SuperPlayer, options?:
+                  SuperComponentCreateOptions)</span>​</td>
+              <td>构造函数，初始化组件的类型标识符、所有者引用和创建选项，并绑定相关事件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">deconstructor(op?: string): void</span>​</td>
+              <td>析构函数，用于清理组件资源，解绑相关事件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">init(): void</span>​</td>
+              <td>组件初始化方法，可以在此方法中执行组件的初始化逻辑。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getOwner(): SuperPlayer</span>​</td>
+              <td>获取组件的所有者实例，类型为<span data-type="code">SuperPlayer</span>​。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onStart(): void</span>​</td>
+              <td>组件启动时调用的方法，继承自<span data-type="code">EntitySuperComponent</span>​类的同名方法。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemStopUseOnAfterEvent(event: ItemStopUseOnAfterEvent): void</span>​</td>
+              <td>玩家停止使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemStartUseAfterEvent(event: ItemStartUseAfterEvent): void</span>​</td>
+              <td>玩家开始使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemReleaseAfterEvent(event: ItemReleaseUseAfterEvent): void</span>​</td>
+              <td>玩家释放使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemCompleteAfterEvent(event: ItemCompleteUseEvent): void</span>​</td>
+              <td>玩家完成使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemUseOnAfterEvent(event: ItemUseOnAfterEvent): void</span>​</td>
+              <td>玩家在方块上使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemUseAfterEvent(event: ItemUseAfterEvent): void</span>​</td>
+              <td>玩家使用物品后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onPlayerSpawnAfterEvent(event: PlayerSpawnAfterEvent): void</span>​</td>
+              <td>玩家生成后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onPlaceBlockAfterEvent(event: PlayerPlaceBlockAfterEvent): void</span>​</td>
+              <td>玩家放置方块后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onLeaveAfterEvent(event: PlayerLeaveAfterEvent): void</span>​</td>
+              <td>玩家离开后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onJoinAfterEvent(event: PlayerJoinAfterEvent): void</span>​</td>
+              <td>玩家加入后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onInteractWithEntityAfterEvent(event: PlayerInteractWithEntityAfterEvent):
+                  void</span>​</td>
+              <td>玩家与实体互动后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onInteractWithBlockAfterEvent(event: PlayerInteractWithBlockAfterEvent):
+                  void</span>​</td>
+              <td>玩家与方块互动后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onInputPermissionCategoryChangeAfterEvent(event:
+                  PlayerInputPermissionCategoryChangeAfterEvent): void</span>​</td>
+              <td>玩家输入权限类别改变后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onGameModeChangeAfterEvent(event: PlayerGameModeChangeAfterEvent):
+                  void</span>​</td>
+              <td>玩家游戏模式改变后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onEmoteAfterEvent(event: PlayerEmoteAfterEvent): void</span>​</td>
+              <td>玩家表情动作后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onDimensionChangeAfterEvent(event: PlayerDimensionChangeAfterEvent):
+                  void</span>​</td>
+              <td>玩家维度改变后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onBreakBlockAfterEvent(event: PlayerBreakBlockAfterEvent): void</span>​</td>
+              <td>玩家破坏方块后的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onLeaveBeforeEvent(event: PlayerLeaveBeforeEvent): void</span>​</td>
+              <td>玩家离开前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onInteractWithEntityBeforeEvent(event: PlayerInteractWithEntityBeforeEvent):
+                  void</span>​</td>
+              <td>玩家与实体互动前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onInteractWithBlockBeforeEvent(event: PlayerInteractWithBlockBeforeEvent):
+                  void</span>​</td>
+              <td>玩家与方块互动前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onGameModeChangeBeforeEvent(event: PlayerGameModeChangeBeforeEvent):
+                  void</span>​</td>
+              <td>玩家游戏模式改变前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemUseOnBeforeEvent(event: ItemUseOnBeforeEvent): void</span>​</td>
+              <td>玩家在方块上使用物品前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onItemUseBeforeEvent(event: ItemUseBeforeEvent): void</span>​</td>
+              <td>玩家使用物品前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onChatSendBeforeEvent(event: ChatSendBeforeEvent): void</span>​</td>
+              <td>玩家发送聊天信息前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onPlaceBlockBeforeEvent(event: PlayerPlaceBlockBeforeEvent): void</span>​</td>
+              <td>玩家放置方块前的事件处理函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onBreakBlockBeforeEvent(event: PlayerBreakBlockBeforeEvent): void</span>​</td>
+              <td>玩家破坏方块前的事件处理函数。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211857-ehu0bx6" data-type="NodeHeading" class="h3"
+      updated="20241016211857" id="20241016211857-ehu0bx6">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-upfv8ca" data-type="NodeParagraph" class="p" id="20241016211857-upfv8ca"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">​<span data-type="code">PlayerSuperComponent</span>​类继承自<span
+          data-type="code">EntitySuperComponent</span>​类，用于创建和管理附加到<span
+          data-type="code">SuperPlayer</span>​实例的自定义组件。这个类在构造函数中绑定了一系列玩家事件，以便在玩家发生特定行为时进行响应。在析构函数中，它解绑了这些事件，确保资源被正确清理。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-mr1h1vk" data-type="NodeHeading" class="h4"
+      id="20241016211857-mr1h1vk" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">constructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-jlkntnc" data-type="NodeParagraph" class="p" id="20241016211857-jlkntnc"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">构造函数初始化组件的<span data-type="code">typeId</span>​、<span
+          data-type="code">owner</span>​和<span
+          data-type="code">create_options</span>​，并绑定了玩家的一系列事件，如使用物品、放置方块、离开游戏、加入游戏、与实体或方块互动等。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-or3celt" data-type="NodeHeading" class="h4"
+      id="20241016211857-or3celt" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">deconstructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-s5bpuns" data-type="NodeParagraph" class="p" id="20241016211857-s5bpuns"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">析构函数解绑了在构造函数中绑定的事件，确保当组件不再需要时，不会留下任何挂引用。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-dpcsjog" data-type="NodeHeading" class="h4"
+      id="20241016211857-dpcsjog" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">init</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-xcaw0n0" data-type="NodeParagraph" class="p" id="20241016211857-xcaw0n0"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">用于初始化组件的状态和属性。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-jvppu3d" data-type="NodeHeading" class="h4"
+      id="20241016211857-jvppu3d" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">getOwner</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-o4mezjt" data-type="NodeParagraph" class="p" id="20241016211857-o4mezjt"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">返回组件的所有者实例，这里确保返回的是<span
+          data-type="code">SuperPlayer</span>​类型的实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-qob53b3" data-type="NodeHeading" class="h4"
+      id="20241016211857-qob53b3" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">onStart</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-cl1hjtj" data-type="NodeParagraph" class="p" id="20241016211857-cl1hjtj"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">在组件启动时调用的方法，这里调用了基类的<span data-type="code">onStart</span>​方法。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211857-33lmweu" data-type="NodeHeading" class="h4"
+      id="20241016211857-33lmweu" updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">事件处理函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-y7n2sa6" data-type="NodeParagraph" class="p" id="20241016211857-y7n2sa6"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">类中定义了一系列事件处理函数，如<span
+          data-type="code">onItemStopUseOnAfterEvent</span>​、<span
+          data-type="code">onItemStartUseAfterEvent</span>​等，这些函数在对应的玩家事件发生时被调用。这些方法的具体实现需要由子类提供。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211857-h2q6ngn" data-type="NodeParagraph" class="p" id="20241016211857-h2q6ngn"
+      updated="20241016211857">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">PlayerSuperComponent</span>​类提供了一个框架，用于在游戏中创建和管理附加到玩家的自定义组件，使得玩家的行为和属性可以被灵活地扩展和修改。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

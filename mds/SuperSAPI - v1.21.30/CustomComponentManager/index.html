@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>CustomComponentManager</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016210743-b13v560" data-type="NodeHeading" class="h1"
+      title="CustomComponentManager" updated="20241016211059" id="20241016210743-b13v560">
+      <div contenteditable="false" spellcheck="false">CustomComponentManager</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-vbpz3o8" data-type="NodeParagraph" class="p" id="20241016210857-vbpz3o8"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">以下是<span
+          data-type="code">CustomComponentManager</span>​类的成员变量和成员函数的详细说明，以表格形式列出：</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210857-zeiwzju" data-type="NodeHeading" class="h3"
+      updated="20241016210857" id="20241016210857-zeiwzju">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-83bo483" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016210857-83bo483" updated="20241016210857">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">private static customComponent: { [identifier: string]: { type: ComponentType,
+                  class: SuperComponentClass } }</span>​</td>
+              <td>一个私有静态对象，用于存储自定义组件的元数据，包括组件的类型和类。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210857-u7zxm8f" data-type="NodeHeading" class="h3"
+      id="20241016210857-u7zxm8f" updated="20241016211059">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-ryuxykq" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016210857-ryuxykq" updated="20241016211059">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static registrationCustomComponent&lt;C extends SuperComponent&gt;(identifier:
+                  string, CustomClass: SuperComponentClass, type: ComponentType): void</span>​</td>
+              <td>注册一个自定义组件，包括它的标识符、类和类型。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">CreateComponentInstance&lt;C extends SuperComponent,O extends
+                  SuperEntity&#124;SuperPlayer&#124;SuperItemStack&gt;(identifier: string, owner:
+                  O,options?:SuperComponentCreateOptions): C</span>​</td>
+              <td>创建自定义组件实例，并且添加到自定义组件管理中。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static Has(identifier: string): boolean</span>​</td>
+              <td>检查是否存在具有指定标识符的自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static Get(identifier: string): { type: ComponentType, class:
+                  SuperComponentClass } &#124; undefined</span>​</td>
+              <td>获取组件自定义类和组件类型。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static GetClass(identifier: string): SuperComponentClass &#124;
+                  undefined</span>​</td>
+              <td>获取自定义组件类。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static GetType(identifier: string): ComponentType &#124; undefined</span>​
+              </td>
+              <td>获取自定义组件类型。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210857-5t0kwcp" data-type="NodeHeading" class="h3"
+      updated="20241016210857" id="20241016210857-5t0kwcp">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-96uxssu" data-type="NodeHeading" class="h4"
+      id="20241016210857-96uxssu" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">private static customComponent</span>​
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-tu0begi" data-type="NodeParagraph" class="p" id="20241016210857-tu0begi"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个私有静态对象<span
+          data-type="code">customComponent</span>​用作注册中心，存储了所有自定义组件的信息。每个组件通过一个唯一的标识符进行索引，并且包含组件的类型（<span
+          data-type="code">ComponentType</span>​）和类（<span data-type="code">SuperComponentClass</span>​）。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-ik1i40u" data-type="NodeHeading" class="h4"
+      id="20241016210857-ik1i40u" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static registrationCustomComponent</span>​
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-s2534q2" data-type="NodeParagraph" class="p" id="20241016210857-s2534q2"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个函数用于注册一个新的自定义组件。它接受三个参数：组件的标识符、组件的类和组件的类型。注册后，组件可以通过其标识符被检索和实例化。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-ersbnqe" data-type="NodeHeading" class="h4"
+      id="20241016210857-ersbnqe" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static CreateComponentInstance</span>​
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-j399vju" data-type="NodeParagraph" class="p" id="20241016210857-j399vju"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个函数用于创建一个自定义组件的实例。它接受三个参数：组件的标识符、组件的所有者（可以是<span
+          data-type="code">SuperEntity</span>​、<span data-type="code">SuperPlayer</span>​或<span
+          data-type="code">SuperItemStack</span>​的实例），以及可选的创建选项。如果组件存在，它将创建并返回一个新的组件实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-jzvkyqr" data-type="NodeHeading" class="h4"
+      id="20241016210857-jzvkyqr" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static Has</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-v1rwetn" data-type="NodeParagraph" class="p" id="20241016210857-v1rwetn"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个函数用于检查是否已经注册了具有指定标识符的自定义组件。它返回一个布尔值，指示组件是否存在。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-kr71n2t" data-type="NodeHeading" class="h4"
+      id="20241016210857-kr71n2t" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static Get</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-zmlxi6j" data-type="NodeParagraph" class="p" id="20241016210857-zmlxi6j"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个函数用于获取具有指定标识符的自定义组件的元数据。如果组件存在，它返回一个对象，包含组件的类型和类；如果组件不存在，返回<span
+          data-type="code">undefined</span>​。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-uj981ap" data-type="NodeHeading" class="h4"
+      id="20241016210857-uj981ap" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static GetClass</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-iw2otrq" data-type="NodeParagraph" class="p" id="20241016210857-iw2otrq"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">这个函数用于获取具有指定标识符的自定义组件的类。如果组件存在，它返回组件的类；如果组件不存在，返回<span
+          data-type="code">undefined</span>​。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210857-nhnl9l0" data-type="NodeHeading" class="h4"
+      id="20241016210857-nhnl9l0" updated="20241016210857">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static GetType</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-fp57azf" data-type="NodeParagraph" class="p" updated="20241016210857"
+      id="20241016210857-fp57azf">
+      <div contenteditable="false" spellcheck="false">这个函数用于获取具有指定标识符的自定义组件的类型。如果组件存在，它返回组件的类型；如果组件不存在，返回<span
+          data-type="code">undefined</span>​。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210857-mjmcdtz" data-type="NodeParagraph" class="p" id="20241016210857-mjmcdtz"
+      updated="20241016210857">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">CustomComponentManager</span>​类提供了一个集中的管理系统，用于注册、检索和创建自定义组件实例。通过这个类，可以方便地扩展和管理系统中的组件。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

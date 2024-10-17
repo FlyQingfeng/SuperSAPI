@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>CommandManager</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016203704-30t00dn" data-type="NodeHeading" class="h1"
+      id="20241016203704-30t00dn" title="CommandManager" updated="20241016203846">
+      <div contenteditable="false" spellcheck="false">CommandManager</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203740-h4okzel" data-type="NodeBlockquote" class="bq" id="20241016203740-h4okzel"
+      updated="20241016203740">
+      <div data-node-id="20241016203718-h97519a" data-type="NodeParagraph" class="p" id="20241016203718-h97519a"
+        updated="20241016203740">
+        <div contenteditable="false" spellcheck="false">​<span
+            data-type="code">CommandManager</span>​类的主要作用是管理游戏中的指令系统，包括注册指令、解析玩家输入、执行指令和提供帮助信息。通过这个类，可以方便地添加新的指令和子指令，以及在玩家输入时触发相应的回调函数。
+        </div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016203718-olxkv95" data-type="NodeHeading" class="h3"
+      id="20241016203718-olxkv95" updated="20241016203846">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-y2n275u" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016203718-y2n275u" updated="20241016203846">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">private static commands: { [key: string]: </span>ICommand <span
+                  data-type="code">}</span>​</td>
+              <td>一个私有静态对象，用于存储注册的命令及其相关信息。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016203718-yqqm4v7" data-type="NodeHeading" class="h3"
+      updated="20241016203718" id="20241016203718-yqqm4v7">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016203718-um2g54e" data-type="NodeHeading" class="h4"
+      id="20241016203718-um2g54e" updated="20241016203718">
+      <div contenteditable="false" spellcheck="false">指令注册与管理</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-efgbjmm" data-type="NodeTable" class="table" updated="20241016203718" colgroup="|"
+      id="20241016203718-efgbjmm">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor()</span>​</td>
+              <td>构造函数，目前为空，不执行任何操作。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static registerCommand(name: string, description: string, callback: (player:
+                  SuperPlayer, args: string[]) =&gt; void, isOpOnly: boolean): void</span>​</td>
+              <td>注册一个指令，包括名称、描述、回调函数和是否仅限操作员使用。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static registerSubCommand(father: string, name: string, description: string,
+                  callback: (player: SuperPlayer, args: string[]) =&gt; void, isOpOnly: boolean): void</span>​</td>
+              <td>注册一个子指令，包括父指令名称、子指令名称、描述、回调函数和是否仅限操作员使用。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016203718-5iuko0n" data-type="NodeHeading" class="h4"
+      id="20241016203718-5iuko0n" updated="20241016203718">
+      <div contenteditable="false" spellcheck="false">指令执行</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-izkwig8" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016203718-izkwig8" updated="20241016203718">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static Input(player: SuperPlayer, event: ChatSendBeforeEvent): void</span>​
+              </td>
+              <td>处理玩家的聊天输入，如果包含指令，则执行相应的指令。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static executeCommand(player: SuperPlayer, name: string, args: string[]):
+                  void</span>​</td>
+              <td>执行指定的指令，如果指令存在。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static executeSubCommand(player: SuperPlayer, father: string, name: string,
+                  args: string[]): void</span>​</td>
+              <td>执行指定的子指令，如果子指令存在。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016203718-u31o6rk" data-type="NodeHeading" class="h4"
+      id="20241016203718-u31o6rk" updated="20241016203718">
+      <div contenteditable="false" spellcheck="false">帮助信息</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-0mo89t7" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016203718-0mo89t7" updated="20241016203718">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static showHelp(player: SuperPlayer): void</span>​</td>
+              <td>向玩家显示可用的指令列表及其描述。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016203718-lse3jxl" data-type="NodeHeading" class="h4"
+      id="20241016203718-lse3jxl" updated="20241016203721">
+      <div contenteditable="false" spellcheck="false">命令解析</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-ojonvt5" data-type="NodeTable" class="table" updated="20241016203718" colgroup="|"
+      id="20241016203718-ojonvt5">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static parseCommand(command: string): string[]</span>​</td>
+              <td>解析命令字符串，将其分割为指令名称和参数数组。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016203718-ah1umav" data-type="NodeParagraph" class="p" id="20241016203718-ah1umav"
+      updated="20241016203721">
+      <div contenteditable="false" spellcheck="false">​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

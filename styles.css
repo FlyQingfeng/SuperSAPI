@@ -1,0 +1,136 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4CAF50, #c6d7e7);
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    max-width: 1200px;
+}
+#title{
+    font-size: 60px;
+}
+.navbar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navbar ul li a:hover {
+    background-color: #45a049;
+}
+
+.hero {
+    background-image: linear-gradient(to right, rgba(76, 175, 80, 0.5), rgba(44, 62, 80, 0.5)), url('background-image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h2 {
+    color: #fff;
+    font-size: 3em;
+    margin: 0;
+}
+
+.hero p {
+    color: #515050;
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+.navbar .btn{
+    background-color: #f7f7f7;
+    color: #4CAF50;
+    border: none;
+    padding: 5px 3px;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 8px; /* 圆角 */
+    transition: background-color 0.3s;
+}
+.hero .btn {
+    background-color: #f7f7f7;
+    color: #4CAF50;
+    border: none;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 8px; /* 圆角 */
+    transition: background-color 0.3s;
+}
+
+.hero .btn:hover {
+    
+    background-color: #e7e7e7;
+}
+
+.section {
+    padding: 50px 0;
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.features-grid, .modules-grid, .classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.feature-card, .module-card, .class-card {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
+    transition: transform 0.3s, box-shadow 0.3s; /* 过渡效果 */
+}
+
+.feature-card:hover, .module-card:hover, .class-card:hover {
+    transform: translateY(-5px); /* 鼠标悬停时上移 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 鼠标悬停时更深的阴影 */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+footer p {
+    margin: 0;
+}

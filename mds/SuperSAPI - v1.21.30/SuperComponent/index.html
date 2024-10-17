@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>SuperComponent</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016210807-q5vqkg5" data-type="NodeHeading" class="h1"
+      id="20241016210807-q5vqkg5" title="SuperComponent" updated="20241016211351">
+      <div contenteditable="false" spellcheck="false">SuperComponent</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-slej0j6" data-type="NodeParagraph" class="p" updated="20241016211351"
+      id="20241016211333-slej0j6">
+      <div contenteditable="false" spellcheck="false">​<span data-type="code">SuperComponent</span>​类的定义及其成员变量和成员函数的详细说明
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211333-vq6tenw" data-type="NodeHeading" class="h3"
+      id="20241016211333-vq6tenw" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-m0jepcj" data-type="NodeTable" class="table" id="20241016211333-m0jepcj"
+      updated="20241016211333" colgroup="|">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">owner: any</span>​</td>
+              <td>保存组件所有者的引用，可以是<span data-type="code">SuperEntity</span>​、<span
+                  data-type="code">SuperPlayer</span>​或<span data-type="code">SuperItemStack</span>​的实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">enable_tick: boolean</span>​</td>
+              <td>标识组件是否启用周期性更新（tick）。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">create_options: SuperComponentCreateOptions</span>​</td>
+              <td>保存组件创建时的选项。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">readonly typeId: string</span>​</td>
+              <td>组件的类型标识符。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211333-d1terko" data-type="NodeHeading" class="h3"
+      id="20241016211333-d1terko" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-wineicv" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016211333-wineicv" updated="20241016211333">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor(typeId: string, owner: any, options?:
+                  SuperComponentCreateOptions)</span>​</td>
+              <td>构造函数，初始化组件的类型标识符、所有者引用和创建选项。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">deconstructor(op?: string): void</span>​</td>
+              <td>析构函数，用于清理组件资源（当前实现为空）。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getOwner(): any</span>​</td>
+              <td>获取组件的所有者实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">init()</span>​</td>
+              <td>组件初始化方法，可以在此方法中执行组件的初始化逻辑。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onStart()</span>​</td>
+              <td>组件启动时调用的方法。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">tick(t: number)</span>​</td>
+              <td>组件的周期性更新方法，<span data-type="code">t</span>​参数表示当前的刻度（tick）。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getOwnerAttributeMap(): Attribute</span>​</td>
+              <td>获取组件所有者的属性映射。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">isValid(): boolean</span>​</td>
+              <td>检查组件是否有效，通常取决于其所有者是否有效。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211333-6c0cz6o" data-type="NodeHeading" class="h3"
+      id="20241016211333-6c0cz6o" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">类型定义</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-0qqdvxv" data-type="NodeTable" class="table" id="20241016211333-0qqdvxv"
+      updated="20241016211333" colgroup="|">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>类型定义</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">SuperComponentCreateOptions</span>​</td>
+              <td>一个类型别名，定义了创建组件时的选项结构，包含目标对象、位置和其他任意数据。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016211333-pzj4t38" data-type="NodeHeading" class="h3"
+      id="20241016211333-pzj4t38" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-1k37hj3" data-type="NodeParagraph" class="p" id="20241016211333-1k37hj3"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">SuperComponent</span>​类是一个基类，用于创建和管理游戏中的自定义组件。这些组件可以附加到不同的游戏对象上，如实体、玩家或物品堆，并且可以包含初始化、启动和周期性更新的逻辑。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-jqfd0g4" data-type="NodeHeading" class="h4"
+      id="20241016211333-jqfd0g4" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">owner</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-5k9xbpe" data-type="NodeParagraph" class="p" id="20241016211333-5k9xbpe"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">组件所有者的引用，用于访问和修改所有者的状态和属性。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-bjstghl" data-type="NodeHeading" class="h4"
+      id="20241016211333-bjstghl" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">enable_tick</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-voh1kjj" data-type="NodeParagraph" class="p" id="20241016211333-voh1kjj"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">一个布尔值，用于控制组件是否应该在每个游戏刻度上执行周期性更新。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-7hv94wv" data-type="NodeHeading" class="h4"
+      id="20241016211333-7hv94wv" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">create_options</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-j8h1d5i" data-type="NodeParagraph" class="p" id="20241016211333-j8h1d5i"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">保存组件创建时传入的选项，这些选项可以包含目标对象、位置信息和其他任意数据。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-64njddc" data-type="NodeHeading" class="h4"
+      id="20241016211333-64njddc" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">typeId</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-6y8zbfc" data-type="NodeParagraph" class="p" id="20241016211333-6y8zbfc"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">组件的类型标识符，用于唯一标识组件的类型。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-7sud97j" data-type="NodeHeading" class="h4"
+      id="20241016211333-7sud97j" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">constructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-mhk6p4k" data-type="NodeParagraph" class="p" id="20241016211333-mhk6p4k"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">构造函数初始化组件的<span data-type="code">typeId</span>​、<span
+          data-type="code">owner</span>​和<span data-type="code">create_options</span>​。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-5lgr8se" data-type="NodeHeading" class="h4"
+      id="20241016211333-5lgr8se" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">deconstructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-n8gemrt" data-type="NodeParagraph" class="p" id="20241016211333-n8gemrt"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">析构函数，可以在组件销毁时进行资源清理和回收（当前实现为空）。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-1v8d76l" data-type="NodeHeading" class="h4"
+      id="20241016211333-1v8d76l" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">getOwner</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-jzjh6ks" data-type="NodeParagraph" class="p" id="20241016211333-jzjh6ks"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">返回组件的所有者实例，可以用于获取所有者的状态和属性。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-dxpjk4h" data-type="NodeHeading" class="h4"
+      id="20241016211333-dxpjk4h" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">init</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-rsuzx27" data-type="NodeParagraph" class="p" updated="20241016211333"
+      id="20241016211333-rsuzx27">
+      <div contenteditable="false" spellcheck="false">用于初始化组件的状态和属性。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-nl5rhfl" data-type="NodeHeading" class="h4"
+      id="20241016211333-nl5rhfl" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">onStart</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-p9a3onj" data-type="NodeParagraph" class="p" id="20241016211333-p9a3onj"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">在组件启动时调用的方法，可以在此方法中执行组件的启动逻辑。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-k4os23p" data-type="NodeHeading" class="h4"
+      id="20241016211333-k4os23p" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">tick</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-jehjau3" data-type="NodeParagraph" class="p" id="20241016211333-jehjau3"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">在每个游戏刻度上调用的方法，用于执行组件的周期性更新逻辑。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-fhrgt3x" data-type="NodeHeading" class="h4"
+      id="20241016211333-fhrgt3x" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">getOwnerAttributeMap</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-bomdq0m" data-type="NodeParagraph" class="p" updated="20241016211333"
+      id="20241016211333-bomdq0m">
+      <div contenteditable="false" spellcheck="false">获取组件所有者的属性映射，可以用于访问和修改所有者的属性。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016211333-z586936" data-type="NodeHeading" class="h4"
+      id="20241016211333-z586936" updated="20241016211333">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">isValid</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-lqz3eak" data-type="NodeParagraph" class="p" id="20241016211333-lqz3eak"
+      updated="20241016211333">
+      <div contenteditable="false" spellcheck="false">检查组件是否有效，通常取决于其所有者是否有效。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016211333-laedd7o" data-type="NodeParagraph" class="p" updated="20241016211333"
+      id="20241016211333-laedd7o">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">SuperComponent</span>​类提供了一个灵活的框架，用于在游戏中创建和管理自定义组件，使得游戏逻辑的扩展和修改变得更加容易。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+
+  <title>Vec2</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016212823-ndwav0x" data-type="NodeHeading" class="h1"
+      updated="20241016213607" id="20241016212823-ndwav0x" title="Vec2">
+      <div contenteditable="false" spellcheck="false">Vec2</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-h0owni2" data-type="NodeParagraph" class="p" id="20241016213559-h0owni2"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">以下是<span
+          data-type="code">Vec2</span>​类的成员变量、构造函数和成员函数的详细说明，以表格形式列出：</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213559-zxetjvi" data-type="NodeHeading" class="h3"
+      id="20241016213559-zxetjvi" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-rv3v4o6" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016213559-rv3v4o6" updated="20241016213559">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">x: number</span>​</td>
+              <td>向量的X分量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">y: number</span>​</td>
+              <td>向量的Y分量。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213559-3it6t4o" data-type="NodeHeading" class="h3"
+      id="20241016213559-3it6t4o" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">构造函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-8ro9342" data-type="NodeTable" class="table" updated="20241016213559" colgroup="|"
+      id="20241016213559-8ro9342">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>构造函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor(x: any, y: number)</span>​</td>
+              <td>构造函数，初始化向量的X、Y分量。接受任意类型的X参数，以及数字类型的Y参数。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213559-qo30i0q" data-type="NodeHeading" class="h3"
+      id="20241016213559-qo30i0q" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-ifxi2sl" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016213559-ifxi2sl" updated="20241016213559">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static fromObj(obj: any)</span>​</td>
+              <td>根据给定对象的<span data-type="code">x</span>​、<span data-type="code">y</span>​属性创建一个新的<span
+                  data-type="code">Vec2</span>​实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">mod(v: Vec2)</span>​</td>
+              <td>计算向量在另一向量上的投影。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">dot(v: Vec2)</span>​</td>
+              <td>计算两个向量的点积。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">add(v: Vec2)</span>​</td>
+              <td>计算两个向量的和。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">sub(v: Vec2)</span>​</td>
+              <td>计算两个向量的差。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">mul(v: Vec2)</span>​</td>
+              <td>计算两个向量的逐元素乘积。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">div(v: Vec2)</span>​</td>
+              <td>计算两个向量的逐元素商。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">ang(v: Vec2)</span>​</td>
+              <td>计算两个向量之间的夹角。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">muln(v: number)</span>​</td>
+              <td>将向量的每个分量乘以一个标量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">divn(v: number)</span>​</td>
+              <td>将向量的每个分量除以一个标量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">rotate(ang: number)</span>​</td>
+              <td>旋转向量一定角度。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">rotate2(v: Vec2, t: number)</span>​</td>
+              <td>旋转向量至与另一向量平行，按照给定的比例<span data-type="code">t</span>​。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">normal()</span>​</td>
+              <td>将向量标准化为单位向量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">len()</span>​</td>
+              <td>计算向量的长度（模）。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">toString()</span>​</td>
+              <td>返回向量的字符串表示。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">ator()</span>​</td>
+              <td>将向量转换为三维空间中的向量，其中Z分量为0。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016213559-omuwzqg" data-type="NodeHeading" class="h3"
+      id="20241016213559-omuwzqg" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-fllfecq" data-type="NodeParagraph" class="p" id="20241016213559-fllfecq"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">Vec2</span>​类表示二维空间中的向量，提供了一系列向量运算的方法，包括向量加法、减法、数乘、点积、投影、旋转等。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-ealv50o" data-type="NodeHeading" class="h4"
+      id="20241016213559-ealv50o" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">constructor</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-patzu12" data-type="NodeParagraph" class="p" id="20241016213559-patzu12"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">构造函数接受两个参数，用于初始化向量的X、Y分量。参数<span
+          data-type="code">x</span>​可以是任意类型，而<span data-type="code">y</span>​应为数字类型。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-13xhnf8" data-type="NodeHeading" class="h4"
+      id="20241016213559-13xhnf8" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static fromObj</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-g8mjktn" data-type="NodeParagraph" class="p" id="20241016213559-g8mjktn"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">静态方法，根据给定对象的<span data-type="code">x</span>​、<span
+          data-type="code">y</span>​属性创建一个新的<span data-type="code">Vec2</span>​实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-sjhdfhd" data-type="NodeHeading" class="h4"
+      updated="20241016213559" id="20241016213559-sjhdfhd">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">mod</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-puslsp5" data-type="NodeParagraph" class="p" id="20241016213559-puslsp5"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算向量在另一向量上的投影，返回投影后的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-xs2bdje" data-type="NodeHeading" class="h4"
+      id="20241016213559-xs2bdje" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">dot</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-83nyegb" data-type="NodeParagraph" class="p" id="20241016213559-83nyegb"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量的点积，返回一个标量值。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-e0pgppu" data-type="NodeHeading" class="h4"
+      id="20241016213559-e0pgppu" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">add</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-qlvn3ej" data-type="NodeParagraph" class="p" id="20241016213559-qlvn3ej"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量的和，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-0i8849s" data-type="NodeHeading" class="h4"
+      id="20241016213559-0i8849s" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">sub</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-1ty5piz" data-type="NodeParagraph" class="p" id="20241016213559-1ty5piz"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量的差，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-g38s8j3" data-type="NodeHeading" class="h4"
+      id="20241016213559-g38s8j3" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">mul</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-fx3kgmw" data-type="NodeParagraph" class="p" id="20241016213559-fx3kgmw"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量的逐元素乘积，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-4c96aug" data-type="NodeHeading" class="h4"
+      id="20241016213559-4c96aug" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">div</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-kdmsoyb" data-type="NodeParagraph" class="p" id="20241016213559-kdmsoyb"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量的逐元素商，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-85mfxcn" data-type="NodeHeading" class="h4"
+      id="20241016213559-85mfxcn" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">ang</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-vn539jt" data-type="NodeParagraph" class="p" id="20241016213559-vn539jt"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算两个向量之间的夹角，返回角度值（以弧度表示）。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-juebupx" data-type="NodeHeading" class="h4"
+      id="20241016213559-juebupx" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">muln</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-nkhzcno" data-type="NodeParagraph" class="p" id="20241016213559-nkhzcno"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">将向量的每个分量乘以一个标量，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-uduw5x7" data-type="NodeHeading" class="h4"
+      updated="20241016213559" id="20241016213559-uduw5x7">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">divn</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-1pqvwe6" data-type="NodeParagraph" class="p" id="20241016213559-1pqvwe6"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">将向量的每个分量除以一个标量，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-x6vidkl" data-type="NodeHeading" class="h4"
+      id="20241016213559-x6vidkl" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">rotate</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-h3cz3gn" data-type="NodeParagraph" class="p" id="20241016213559-h3cz3gn"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">旋转向量一定角度，返回旋转后的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-95k6kx4" data-type="NodeHeading" class="h4"
+      id="20241016213559-95k6kx4" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">rotate2</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-lpv2d6d" data-type="NodeParagraph" class="p" id="20241016213559-lpv2d6d"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">旋转向量至与另一向量平行，按照给定的比例<span data-type="code">t</span>​，返回旋转后的向量。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-s7pq4n5" data-type="NodeHeading" class="h4"
+      id="20241016213559-s7pq4n5" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">normal</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-pvrrz16" data-type="NodeParagraph" class="p" id="20241016213559-pvrrz16"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">将向量标准化为单位向量，返回新的向量。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-l6prkju" data-type="NodeHeading" class="h4"
+      id="20241016213559-l6prkju" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">len</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-623nb20" data-type="NodeParagraph" class="p" id="20241016213559-623nb20"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">计算向量的长度（模），返回一个标量值。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-uscxbuz" data-type="NodeHeading" class="h4"
+      id="20241016213559-uscxbuz" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">toString</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-csgsuf6" data-type="NodeParagraph" class="p" id="20241016213559-csgsuf6"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">返回向量的字符串表示，格式为<span data-type="code">&quot;x y&quot;</span>​。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016213559-jigyo8h" data-type="NodeHeading" class="h4"
+      id="20241016213559-jigyo8h" updated="20241016213559">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">ator</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-pqbr4sh" data-type="NodeParagraph" class="p" id="20241016213559-pqbr4sh"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">将向量转换为三维空间中的向量，其中Z分量为0，返回新的<span data-type="code">Vec3</span>​实例。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016213559-muzip22" data-type="NodeParagraph" class="p" id="20241016213559-muzip22"
+      updated="20241016213559">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">Vec2</span>​类提供了丰富的二维向量运算功能，可以用于游戏中的二维物理计算、图形渲染、空间变换等场景。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperSAPI 文档</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <a href="../index.html" class="btn">SuperSAPI 主页</a>
+            <ul>
+                <li><a href="#SuperSAPI主模块">主模块</a></li>
+                <li><a href="#子模块">子模块</a></li>
+                <li><a href="#Super类">Super类</a></li>
+                <li><a href="#组件类">组件类</a></li>
+                <li><a href="#管理类">管理类</a></li>
+                <li><a href="#工具类">工具类</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="container">
+            <h2>SuperSAPI 文档</h2>
+            <p>探索SuperSAPI的功能和模块。</p>
+            <a href="#SuperSAPI主模块" class="btn">开始探索</a>
+        </div>
+    </div>
+
+    <div class="section" id="SuperSAPI主模块">
+        <div class="container">
+            <h2>SuperSAPI主模块</h2>
+            <p>SuperSAPI是主要的模块，也是SuperSAPI的核心库：SuperSAPI。作为核心类的功能，所有的SuperSAPI类都打包到了SuperSAPI模块中。需要时可直接导入对应的子模块即可。</p>
+            <h3>子模块：</h3>
+            <ul>
+                <li><a href="#MC">MC</a> - 原生Minecraft中@minecraft/server模块的内容，在SuperSAPI中仅当做ts代码的原生类型提示使用。</li>
+                <li><a href="#Std">Std</a> - SSAPI的标准库，提供各种标准库函数，用于便捷处理各种问题，例如：toJSON函数解决了原生JSON.stringify的循环引用问题。</li>
+                <li><a href="#MCVD">MCVD</a> - 该模块是原生@minecraft/vanilla-data的引用模块，不用手动安装@minecraft/vanilla-data模块。可以方便的对原生类型枚举进行选择。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="子模块">
+        <div class="container">
+            <!-- 子模块内容 -->
+        </div>
+    </div>
+
+    <div class="section" id="Super类">
+        <div class="container">
+            <h2>Super类</h2>
+            <ul>
+                <li><a href="../mds/SuperSAPI - v1.21.30/SuperWorld/index.html">SuperWorld</a> - 对原生world类的提升类，可被继承类替换(替换只能唯一)。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/SuperPlayer/index.html">SuperPlayer</a> - 对原生Player类的提升类，可被继承类替换(替换只能唯一)。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/SuperEntity/index.html">SuperEntity</a> - 对原生Entity类的提升类，可被继承类替换(替换只能唯一)。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/SuperItemStack/index.html">SuperItemStack</a> - 对原生ItemStack类的提升类，可被继承类替换(替换只能唯一)。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/SuperSystem/index.html">SuperSystem</a> - 对原生System类的提升类，不可被替换，而且只能有唯一实例存在。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="组件类">
+        <div class="container">
+            <h2>组件类</h2>
+            <ul>
+                <li><a href="../mds/SuperSAPI - v1.21.30/EntitySuperComponent/index.html">EntitySuperComponent</a> - 实体组件，可动态添加删除，可被添加到实体（包括玩家）的实例上。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/PlayerSuperComponent/index.html">PlayerSuperComponent</a> - 玩家组件，继承自EntityComponent类，可被添加到玩家的实例上。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/ItemSuperComponent/index.html">ItemSuperComponent</a> - 物品组件，仅可添加到不可堆叠物品的实例上。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="管理类">
+        <div class="container">
+            <h2>管理类</h2>
+            <ul>
+                <li><a href="../mds/SuperSAPI - v1.21.30/ClassManager/index.html">ClassManager</a> - 类管理，用于使用自定义继承类替换对应的Super类。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/CommandManager/index.html">CommandManager</a> - 指令管理，用于注册#聊天指令。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/CustomComponentManager/index.html">CustomComponentManager</a> - 自定义组件类，用于注册自定义组件，默认注册了一个#help内部指令，使用时会输出所有已经被注册到SSAPI内的指令。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/ItemStackManager/index.html">ItemStackManager</a> - 物品管理类，管理所有的SuperItemStack类的实例。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section" id="工具类">
+        <div class="container">
+            <h2>工具类</h2>
+            <ul>
+                <li><a href="../mds/SuperSAPI - v1.21.30/Timer/index.html">Timer</a> - 定时器类，可用于延迟执行Timeout，周期性执行Interval，持续执行Lasting三种执行方式。</li>
+                <li><a href="../mds/SuperSAPI - v1.21.30/Debug/index.html">Debug</a> - 用于开发中的Debug调试。</li>
+            </ul>
+        </div>
+    </div>
+    <div id="markdown-content"></div>
+    <footer>
+        <div class="container">
+            <p>版权所有 &copy; 2024 SuperSAPI</p>
+        </div>
+    </footer>
+</body>
+</html>

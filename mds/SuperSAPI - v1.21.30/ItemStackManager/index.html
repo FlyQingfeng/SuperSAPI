@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>ItemStackManager</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016205103-u951blb" data-type="NodeHeading" class="h1"
+      title="ItemStackManager" updated="20241016210710" id="20241016205103-u951blb">
+      <div contenteditable="false" spellcheck="false">ItemStackManager</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-1mewyt4" data-type="NodeParagraph" class="p" updated="20241016210710"
+      id="20241016210710-1mewyt4">
+      <div contenteditable="false" spellcheck="false">以下是<span
+          data-type="code">ItemStackManager</span>​类的成员变量和成员函数的详细说明，以表格形式列出：</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210710-2zb9bjs" data-type="NodeHeading" class="h3"
+      id="20241016210710-2zb9bjs" updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-yabidcw" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016210710-yabidcw" updated="20241016210710">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static Items: { [uuid: string]: SuperItemStack }</span>​</td>
+              <td>一个静态对象，用于存储所有<span data-type="code">SuperItemStack</span>​实例，以它们的UUID作为键。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210710-9gtbnyd" data-type="NodeHeading" class="h3"
+      id="20241016210710-9gtbnyd" updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-yba6hb3" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016210710-yba6hb3" updated="20241016210710">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">static CreateItem(item: mc.ItemStack): SuperItemStack</span>​</td>
+              <td>创建或获取一个<span data-type="code">SuperItemStack</span>​实例。如果传入的物品堆已存在，则返回现有的实例。</td>
+            </tr>
+            <tr>
+              <td>`static CreateNewItemFromTypeID(itemType: mc.ItemType</td>
+              <td>string, amount?: number): SuperItemStack`</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">static getItems(): { [uuid: string]: SuperItemStack }</span>​</td>
+              <td>获取所有<span data-type="code">SuperItemStack</span>​实例的对象。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016210710-rqsvd3g" data-type="NodeHeading" class="h3"
+      id="20241016210710-rqsvd3g" updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210710-m085yzz" data-type="NodeHeading" class="h4"
+      updated="20241016210710" id="20241016210710-m085yzz">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static Items</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-nvu8fig" data-type="NodeParagraph" class="p" id="20241016210710-nvu8fig"
+      updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">存储所有<span
+          data-type="code">SuperItemStack</span>​实例的静态变量，使用UUID作为键来唯一标识每个实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210710-5wzordm" data-type="NodeHeading" class="h4"
+      updated="20241016210710" id="20241016210710-5wzordm">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static CreateItem(item: mc.ItemStack):
+          SuperItemStack</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-kjf0xqu" data-type="NodeParagraph" class="p" updated="20241016210710"
+      id="20241016210710-kjf0xqu">
+      <div contenteditable="false" spellcheck="false">此函数用于创建一个新的<span
+          data-type="code">SuperItemStack</span>​实例或获取现有的实例。它首先检查传入的物品堆是否为空。然后，它尝试找到物品堆的<span
+          data-type="code">uuid</span>​属性。如果找到了<span data-type="code">uuid</span>​，它会检查<span
+          data-type="code">Items</span>​对象中是否已经有这个<span data-type="code">uuid</span>​对应的<span
+          data-type="code">SuperItemStack</span>​实例。如果有，就直接返回这个实例。如果没有，它会创建一个新的实例，并将其存储在<span
+          data-type="code">Items</span>​对象中。如果物品堆没有<span data-type="code">uuid</span>​属性，它会创建一个新的<span
+          data-type="code">SuperItemStack</span>​实例，并将其存储在<span data-type="code">Items</span>​对象中。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210710-i6ytvez" data-type="NodeHeading" class="h4"
+      id="20241016210710-i6ytvez" updated="20241016210710">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static CreateNewItemFromTypeID(itemType:
+          mc.ItemType | string, amount?: number): SuperItemStack</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-spwopwc" data-type="NodeParagraph" class="p" id="20241016210710-spwopwc"
+      updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">此函数用于根据物品类型和数量创建一个新的<span
+          data-type="code">SuperItemStack</span>​实例。它首先创建一个新的<span data-type="code">mc.ItemStack</span>​实例，然后调用<span
+          data-type="code">CreateItem</span>​函数来创建或获取<span data-type="code">SuperItemStack</span>​实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016210710-7nthdeo" data-type="NodeHeading" class="h4"
+      id="20241016210710-7nthdeo" updated="20241016210710">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">static getItems(): { [uuid: string]:
+          SuperItemStack }</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-g526a5w" data-type="NodeParagraph" class="p" id="20241016210710-g526a5w"
+      updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">此函数返回一个包含所有<span
+          data-type="code">SuperItemStack</span>​实例的对象，这些实例以它们的UUID作为键存储在<span data-type="code">Items</span>​对象中。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016210710-s32iczm" data-type="NodeParagraph" class="p" id="20241016210710-s32iczm"
+      updated="20241016210710">
+      <div contenteditable="false" spellcheck="false">​<span data-type="code">ItemStackManager</span>​类提供了一个管理<span
+          data-type="code">SuperItemStack</span>​实例的中心化方式，确保了实例的唯一性和可访问性。通过这个类，可以方便地创建、获取和存储<span
+          data-type="code">SuperItemStack</span>​实例。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

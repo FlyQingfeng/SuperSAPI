@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>SuperEntity</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016204127-kap9sax" data-type="NodeHeading" class="h1"
+      id="20241016204127-kap9sax" title="SuperEntity" updated="20241016204956">
+      <div contenteditable="false" spellcheck="false">SuperEntity</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204144-4dvl6iw" data-type="NodeBlockquote" class="bq" id="20241016204144-4dvl6iw"
+      updated="20241016204145">
+      <div data-node-id="20241016204132-h4pncaz" data-type="NodeParagraph" class="p" id="20241016204132-h4pncaz"
+        updated="20241016204145">
+        <div contenteditable="false" spellcheck="false">​<span
+            data-type="code">SuperEntity</span>​类扩展了原生的实体类，添加了自定义组件和事件处理功能，使得实体更加灵活和可扩展。通过这个类，可以方便地管理和扩展实体的行为和属性。</div>
+        <div class="protyle-attr" contenteditable="false"></div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016204132-1ipb9zv" data-type="NodeHeading" class="h3"
+      id="20241016204132-1ipb9zv" updated="20241016204132">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-33q8x6c" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016204132-33q8x6c" updated="20241016204132">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">source_instance: mc.Entity</span>​</td>
+              <td>保存原生实体实例的引用。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">world: SuperWorld</span>​</td>
+              <td>保存实体所在的世界实例。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">attribute: Attribute</span>​</td>
+              <td>实体的属性，如健康、伤害等。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">custom_component: { [id: string]: EntitySuperComponent }</span>​</td>
+              <td>存储实体的自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">enable_tick: boolean = false</span>​</td>
+              <td>标识实体是否启用周期性更新（tick）。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016204132-zdw7ofc" data-type="NodeHeading" class="h3"
+      id="20241016204132-zdw7ofc" updated="20241016204132">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016204132-hbx8msz" data-type="NodeHeading" class="h4"
+      updated="20241016204132" id="20241016204132-hbx8msz">
+      <div contenteditable="false" spellcheck="false">构造函数和初始化</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-kxa5135" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016204132-kxa5135" updated="20241016204132">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">constructor(source_instance: mc.Entity, world: SuperWorld)</span>​</td>
+              <td>构造函数，初始化实体实例和世界引用，并加载自定义组件。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016204132-t8iinl8" data-type="NodeHeading" class="h4"
+      id="20241016204132-t8iinl8" updated="20241016204132">
+      <div contenteditable="false" spellcheck="false">属性和维度访问</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-yxj3y1o" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016204132-yxj3y1o" updated="20241016204132">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">get dimension(): mc.Dimension</span>​</td>
+              <td>获取实体所在的维度。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get id(): string</span>​</td>
+              <td>获取实体的ID。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isClimbing(): boolean</span>​</td>
+              <td>判断实体是否正在攀爬。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isFalling(): boolean</span>​</td>
+              <td>判断实体是否正在下落。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isSneaking(): boolean</span>​</td>
+              <td>判断实体是否正在潜行。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isInWater(): boolean</span>​</td>
+              <td>判断实体是否在水中。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isOnGround(): boolean</span>​</td>
+              <td>判断实体是否在地面上。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isSleeping(): boolean</span>​</td>
+              <td>判断实体是否在睡觉。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isSprinting(): boolean</span>​</td>
+              <td>判断实体是否在冲刺。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get isSwimming(): boolean</span>​</td>
+              <td>判断实体是否在游泳。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get location(): vec3</span>​</td>
+              <td>获取实体的位置。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get nameTag(): string</span>​</td>
+              <td>获取实体的名称标签。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get scoreboardIdentity(): mc.ScoreboardIdentity</span>​</td>
+              <td>获取实体的计分板身份。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get target(): mc.Entity</span>​</td>
+              <td>获取实体的目标实体。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">get typeId(): string</span>​</td>
+              <td>获取实体的类型ID。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016204132-xcspuzj" data-type="NodeHeading" class="h4"
+      id="20241016204132-xcspuzj" updated="20241016204242">
+      <div contenteditable="false" spellcheck="false">自定义组件管理</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-3zrpgjz" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016204132-3zrpgjz" updated="20241016204242">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">readCustomComponent()</span>​</td>
+              <td>从存储中读取并加载自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">saveCustomComponent()</span>​</td>
+              <td>保存自定义组件到存储。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">addCustomComponent(identifier: string, options?: SuperComponentCreateOptions):
+                  boolean</span>​</td>
+              <td>添加一个新的自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">removeCustomComponent(identifier: string)</span>​</td>
+              <td>移除一个自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getCustomComponent&lt;C extends EntitySuperComponent&gt;(identifier: string):
+                  C</span>​</td>
+              <td>获取一个自定义组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getCustomComponents(): EntitySuperComponent[]</span>​</td>
+              <td>获取所有自定义组件。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016204132-jzmc2ne" data-type="NodeHeading" class="h4"
+      id="20241016204132-jzmc2ne" updated="20241016204301">
+      <div contenteditable="false" spellcheck="false">事件处理</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-lnj6079" data-type="NodeTable" class="table" id="20241016204132-lnj6079"
+      updated="20241016204301" colgroup="|">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">onDieAfterEvent(event: mc.EntityDieAfterEvent)</span>​</td>
+              <td>实体死亡后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onHealthChangedAfterEvent(event: mc.EntityHealthChangedAfterEvent)</span>​
+              </td>
+              <td>实体血量改变后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onHitBlockAfterEvent(event: mc.EntityHitBlockAfterEvent)</span>​</td>
+              <td>实体击中方块后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onHitEntityAfterEvent(event: mc.EntityHitEntityAfterEvent)</span>​</td>
+              <td>实体击中另一个实体后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onHurtAfterEvent(event: mc.EntityHurtAfterEvent)</span>​</td>
+              <td>实体受到伤害后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onLoadAfterEvent(event: mc.EntityLoadAfterEvent)</span>​</td>
+              <td>实体加载后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onRemoveAfterEvent(event: mc.EntityRemoveAfterEvent)</span>​</td>
+              <td>实体被移除后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onEntitySpawnAfterEvent(event: mc.EntitySpawnAfterEvent)</span>​</td>
+              <td>实体生成后的事件处理。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">onRemoveBeforeEvent(event: mc.EntityRemoveBeforeEvent)</span>​</td>
+              <td>实体被移除前的事件处理。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016204132-zeb8zq4" data-type="NodeHeading" class="h4"
+      id="20241016204132-zeb8zq4" updated="20241016204956">
+      <div contenteditable="false" spellcheck="false">实体操作</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-w3rguss" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016204132-w3rguss" updated="20241016204956">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">addEffect(effectType: mc.EffectType &#124; string, duration: number, options?:
+                  mc.EntityEffectOptions): mc.Effect &#124; undefined</span>​</td>
+              <td>给实体添加药水效果。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">addTag(tag: string): boolean</span>​</td>
+              <td>给实体添加标签。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">applyDamage(amount: number, options?: mc.EntityApplyDamageByProjectileOptions
+                  &#124; mc.EntityApplyDamageOptions): boolean</span>​</td>
+              <td>对实体应用伤害。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">applyImpulse(vector: mc.Vector3): void</span>​</td>
+              <td>对实体应用冲量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">applyKnockback(directionX: number, directionZ: number, horizontalStrength:
+                  number, verticalStrength: number): void</span>​</td>
+              <td>对实体应用击退效果。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">clearDynamicProperties(): void</span>​</td>
+              <td>清除实体的所有动态属性。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">clearVelocity(): void</span>​</td>
+              <td>清除实体的当前速度。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">extinguishFire(useEffects?: boolean): boolean</span>​</td>
+              <td>熄灭实体上的火。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getBlockFromViewDirection(options?: mc.BlockRaycastOptions):
+                  mc.BlockRaycastHit &#124; undefined</span>​</td>
+              <td>获取实体视线方向。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getComponent&lt;T extends keyof mc.EntityComponentTypeMap&gt;(componentId: T):
+                  mc.EntityComponentTypeMap[T] &#124; undefined</span>​</td>
+              <td>获取一个原生实体组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getComponents(): mc.EntityComponent[]</span>​</td>
+              <td>获取实体的所有组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getDynamicProperty(identifier: string): boolean &#124; number &#124; string
+                  &#124; mc.Vector3 &#124; undefined</span>​</td>
+              <td>获取实体对应动态属性标识符的值。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getDynamicPropertyIds(): string[]</span>​</td>
+              <td>获取实体的所有动态属性标识符。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getDynamicPropertyTotalByteCount(): number</span>​</td>
+              <td>获取实体所有动态属性的总字节大小。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getEffect(effectType: mc.EffectType &#124; string): mc.Effect &#124;
+                  undefined</span>​</td>
+              <td>获取实体的对应效果。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getEffects(): mc.Effect[]</span>​</td>
+              <td>获取实体的所有效果。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getEntitiesFromViewDirection(options?: mc.EntityRaycastOptions):
+                  mc.EntityRaycastHit[]</span>​</td>
+              <td>获取实体视线方向上的所有实体。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getHeadLocation(): mc.Vector3</span>​</td>
+              <td>获取实体头部的位置。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getProperty(identifier: string): boolean &#124; number &#124; string &#124;
+                  undefined</span>​</td>
+              <td>获取实体属性。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getRotation(): mc.Vector2</span>​</td>
+              <td>获取实体的旋转角度。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getTags(): string[]</span>​</td>
+              <td>获取实体的所有标签。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getVelocity(): mc.Vector3</span>​</td>
+              <td>获取实体的当前速度向量。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getViewDirection(): mc.Vector3</span>​</td>
+              <td>获取实体的当前视线方向。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">hasComponent(componentId: string): boolean</span>​</td>
+              <td>判断实体是否具有指定的组件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">hasTag(tag: string): boolean</span>​</td>
+              <td>判断实体是否具有指定的标签。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">isValid(): boolean</span>​</td>
+              <td>判断实体是否有效。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">kill(): boolean</span>​</td>
+              <td>杀死实体。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">matches(options: mc.EntityQueryOptions): boolean</span>​</td>
+              <td>判断实体是否匹配指定的查询选项。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">playAnimation(animationName: string, options?: mc.PlayAnimationOptions):
+                  void</span>​</td>
+              <td>播放实体的动画。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">remove(): void</span>​</td>
+              <td>立即移除实体。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">removeEffect(effectType: mc.EffectType &#124; string): boolean</span>​</td>
+              <td>移除实体效果。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">removeTag(tag: string): boolean</span>​</td>
+              <td>移除实体的指定标签。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">resetProperty(identifier: string): boolean &#124; number &#124; string</span>​
+              </td>
+              <td>重置实体属性。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runCommand(commandString: string): mc.CommandResult</span>​</td>
+              <td>执行同步命令。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">runCommandAsync(commandString: string):
+                  Promise&lt;mc.CommandResult&gt;</span>​</td>
+              <td>异步执行命令。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">setDynamicProperty(identifier: string, value?: boolean &#124; number &#124;
+                  string &#124; mc.Vector3): void</span>​</td>
+              <td>设置实体动态属性。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">setOnFire(seconds: number, useEffects?: boolean): boolean</span>​</td>
+              <td>设置实体着火。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">setProperty(identifier: string, value: boolean &#124; number &#124; string):
+                  void</span>​</td>
+              <td>设置实体属性</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">setRotation(rotation: mc.Vector2): void</span>​</td>
+              <td>设置实体的旋转角度。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">teleport(location: vec3, teleportOptions?: mc.TeleportOptions): void</span>​
+              </td>
+              <td>将实体传送到指定位置。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">triggerEvent(eventName: string): void</span>​</td>
+              <td>触发实体的事件。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">tryTeleport(location: vec3, teleportOptions?: mc.TeleportOptions):
+                  boolean</span>​</td>
+              <td>尝试将实体传送到指定位置，可能失败。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016204132-3c77w8x" data-type="NodeParagraph" class="p" id="20241016204132-3c77w8x"
+      updated="20241016204134">
+      <div contenteditable="false" spellcheck="false">​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>

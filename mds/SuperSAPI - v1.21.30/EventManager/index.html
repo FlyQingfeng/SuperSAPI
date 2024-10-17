@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh_CN" data-theme-mode="light" data-light-theme="daylight" data-dark-theme="midnight">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script src="../stage/protyle/js/lute/lute.min.js"></script>
+  <script src="../stage/protyle/js/protyle-html.js?v=3.0.5"></script>
+  <link rel="stylesheet" type="text/css" id="baseStyle" href="../stage/build/export/base.css?3.1.9" />
+  <link rel="stylesheet" type="text/css" id="themeDefaultStyle" href="../appearance/themes/daylight/theme.css?3.1.9" />
+  <link rel="stylesheet" href="../../../styles.css">
+  <title>EventManager</title>
+  <!-- Exported by SiYuan v3.1.9 -->
+  <style>
+    body {
+      font-family: var(--b3-font-family);
+      background-color: var(--b3-theme-background);
+      color: var(--b3-theme-on-background)
+    }
+
+    .b3-typography,
+    .protyle-wysiwyg,
+    .protyle-title {
+      font-size: 16px !important
+    }
+
+    .b3-typography code:not(.hljs),
+    .protyle-wysiwyg span[data-type~=code] {
+      font-variant-ligatures: none
+    }
+
+    .li>.protyle-action {
+      height: 34px;
+      line-height: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+    .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+      line-height: 34px;
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+      height: 16px;
+      width: 16px;
+      margin: -8px 0 0 -8px
+    }
+
+    .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+      height: 14px
+    }
+
+    .protyle-wysiwyg [data-node-id].li:before {
+      height: calc(100% - 34px);
+      top: 34px
+    }
+
+    .protyle-wysiwyg [data-node-id] [spellcheck] {
+      min-height: 26px;
+    }
+
+    .protyle-wysiwyg .p,
+    .protyle-wysiwyg .code-block .hljs,
+    .protyle-wysiwyg .table,
+    .protyle-wysiwyg .render-node protyle-html,
+    .protyle-wysiwyg .render-node>div[spin="1"],
+    .protyle-wysiwyg [data-type="NodeHeading"] {}
+
+    .protyle-wysiwyg [data-node-id] {}
+
+    .protyle-wysiwyg .li {
+      min-height: 34px
+    }
+
+    .protyle-gutters button svg {
+      height: 26px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="protyle-wysiwyg protyle-wysiwyg--attr" style="max-width: 1200px;margin: 0 auto;" id="preview">
+    <div data-subtype="h1" data-node-id="20241016212147-6xh8ytv" data-type="NodeHeading" class="h1"
+      updated="20241016212215" id="20241016212147-6xh8ytv" title="EventManager">
+      <div contenteditable="false" spellcheck="false">EventManager</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-829k8uq" data-type="NodeParagraph" class="p" updated="20241016212215"
+      id="20241016212215-829k8uq">
+      <div contenteditable="false" spellcheck="false">以下是<span
+          data-type="code">EventManager</span>​类的成员变量、类型定义和成员函数的详细说明，以表格形式列出：</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016212215-3cy2otz" data-type="NodeHeading" class="h3"
+      id="20241016212215-3cy2otz" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">类型定义</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-1t6hcgk" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016212215-1t6hcgk" updated="20241016212215">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>类型定义</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">EventCallback</span>​</td>
+              <td>一个类型别名，定义了事件回调函数的签名，接受任意数量和类型的参数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">listen</span>​</td>
+              <td>一个类型别名，定义了一个对象，其键是事件名称，值是对应事件的回调函数数组。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016212215-iclfnjj" data-type="NodeHeading" class="h3"
+      updated="20241016212215" id="20241016212215-iclfnjj">
+      <div contenteditable="false" spellcheck="false">成员变量</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-edih2og" data-type="NodeTable" class="table" colgroup="|"
+      id="20241016212215-edih2og" updated="20241016212215">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员变量</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">private listeners: listen</span>​</td>
+              <td>一个私有变量，存储注册的事件监听器，每个事件名称对应一个回调函数数组。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016212215-6iw33wx" data-type="NodeHeading" class="h3"
+      id="20241016212215-6iw33wx" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">成员函数</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-6ok14my" data-type="NodeTable" class="table" updated="20241016212215" colgroup="|"
+      id="20241016212215-6ok14my">
+      <div contenteditable="false">
+        <table contenteditable="false" spellcheck="false">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>成员函数</th>
+              <th>描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>​<span data-type="code">on(eventName: string, callback: EventCallback): void</span>​</td>
+              <td>注册一个事件监听器，将回调函数添加到指定事件的回调数组中。如果事件不存在，则创建新的数组。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">emit(eventName: string, ...args: any[]): void</span>​</td>
+              <td>触发一个事件，调用该事件的所有回调函数，并传递任意数量和类型的参数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">off(eventName: string, callback: EventCallback): void</span>​</td>
+              <td>注销一个事件监听器，从回调数组中移除指定的回调函数。</td>
+            </tr>
+            <tr>
+              <td>​<span data-type="code">getlisteners(): listen</span>​</td>
+              <td>获取所有注册的事件监听器。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="protyle-action__table">
+          <div class="table__resize"></div>
+          <div class="table__select"></div>
+        </div>
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h3" data-node-id="20241016212215-p7ne083" data-type="NodeHeading" class="h3"
+      id="20241016212215-p7ne083" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">详细描述</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-ggtxw3s" data-type="NodeParagraph" class="p" id="20241016212215-ggtxw3s"
+      updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">EventManager</span>​类提供了一个简单的事件管理机制，允许用户注册、触发和注销事件监听器。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016212215-f6zmr18" data-type="NodeHeading" class="h4"
+      id="20241016212215-f6zmr18" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">on</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-g25lw6m" data-type="NodeParagraph" class="p" id="20241016212215-g25lw6m"
+      updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">on</span>​方法用于注册事件监听器。它接受两个参数：事件名称和一个回调函数。如果事件已存在，则将回调函数添加到该事件的回调数组中；如果事件不存在，则创建一个新的数组，并添加回调函数。
+      </div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016212215-n2iagw2" data-type="NodeHeading" class="h4"
+      id="20241016212215-n2iagw2" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">emit</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-oh9aii3" data-type="NodeParagraph" class="p" id="20241016212215-oh9aii3"
+      updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">emit</span>​方法用于触发事件。它接受一个事件名称和任意数量和类型的参数。如果事件存在，则遍历该事件的回调数组，并调用每个回调函数，传递给定的参数。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016212215-31lx0p0" data-type="NodeHeading" class="h4"
+      id="20241016212215-31lx0p0" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">off</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-qsn79th" data-type="NodeParagraph" class="p" id="20241016212215-qsn79th"
+      updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">off</span>​方法用于注销事件监听器。它接受事件名称和要移除的回调函数。如果事件存在，则从回调数组中过滤掉指定的回调函数。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-subtype="h4" data-node-id="20241016212215-5tph0z6" data-type="NodeHeading" class="h4"
+      id="20241016212215-5tph0z6" updated="20241016212215">
+      <div contenteditable="false" spellcheck="false"><span data-type="code">getlisteners</span>​</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-u9q6t03" data-type="NodeParagraph" class="p" updated="20241016212215"
+      id="20241016212215-u9q6t03">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">getlisteners</span>​方法返回一个包含所有注册事件监听器的对象，每个事件名称对应一个回调函数数组。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+    <div data-node-id="20241016212215-g396oub" data-type="NodeParagraph" class="p" id="20241016212215-g396oub"
+      updated="20241016212215">
+      <div contenteditable="false" spellcheck="false">​<span
+          data-type="code">EventManager</span>​类提供了一个基本的事件驱动编程框架，使得不同的部分代码可以通过事件进行解耦和通信。</div>
+      <div class="protyle-attr" contenteditable="false"></div>
+    </div>
+  </div>
+  <script src="appearance/icons/material/icon.js?3.1.9"></script>
+  <script src="stage/build/export/protyle-method.js?3.1.9"></script>
+  <script src="stage/protyle/js/lute/lute.min.js?3.1.9"></script>
+  <script>
+    window.siyuan = {
+      config: {
+        appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+        editor: {
+          codeLineWrap: true,
+          fontSize: 16,
+          codeLigatures: false,
+          plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+          codeSyntaxHighlightLineNum: false,
+          katexMacros: JSON.stringify({}),
+        }
+      },
+      languages: { copy: "复制" }
+    };
+    const previewElement = document.getElementById('preview');
+    Protyle.highlightRender(previewElement, "stage/protyle");
+    Protyle.mathRender(previewElement, "stage/protyle", false);
+    Protyle.mermaidRender(previewElement, "stage/protyle");
+    Protyle.flowchartRender(previewElement, "stage/protyle");
+    Protyle.graphvizRender(previewElement, "stage/protyle");
+    Protyle.chartRender(previewElement, "stage/protyle");
+    Protyle.mindmapRender(previewElement, "stage/protyle");
+    Protyle.abcRender(previewElement, "stage/protyle");
+    Protyle.htmlRender(previewElement);
+    Protyle.plantumlRender(previewElement, "stage/protyle");
+    document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        let text = item.parentElement.nextElementSibling.textContent.trimEnd();
+        text = text.replace(/ /g, " "); // Replace non-breaking spaces with normal spaces when copying
+        navigator.clipboard.writeText(text);
+        event.preventDefault();
+        event.stopPropagation();
+      })
+    });
+  </script>
+</body>
+
+</html>
