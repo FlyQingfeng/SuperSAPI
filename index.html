@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperSAPI - Minecraft Bedrock Super Script API</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <h1>SuperSAPI</h1>
+                <ul>
+                    <li><a href="#introduction">简述</a></li>
+                    <li><a href="#features">优点</a></li>
+                    <li><a href="#modules">主模块</a></li>
+                    <li><a href="documentation.html">文档</a></li>
+                    <li><a href="download.html">下载</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="container">
+                <h2>Minecraft Bedrock Super Script API</h2>
+                <p>面向对象的Minecraft基岩版脚本开发</p>
+                <a href="download.html" class="btn">开始使用</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="introduction" class="section">
+        <div class="container">
+            <h2>SuperSAPI简述</h2>
+            <p>SuperSAPI（全称Minecraft Bedrock Super Script API）是基于Minecraft Bedrock Script
+                API（SAPI）的扩展，采用面向对象的开发逻辑，通过替换类的方式简化脚本编写。</p>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <div class="container">
+            <h2>SuperSAPI的优点</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>代码复用</h3>
+                    <p>通过继承Super类实现代码复用。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>简化维护</h3>
+                    <p>集中管理玩家、实体、世界等逻辑，简化维护。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>提高可读性</h3>
+                    <p>清晰的模块划分和组件化设计提高可读性。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>灵活应对变化</h3>
+                    <p>快速适应游戏逻辑变化。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modules" class="section">
+        <div class="container">
+            <h2>SuperSAPI主模块</h2>
+            <p>SuperSAPI是核心库，包含所有SuperSAPI类。</p>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h3>MC</h3>
+                    <p>原生Minecraft中@minecraft/server模块的内容。</p>
+                </div>
+                <div class="module-card">
+                    <h3>Std</h3>
+                    <p>SSAPI的标准库，提供各种标准库函数。</p>
+                </div>
+                <div class="module-card">
+                    <h3>MCVD</h3>
+                    <p>原生@minecraft/vanilla-data的引用模块。</p>
+                </div>
+            </div>
+            <h3>类：</h3>
+            <p>Super类</p>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <h3>SuperWorld</h3>
+                    <p>对原生 world 类的提升类。</p>
+                </div>
+                <div class="class-card">
+                    <h3>SuperPlayer</h3>
+                    <p>对原生 Player 类的提升类。</p>
+                </div>
+                <div class="class-card">
+                    <h3>SuperEntity</h3>
+                    <p>对原生 Entity 类的提升类。</p>
+                </div>
+                <div class="class-card">
+                    <h3>SuperItemStack</h3>
+                    <p>对原生 ItemStack 类的提升类。</p>
+                </div>
+                <div class="class-card">
+                    <h3>SuperSystem</h3>
+                    <p>对原生 System 类的提升类，不可被替换。</p>
+                </div>
+            </div>
+            <p>组件类</p>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <h3>EntityComponent</h3>
+                    <p>实体组件，可动态添加删除，可被添加到实体（包括玩家）的实例上。</p>
+                </div>
+                <div class="class-card">
+                    <h3>PlayerComponent</h3>
+                    <p>玩家组件，继承与`EntityComponent`类，可被添加到玩家的实例上。</p>
+                </div>
+                <div class="class-card">
+                    <h3>ItemComponent</h3>
+                    <p>物品组件，仅可添加到不可堆叠物品的实例上。</p>
+                </div>
+            </div>
+            <p>管理类</p>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <h3>ClassManager</h3>
+                    <p>类管理，用于使用自定义继承类替换对应的Super类。</p>
+                </div>
+                <div class="class-card">
+                    <h3>CommandManager</h3>
+                    <p>指令管理，用于注册#聊天指令。</p>
+                </div>
+                <div class="class-card">
+                    <h3>CustomComponentManager</h3>
+                    <p>自定义组件类，用于注册自定义组件，默认注册了一个#help内部指令，使用时会输出所有已经被注册到SSAPI内的指令。</p>
+                </div>
+                <div class="class-card">
+                    <h3>ItemStackManager</h3>
+                    <p>物品管理类，管理所有的SuperItemStack类的实例。</p>
+                </div>
+            </div>
+            <p>工具类</p>
+            <div class="classes-grid">
+                <div class="class-card">
+                    <h3>Timer</h3>
+                    <p>定时器类，可用于**延迟执行**​`Timeout`​ **，周期性执行**​`Interval`​ **，持续执行**​`Lasting`三种执行方式。</p>
+                </div>
+                <div class="class-card">
+                    <h3>Debug</h3>
+                    <p>用于开发中的Debug调试。</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <footer class="section">
+        <div class="container">
+            <p>&copy; 2024 SuperSAPI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
