@@ -1,5 +1,4 @@
 import * as mc from "@minecraft/server";
-import { Attribute } from "../Public/Attribute";
 import { Super } from "../Super/Super";
 import { ItemSuperComponent } from "../Component/SuperItemComponent";
 import { enumKeyToString, fromJSON, toJSON } from "../Public/Stdlib";
