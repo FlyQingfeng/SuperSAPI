@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import * as SuperSAPI from "../SuperSAPI";
-export class mPlayer extends SuperSAPI.Player {
+export class mPlayer extends SuperSAPI.SuperPlayer {
     constructor(player, world) {
         super(player, world);
         this.enable_tick = true;

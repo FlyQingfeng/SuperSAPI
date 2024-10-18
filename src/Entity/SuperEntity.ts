@@ -1,7 +1,7 @@
 import * as mc from "@minecraft/server";
-import { Attribute } from "../Public/attribute";
+import { Attribute } from "../Public/Attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
-import { vec3 } from "../Public/vec3";
+import { Vec3 } from "../Public/Vec3";
 import { cast, enumKeyToString ,fromJSON,toJSON} from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { EntitySuperComponent } from "../Component/SuperEntityComponent";
@@ -56,8 +56,8 @@ export class SuperEntity extends Super {
     public get isSwimming() : boolean {
         return this.source_instance.isSwimming
     }
-    public get location() : vec3 {
-        return vec3.fromObj(this.source_instance.location)
+    public get location() : Vec3 {
+        return Vec3.fromObj(this.source_instance.location)
     }
     
     public get nameTag() : string {
@@ -86,8 +86,8 @@ export class SuperEntity extends Super {
     tick(t: number) {
 
     }
-    getLocation(): vec3 {
-        return vec3.fromObj(this.location)
+    getLocation(): Vec3 {
+        return Vec3.fromObj(this.location)
     }
     getAttributeMap(): Attribute {
         return this.attribute
@@ -955,7 +955,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      * @example teleportMovement.ts
      */
-    teleport(location: vec3, teleportOptions?: mc.TeleportOptions): void {
+    teleport(location: Vec3, teleportOptions?: mc.TeleportOptions): void {
         return this.source_instance.teleport(location, teleportOptions);
     };
     /**
@@ -1007,7 +1007,7 @@ export class SuperEntity extends Super {
      * result in intersecting with blocks.
      * @throws This function can throw errors.
      */
-    tryTeleport(location: vec3, teleportOptions?: mc.TeleportOptions): boolean {
+    tryTeleport(location: Vec3, teleportOptions?: mc.TeleportOptions): boolean {
         return this.source_instance.tryTeleport(location, teleportOptions);
     };
 }

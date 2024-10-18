@@ -12,7 +12,7 @@ import * as si from "./Item/SuperItemStack";
 import * as sim from "./Item/SuperItemManager";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
-import * as db from "./Public/debug";
+import * as db from "./Public/Debug";
 //版本说明
 export const version_information = {
     name: "SuperSAPI",
@@ -29,27 +29,29 @@ export const MC = await import("@minecraft/server");
 export const Std = await import("./Public/stdlib");
 export const MCVD = await import("./VanillaData/VanillaData");
 //super类
-export const World = sw.SuperWorld;
-export const Player = sp.SuperPlayer;
-export const Entity = se.SuperEntity;
-export const ItemStack = si.SuperItemStack;
+export const SuperWorld = sw.SuperWorld;
+export const SuperPlayer = sp.SuperPlayer;
+export const SuperEntity = se.SuperEntity;
+export const SuperItemStack = si.SuperItemStack;
+export const SuperSystem = run.SuperSystem;
 //组件类
 export const PlayerComponent = spc.PlayerSuperComponent;
 export const EntityComponent = sec.EntitySuperComponent;
 export const ItemComponent = sic.ItemSuperComponent;
 export const SuperComponent = sc.SuperComponent;
-export const SuperSystem = run.SuperSystem;
 //类管理
 export const ClassManager = run.ClassManager;
 export const CommandManager = cm.CommandManager;
 export const CustomComponentManager = ccm.CustomComponentManager;
-export const Debug = db.Debug;
 export const ItemStackManager = sim.ItemStackManager;
+//工具类
+export const Debug = db.Debug;
 //定时器类
 export const Timer = tm.Timer;
 Debug.debug = version_information.beta;
 //枚举
 export const NativeClassType = run.NativeClassType;
+//实例
 export const System = run.runtime;
 export const CustomComponentType = ccm.ComponentType;
 export const registerAsSubscribable = msuper.registerAsSubscribable;

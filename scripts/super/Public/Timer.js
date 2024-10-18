@@ -32,7 +32,7 @@ export class Timer {
         }
     }
     //持久定时器,在持续时间内持续触发
-    lasting(interval, loop_event, duration, out_event) {
+    setLasting(interval, loop_event, duration, out_event) {
         if (interval > duration) {
             throw new Error("Interval cannot be greater than duration.");
         }

@@ -6,7 +6,7 @@ export class mEntityComponent extends SuperSAPI.EntityComponent {
     }
     init() {
         let entity = this.getOwner();
-        this.timer.lasting(20, () => {
+        this.timer.setLasting(20, () => {
             if (entity.isValid()) {
                 entity.applyDamage(1);
             }

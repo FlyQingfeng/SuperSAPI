@@ -1,6 +1,6 @@
 
 
-import { Debug } from "../Public/debug";
+import { Debug } from "../Public/Debug";
 import { EventManager } from "../EventManager/EventManager";
 
 //构建UUID

@@ -14,7 +14,7 @@ import * as std from "./Public/stdlib";
 import * as sim from "./Item/SuperItemManager";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
-import * as db from "./Public/debug";
+import * as db from "./Public/Debug";
 
 //版本说明
 export const version_information={
@@ -39,15 +39,18 @@ export type MC_Entity=mc.Entity
 export type MC_ItemStack=mc.ItemStack
 
 //super类
-export const World = sw.SuperWorld
-export const Player = sp.SuperPlayer
-export const Entity = se.SuperEntity
-export const ItemStack = si.SuperItemStack
+export const SuperWorld = sw.SuperWorld
+export const SuperPlayer = sp.SuperPlayer
+export const SuperEntity = se.SuperEntity
+export const SuperItemStack = si.SuperItemStack
+export const SuperSystem=run.SuperSystem;
+
 //super类类型
 export type SuperWorld = sw.SuperWorld
 export type SuperPlayer = sp.SuperPlayer
 export type SuperEntity = se.SuperEntity
 export type SuperItemStack = si.SuperItemStack
+export type SuperSystem=run.SuperSystem;
 
 //组件类
 export const PlayerComponent=spc.PlayerSuperComponent
@@ -62,21 +65,26 @@ export type ItemComponent=sic.ItemSuperComponent
 export type SuperComponent=sc.SuperComponent
 export type SuperComponentCreateOptions=sc.SuperComponentCreateOptions
 
-export const SuperSystem=run.SuperSystem;
 
 //类管理
 export const ClassManager=run.ClassManager;
 export const CommandManager=cm.CommandManager
 export const CustomComponentManager=ccm.CustomComponentManager
-export const Debug=db.Debug
 export const ItemStackManager=sim.ItemStackManager
+
+//工具类
+
+export const Debug=db.Debug
 //定时器类
 export const Timer=tm.Timer;
 export type Timer=tm.Timer;
 
 Debug.debug=version_information.beta
+
 //枚举
 export const NativeClassType=run.NativeClassType;
+
+//实例
 export const System = run.runtime;
 export const CustomComponentType=ccm.ComponentType
 

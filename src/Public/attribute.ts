@@ -1,4 +1,4 @@
-import { hasFun } from "../Public/stdlib";
+import { hasFun } from "./stdlib";
 
 //属性类
 export class Attribute {

@@ -3,7 +3,7 @@ import { SuperPlayer } from "../Player/SuperPlayer";
 import { ClassManager, NativeClassType } from "../Runtime";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { Super } from "../Super/Super";
-import { Debug } from "../Public/debug";
+import { Debug } from "../Public/Debug";
 
 export class SuperWorld extends Super {
     source_instance: World;

@@ -1,10 +1,10 @@
-import { Attribute } from "../Public/attribute";
+import { Attribute } from "../Public/Attribute";
 import { Super } from "../Super/Super";
-import { vec3 } from "../Public/vec3";
+import { Vec3 } from "../Public/Vec3";
 
 export type SuperComponentCreateOptions={
     Target?:Super,
-    Location?:vec3,
+    Location?:Vec3,
     Other?:any
 }
 

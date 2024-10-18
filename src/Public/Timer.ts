@@ -39,7 +39,7 @@ export class Timer {
         }
     }
     //持久定时器,在持续时间内持续触发
-    public lasting(interval:number,loop_event:()=>void,duration:number,out_event:()=>void):void{
+    public setLasting(interval:number,loop_event:()=>void,duration:number,out_event:()=>void):void{
         if (interval>duration) {
             throw new Error("Interval cannot be greater than duration.");
         }

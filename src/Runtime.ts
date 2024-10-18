@@ -4,7 +4,7 @@ import { SuperPlayer } from "./Player/SuperPlayer";
 import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
-import { Debug } from "./Public/debug";
+import { Debug } from "./Public/Debug";
 import { ItemStackManager } from "./Item/SuperItemManager";
 import { cast, toJSON } from "./Public/stdlib";
 

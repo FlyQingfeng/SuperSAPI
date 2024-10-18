@@ -1,5 +1,5 @@
 import * as SuperSAPI from "../SuperSAPI";
-export class mEntity extends SuperSAPI.Entity {
+export class mEntity extends SuperSAPI.SuperEntity {
     constructor(entity, world) {
         super(entity, world);
     }

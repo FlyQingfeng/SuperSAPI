@@ -4,9 +4,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Attribute } from "../Public/attribute";
+import { Attribute } from "../Public/Attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
-import { vec3 } from "../Public/vec3";
+import { Vec3 } from "../Public/Vec3";
 import { cast, enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 export class SuperEntity extends Super {
@@ -52,7 +52,7 @@ export class SuperEntity extends Super {
         return this.source_instance.isSwimming;
     }
     get location() {
-        return vec3.fromObj(this.source_instance.location);
+        return Vec3.fromObj(this.source_instance.location);
     }
     get nameTag() {
         return this.source_instance.nameTag;
@@ -78,7 +78,7 @@ export class SuperEntity extends Super {
     tick(t) {
     }
     getLocation() {
-        return vec3.fromObj(this.location);
+        return Vec3.fromObj(this.location);
     }
     getAttributeMap() {
         return this.attribute;

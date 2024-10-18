@@ -1,6 +1,6 @@
 import * as mc from "@minecraft/server";
 import * as SuperSAPI from "../SuperSAPI";
-import { vec3 } from "../Public/vec3";
+import { Vec3 } from "../Public/Vec3";
 
 export class mItemsatckComponent extends SuperSAPI.ItemComponent {
     useDuration:number=0;
