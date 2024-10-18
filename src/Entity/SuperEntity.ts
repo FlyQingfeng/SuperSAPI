@@ -2,7 +2,7 @@ import * as mc from "@minecraft/server";
 import { Attribute } from "../Public/Attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { Vec3 } from "../Public/Vec3";
-import { cast, enumKeyToString ,fromJSON,toJSON} from "../Public/stdlib";
+import { cast, enumKeyToString ,fromJSON,toJSON} from "../Public/Stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { EntitySuperComponent } from "../Component/SuperEntityComponent";
 import { SuperComponentCreateOptions } from "../Component/SuperComponent";

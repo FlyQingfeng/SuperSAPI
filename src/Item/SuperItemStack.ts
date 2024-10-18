@@ -2,7 +2,7 @@ import * as mc from "@minecraft/server";
 import { Attribute } from "../Public/Attribute";
 import { Super } from "../Super/Super";
 import { ItemSuperComponent } from "../Component/SuperItemComponent";
-import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
+import { enumKeyToString, fromJSON, toJSON } from "../Public/Stdlib";
 import { SuperComponentCreateOptions } from "../Component/SuperComponent";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { SuperPlayer } from "../Player/SuperPlayer";

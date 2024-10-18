@@ -10,7 +10,7 @@ import * as sec from "./Component/SuperEntityComponent";
 import * as spc from "./Component/SuperPlayerComponent";
 import * as sic from "./Component/SuperItemComponent";
 import * as si from "./Item/SuperItemStack";
-import * as std from "./Public/stdlib";
+import * as std from "./Public/Stdlib";
 import * as sim from "./Item/SuperItemManager";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
@@ -30,7 +30,7 @@ export const version_information={
 
 //代导入
 export const MC=await import("@minecraft/server");
-export const Std = await import("./Public/stdlib");
+export const Std = await import("./Public/Stdlib");
 export const MCVD = await import("./VanillaData/VanillaData");
 //原生类类型
 export type MC_World=mc.World

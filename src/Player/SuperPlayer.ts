@@ -2,7 +2,7 @@ import * as mc from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable, Super } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
-import { enumKeyToString } from "../Public/stdlib";
+import { enumKeyToString } from "../Public/Stdlib";
 import { PlayerSuperComponent } from "../Component/SuperPlayerComponent";
 import { SuperWorld } from "../World/SuperWorld";
 import { SuperItemStack } from "Item/SuperItemStack";
