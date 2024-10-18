@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Attribute } from "../Public/Attribute";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { Vec3 } from "../Public/Vec3";
-import { cast, enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
+import { cast, enumKeyToString, fromJSON, toJSON } from "../Public/Stdlib";
 import { registerAsSubscribable, Super } from "../Super/Super";
 export class SuperEntity extends Super {
     constructor(source_instance, world) {

@@ -1,4 +1,4 @@
-import { hasFun } from "./stdlib";
+import { hasFun } from "./Stdlib";
 //属性类
 export class Attribute {
     constructor(obj) {
@@ -70,16 +70,3 @@ export class Attribute {
         this.save();
     }
 }
-// 使用示例
-// const dynProps = new Attribute();
-// dynProps.set('name', 'John Doe');
-// dynProps.set('age', 30);
-// console.log(dynProps.get('name')); // 输出：John Doe
-// console.log(dynProps.has('age')); // 输出：true
-// dynProps.delete('age');
-// console.log(dynProps.has('age')); // 输出：false
-// console.log(dynProps.keys()); // 输出：['name']
-// console.log(dynProps.values()); // 输出：['John Doe']
-// console.log(dynProps.entries()); // 输出：[['name', 'John Doe']]
-// dynProps.clear();
-// console.log(dynProps.keys()); // 输出：[]

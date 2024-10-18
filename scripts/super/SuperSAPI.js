@@ -26,7 +26,7 @@ export const version_information = {
 };
 //代导入
 export const MC = await import("@minecraft/server");
-export const Std = await import("./Public/stdlib");
+export const Std = await import("./Public/Stdlib");
 export const MCVD = await import("./VanillaData/VanillaData");
 //super类
 export const SuperWorld = sw.SuperWorld;

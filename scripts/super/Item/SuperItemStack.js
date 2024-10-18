@@ -1,6 +1,6 @@
 import * as mc from "@minecraft/server";
 import { Super } from "../Super/Super";
-import { enumKeyToString, fromJSON, toJSON } from "../Public/stdlib";
+import { enumKeyToString, fromJSON, toJSON } from "../Public/Stdlib";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { Timer } from "../Public/Timer";
 export class SuperItemStack extends Super {

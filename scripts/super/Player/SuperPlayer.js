@@ -8,7 +8,7 @@ import * as mc from "@minecraft/server";
 import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
-import { enumKeyToString } from "../Public/stdlib";
+import { enumKeyToString } from "../Public/Stdlib";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance, world) {
         super(source_instance, world);

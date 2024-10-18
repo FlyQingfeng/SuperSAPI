@@ -5,7 +5,7 @@ import { SuperEntity } from "./Entity/SuperEntity";
 import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { ItemStackManager } from "./Item/SuperItemManager";
-import { cast } from "./Public/stdlib";
+import { cast } from "./Public/Stdlib";
 export var NativeClassType;
 (function (NativeClassType) {
     NativeClassType[NativeClassType["World"] = 0] = "World";
