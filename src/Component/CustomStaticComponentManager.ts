@@ -17,6 +17,7 @@ export class CustomStaticComponentManager {
 
     static registrationCustomComponent<C extends SuperStaticComponent>(bind_typeid: string, CustomClass: SuperStaticComponentClass, type: StaticComponentType): void {
         let custom_static_com=new CustomClass(bind_typeid);
+        custom_static_com.onStart();
         let customComponent:{ [bind_typeid: string]: SuperStaticComponent }={};
         switch (type) {
             case StaticComponentType.Block:{

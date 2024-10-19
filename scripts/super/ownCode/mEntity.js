@@ -4,6 +4,5 @@ export class mEntity extends SuperSAPI.SuperEntity {
         super(entity, world);
     }
     onDieAfterEvent(event) {
-        console.log("onDieAfterEvent");
     }
 }

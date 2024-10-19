@@ -2,6 +2,7 @@ import { StaticComponentType } from "../Component/SuperStaticComponent";
 export class CustomStaticComponentManager {
     static registrationCustomComponent(bind_typeid, CustomClass, type) {
         let custom_static_com = new CustomClass(bind_typeid);
+        custom_static_com.onStart();
         let customComponent = {};
         switch (type) {
             case StaticComponentType.Block: {

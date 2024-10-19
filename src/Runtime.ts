@@ -11,6 +11,7 @@ import { CustomStaticComponentManager } from "./Component/CustomStaticComponentM
 import { StaticComponentType, SuperStaticComponent } from "./Component/SuperStaticComponent";
 import { SuperBlockStaticComponent } from "./Component/SuperBlockStaticComponent";
 import { SuperItemStaticComponent } from "./Component/SuperItemStaticComponent";
+import { SuperEntityStaticComponent } from "./Component/SuperEntityStaticComponent";
 
 
 export enum NativeClassType {//可被替换的类和原型
@@ -138,6 +139,16 @@ export class SuperSystem {
         }, 1);
         this.ready = true;
     }
+    static async  waitUntil(condition_fun:()=>boolean){
+        return new Promise<void>((resolve, reject) => {
+            let spawn = system.runInterval(() => {
+                if (condition_fun()) {
+                    system.clearRun(spawn);
+                    resolve()
+                }
+            }, 1)
+        });
+    }
     private runTick(t: number) {
         if (this.ready) {
             for (const entity of SuperSystem.getWorld().getAllEntitys()) {
@@ -165,7 +176,7 @@ export class SuperSystem {
                     }
                     entity.last_isFalling = entity.isFalling
                 }
-                if (entity instanceof SuperPlayer) {
+                if (entity instanceof SuperPlayer && entity.isValid()) {
                     let player = cast<SuperPlayer>(entity)
                     if (player.last_selectedSlotIndex != player.selectedSlotIndex) {
                         player.onSwitchSelectedSlot();
@@ -189,6 +200,11 @@ export class SuperSystem {
         if (entity == undefined) {
             return
         }
+        entity.onDieAfterEvent(event);
+        if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+            entityCom.onDie(entity);
+        }
     }
     private EntityHealthChangedAfterEvent(event: EntityHealthChangedAfterEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.entity.id);
@@ -196,6 +212,10 @@ export class SuperSystem {
             return
         }
         entity.onHealthChangedAfterEvent(event)
+        if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+            entityCom.onHealthChanged(entity);
+        }
     }
     private EntityHitBlockAfterEvent(event: EntityHitBlockAfterEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
@@ -205,19 +225,27 @@ export class SuperSystem {
         entity.onHitBlockAfterEvent(event)
     }
     private EntityHitEntityAfterEvent(event: EntityHitEntityAfterEvent) {
-        let entity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
-        if (entity == undefined) {
+        let damagingEntity = SuperSystem.getWorld().getEntity(event.damagingEntity.id);
+        let hitEntity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
+        if (damagingEntity == undefined) {
             return
         }
-        entity.onHitEntityAfterEvent(event)
-        if (entity instanceof SuperPlayer) {
-            let player = cast<SuperPlayer>(entity)
+        damagingEntity.onHitEntityAfterEvent(event)
+        if (damagingEntity instanceof SuperPlayer) {//玩家攻击
+            let player = cast<SuperPlayer>(damagingEntity)
             let item = ItemStackManager.CreateItem(player.getHandItem());
             if (item) {
                 player.setHandItem(item);
                 let hitEntity = SuperSystem.getWorld().getEntity(event.hitEntity.id);
                 item.onAttack(player, hitEntity);
             }
+        }
+        if (hitEntity == undefined) {
+            return
+        }
+        if (CustomStaticComponentManager.HasEntityCustomComponent(damagingEntity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(damagingEntity.typeId);
+            entityCom.onHitEntity(damagingEntity,hitEntity);
         }
     }
     private EntityHurtAfterEvent(event: EntityHurtAfterEvent) {
@@ -226,6 +254,11 @@ export class SuperSystem {
             return
         }
         entity.onHurtAfterEvent(event)
+        if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+            let {damage,damageSource}=event;
+            entityCom.onHurt(entity,damage,damageSource);
+        }
     }
     private EntityLoadAfterEvent(event: EntityLoadAfterEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.entity.id);
@@ -233,6 +266,10 @@ export class SuperSystem {
             return
         }
         entity.onLoadAfterEvent(event)
+        if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+            entityCom.onLoad(entity);
+        }
     }
     private EntityRemoveAfterEvent(event: EntityRemoveAfterEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.removedEntityId);
@@ -240,13 +277,26 @@ export class SuperSystem {
             return
         }
         entity.onRemoveAfterEvent(event)
+        if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+            let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+            entityCom.onRemove(entity);
+        }
     }
     private EntitySpawnAfterEvent(event: EntitySpawnAfterEvent) {
-        let entity = SuperSystem.getWorld().getEntity(event.entity.id);
-        if (entity == undefined) {
-            return
-        }
-        entity.onEntitySpawnAfterEvent(event)
+        SuperSystem.waitUntil(()=>{
+            let entity = SuperSystem.getWorld().getEntity(event.entity.id);
+            if (entity != undefined) {
+                return true
+            }
+            return false
+        }).then(()=>{
+            let entity = SuperSystem.getWorld().getEntity(event.entity.id);
+            entity.onEntitySpawnAfterEvent(event)
+            if (CustomStaticComponentManager.HasEntityCustomComponent(entity.typeId)) {
+                let entityCom = CustomStaticComponentManager.GetEntityCustomComponent<SuperEntityStaticComponent>(entity.typeId);
+                entityCom.onSpawn(entity,event.cause);
+            }
+        })
     }
     private EntityRemoveBeforeEvent(event: EntityRemoveBeforeEvent) {
         let entity = SuperSystem.getWorld().getEntity(event.removedEntity.id);

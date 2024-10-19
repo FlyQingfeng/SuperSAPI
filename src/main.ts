@@ -8,6 +8,7 @@ import { mEntityComponent } from "./ownCode/mEntityComponent";
 import { mItemsatckComponent } from "./ownCode/mItemStackComponent";
 import { mSuperBlockStaticComponent } from "./ownCode/mSuperBlockStaticComponent";
 import { mSuperItemStaticComponent } from "./ownCode/mSuperItemStaticComponent";
+import { mSuperEntityStaticComponent } from "./ownCode/mSuperEntityStaticComponent";
 
 
 //把我们在ownCode文件夹写的类注册到SuperSAPI内启用
@@ -32,6 +33,9 @@ SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCV
 
 //注册一个物品静态组件
 SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Tnt,mSuperItemStaticComponent,mSuperItemStaticComponent.type)
+
+//注册一个实体静态组件
+SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftEntityTypes.Pig,mSuperEntityStaticComponent,mSuperEntityStaticComponent.type)
 
 //注册一个聊天指令：#give <物品ID> <组件ID>
 //可以在游戏内输入#help查看所有已经注册的指令和用法

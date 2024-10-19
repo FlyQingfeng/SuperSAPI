@@ -5,6 +5,5 @@ export class mEntity extends SuperSAPI.SuperEntity {
         super(entity,world)
     }
     onDieAfterEvent(event: mc.EntityDieAfterEvent): void {
-        console.log("onDieAfterEvent");
     }
 }
