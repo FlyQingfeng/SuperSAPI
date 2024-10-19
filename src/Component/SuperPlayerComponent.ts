@@ -32,7 +32,7 @@ export class PlayerSuperComponent extends EntitySuperComponent {
             player.Bind(player.onItemUseOnBeforeEvent, this.onItemUseOnBeforeEvent);
             player.Bind(player.onItemUseBeforeEvent, this.onItemUseBeforeEvent);
             player.Bind(player.onChatSendBeforeEvent, this.onChatSendBeforeEvent);
-            player.Bind(player.onPlaceBeforeEvent, this.onPlaceBlockBeforeEvent);
+            player.Bind(player.onPlaceBlockBeforeEvent, this.onPlaceBlockBeforeEvent);
             player.Bind(player.onBreakBlockBeforeEvent, this.onBreakBlockBeforeEvent);
         }
     };
@@ -63,7 +63,7 @@ export class PlayerSuperComponent extends EntitySuperComponent {
             player.UnBind(player.onItemUseOnBeforeEvent, this.onItemUseOnBeforeEvent);
             player.UnBind(player.onItemUseBeforeEvent, this.onItemUseBeforeEvent);
             player.UnBind(player.onChatSendBeforeEvent, this.onChatSendBeforeEvent);
-            player.UnBind(player.onPlaceBeforeEvent, this.onPlaceBlockBeforeEvent);
+            player.UnBind(player.onPlaceBlockBeforeEvent, this.onPlaceBlockBeforeEvent);
             player.UnBind(player.onBreakBlockBeforeEvent, this.onBreakBlockBeforeEvent);
         }
     }

@@ -43,6 +43,9 @@ export class SuperItemStack extends Super{
     public get typeId() : string {
         return this.source_instance.typeId
     }
+    setItem(item:mc.ItemStack){
+        this.source_instance=item;
+    }
     onSwitchIn(player:SuperPlayer) {
         this.getCustomComponents().forEach((c)=>{
             c.onSwitchIn(player);

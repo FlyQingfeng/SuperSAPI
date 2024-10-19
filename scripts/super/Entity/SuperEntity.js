@@ -13,6 +13,8 @@ export class SuperEntity extends Super {
     constructor(source_instance, world) {
         super();
         this.enable_tick = false;
+        this.last_isFalling = false; //上一次下落状态
+        this.FallingTime = 0; //下落时间
         this.world = world;
         this.source_instance = source_instance;
         this.custom_component = {};
@@ -22,55 +24,55 @@ export class SuperEntity extends Super {
     }
     ;
     get dimension() {
-        return this.source_instance.dimension;
+        return this.source_instance?.dimension;
     }
     get id() {
-        return this.source_instance.id;
+        return this.source_instance?.id;
     }
     get isClimbing() {
-        return this.source_instance.isClimbing;
+        return this.source_instance?.isClimbing;
     }
     get isFalling() {
-        return this.source_instance.isFalling;
+        return this.source_instance?.isFalling;
     }
     get isSneaking() {
-        return this.source_instance.isSneaking;
+        return this.source_instance?.isSneaking;
     }
     get isInWater() {
-        return this.source_instance.isInWater;
+        return this.source_instance?.isInWater;
     }
     get isOnGround() {
-        return this.source_instance.isOnGround;
+        return this.source_instance?.isOnGround;
     }
     get isSleeping() {
-        return this.source_instance.isSleeping;
+        return this.source_instance?.isSleeping;
     }
     get isSprinting() {
-        return this.source_instance.isSprinting;
+        return this.source_instance?.isSprinting;
     }
     get isSwimming() {
-        return this.source_instance.isSwimming;
+        return this.source_instance?.isSwimming;
     }
     get location() {
-        return Vec3.fromObj(this.source_instance.location);
+        return Vec3.fromObj(this.source_instance?.location);
     }
     get nameTag() {
-        return this.source_instance.nameTag;
+        return this.source_instance?.nameTag;
     }
     get scoreboardIdentity() {
-        return this.source_instance.scoreboardIdentity;
+        return this.source_instance?.scoreboardIdentity;
     }
     get target() {
-        return this.source_instance.target;
+        return this.source_instance?.target;
     }
     get typeId() {
-        return this.source_instance.typeId;
+        return this.source_instance?.typeId;
     }
     getWorld() {
         return this.world;
     }
     getDimension() {
-        return this.source_instance.dimension;
+        return this.source_instance?.dimension;
     }
     cast() {
         return cast(this);
@@ -159,6 +161,8 @@ export class SuperEntity extends Super {
         return coms;
     }
     //触发事件
+    fallOn(block) {
+    }
     onDieAfterEvent(event) {
     }
     onHealthChangedAfterEvent(event) {
@@ -178,7 +182,7 @@ export class SuperEntity extends Super {
     onRemoveBeforeEvent(event) {
     }
     addEffect(effectType, duration, options) {
-        return this.source_instance.addEffect(effectType, duration, options);
+        return this.source_instance?.addEffect(effectType, duration, options);
     }
     ;
     /**
@@ -196,7 +200,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     addTag(tag) {
-        return this.source_instance.addTag(tag);
+        return this.source_instance?.addTag(tag);
     }
     ;
     /**
@@ -240,7 +244,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyDamage(amount, options) {
-        return this.source_instance.applyDamage(amount, options);
+        return this.source_instance?.applyDamage(amount, options);
     }
     ;
     /**
@@ -269,7 +273,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyImpulse(vector) {
-        return this.source_instance.applyImpulse(vector);
+        return this.source_instance?.applyImpulse(vector);
     }
     ;
     /**
@@ -311,7 +315,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyKnockback(directionX, directionZ, horizontalStrength, verticalStrength) {
-        return this.source_instance.applyKnockback(directionX, directionZ, horizontalStrength, verticalStrength);
+        return this.source_instance?.applyKnockback(directionX, directionZ, horizontalStrength, verticalStrength);
     }
     ;
     /**
@@ -322,7 +326,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     clearDynamicProperties() {
-        return this.source_instance.clearDynamicProperties();
+        return this.source_instance?.clearDynamicProperties();
     }
     ;
     /**
@@ -349,7 +353,7 @@ export class SuperEntity extends Super {
      * ```
      */
     clearVelocity() {
-        return this.source_instance.clearVelocity();
+        return this.source_instance?.clearVelocity();
     }
     ;
     /**
@@ -386,7 +390,7 @@ export class SuperEntity extends Super {
      * ```
      */
     extinguishFire(useEffects) {
-        return this.source_instance.extinguishFire(useEffects);
+        return this.source_instance?.extinguishFire(useEffects);
     }
     ;
     /**
@@ -402,7 +406,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getBlockFromViewDirection(options) {
-        return this.source_instance.getBlockFromViewDirection(options);
+        return this.source_instance?.getBlockFromViewDirection(options);
     }
     ;
     /**
@@ -420,7 +424,7 @@ export class SuperEntity extends Super {
      * undefined.
      */
     getComponent(componentId) {
-        return this.source_instance.getComponent(componentId);
+        return this.source_instance?.getComponent(componentId);
     }
     ;
     /**
@@ -433,7 +437,7 @@ export class SuperEntity extends Super {
      * and supported by the API.
      */
     getComponents() {
-        return this.source_instance.getComponents();
+        return this.source_instance?.getComponents();
     }
     ;
     /**
@@ -448,7 +452,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicProperty(identifier) {
-        return this.source_instance.getDynamicProperty(identifier);
+        return this.source_instance?.getDynamicProperty(identifier);
     }
     ;
     /**
@@ -461,7 +465,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicPropertyIds() {
-        return this.source_instance.getDynamicPropertyIds();
+        return this.source_instance?.getDynamicPropertyIds();
     }
     ;
     /**
@@ -476,7 +480,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicPropertyTotalByteCount() {
-        return this.source_instance.getDynamicPropertyTotalByteCount();
+        return this.source_instance?.getDynamicPropertyTotalByteCount();
     }
     ;
     /**
@@ -494,7 +498,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEffect(effectType) {
-        return this.source_instance.getEffect(effectType);
+        return this.source_instance?.getEffect(effectType);
     }
     ;
     /**
@@ -506,7 +510,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEffects() {
-        return this.source_instance.getEffects();
+        return this.source_instance?.getEffects();
     }
     ;
     /**
@@ -522,7 +526,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEntitiesFromViewDirection(options) {
-        return this.source_instance.getEntitiesFromViewDirection(options);
+        return this.source_instance?.getEntitiesFromViewDirection(options);
     }
     ;
     /**
@@ -536,7 +540,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getHeadLocation() {
-        return this.source_instance.getHeadLocation();
+        return this.source_instance?.getHeadLocation();
     }
     ;
     /**
@@ -556,7 +560,7 @@ export class SuperEntity extends Super {
      * Throws if the entity is invalid.
      */
     getProperty(identifier) {
-        return this.source_instance.getProperty(identifier);
+        return this.source_instance?.getProperty(identifier);
     }
     ;
     /**
@@ -569,7 +573,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getRotation() {
-        return this.source_instance.getRotation();
+        return this.source_instance?.getRotation();
     }
     ;
     /**
@@ -581,7 +585,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getTags() {
-        return this.source_instance.getTags();
+        return this.source_instance?.getTags();
     }
     ;
     /**
@@ -609,7 +613,7 @@ export class SuperEntity extends Super {
      * ```
      */
     getVelocity() {
-        return this.source_instance.getVelocity();
+        return this.source_instance?.getVelocity();
     }
     ;
     /**
@@ -621,7 +625,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getViewDirection() {
-        return this.source_instance.getViewDirection();
+        return this.source_instance?.getViewDirection();
     }
     ;
     /**
@@ -638,7 +642,7 @@ export class SuperEntity extends Super {
      * entity.
      */
     hasComponent(componentId) {
-        return this.source_instance.hasComponent(componentId);
+        return this.source_instance?.hasComponent(componentId);
     }
     ;
     /**
@@ -652,7 +656,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     hasTag(tag) {
-        return this.source_instance.hasTag(tag);
+        return this.source_instance?.hasTag(tag);
     }
     ;
     /**
@@ -665,7 +669,7 @@ export class SuperEntity extends Super {
      * Whether the entity is valid.
      */
     isValid() {
-        if (this.source_instance && this.source_instance.isValid()) {
+        if (this.source_instance && this.source_instance?.isValid()) {
             return true;
         }
         return false;
@@ -706,7 +710,7 @@ export class SuperEntity extends Super {
      * ```
      */
     kill() {
-        return this.source_instance.kill();
+        return this.source_instance?.kill();
     }
     ;
     /**
@@ -724,7 +728,7 @@ export class SuperEntity extends Super {
      * Throws if the query options are misconfigured.
      */
     matches(options) {
-        return this.source_instance.matches(options);
+        return this.source_instance?.matches(options);
     }
     ;
     /**
@@ -741,7 +745,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     playAnimation(animationName, options) {
-        return this.source_instance.playAnimation(animationName, options);
+        return this.source_instance?.playAnimation(animationName, options);
     }
     ;
     /**
@@ -755,7 +759,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     remove() {
-        return this.source_instance.remove();
+        return this.source_instance?.remove();
     }
     ;
     /**
@@ -773,7 +777,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     removeEffect(effectType) {
-        return this.source_instance.removeEffect(effectType);
+        return this.source_instance?.removeEffect(effectType);
     }
     ;
     /**
@@ -789,7 +793,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     removeTag(tag) {
-        return this.source_instance.removeTag(tag);
+        return this.source_instance?.removeTag(tag);
     }
     ;
     /**
@@ -815,7 +819,7 @@ export class SuperEntity extends Super {
      * {@link Error}
      */
     resetProperty(identifier) {
-        return this.source_instance.resetProperty(identifier);
+        return this.source_instance?.resetProperty(identifier);
     }
     ;
     /**
@@ -837,7 +841,7 @@ export class SuperEntity extends Super {
      * {@link Error}
      */
     runCommand(commandString) {
-        return this.source_instance.runCommand(commandString);
+        return this.source_instance?.runCommand(commandString);
     }
     ;
     /**
@@ -855,7 +859,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     runCommandAsync(commandString) {
-        return this.source_instance.runCommandAsync(commandString);
+        return this.source_instance?.runCommandAsync(commandString);
     }
     ;
     /**
@@ -872,7 +876,7 @@ export class SuperEntity extends Super {
         if (!this.source_instance) {
             return;
         }
-        return this.source_instance.setDynamicProperty(identifier, value);
+        return this.source_instance?.setDynamicProperty(identifier, value);
     }
     ;
     /**
@@ -914,7 +918,7 @@ export class SuperEntity extends Super {
      * ```
      */
     setOnFire(seconds, useEffects) {
-        return this.source_instance.setOnFire(seconds, useEffects);
+        return this.source_instance?.setOnFire(seconds, useEffects);
     }
     ;
     /**
@@ -940,7 +944,7 @@ export class SuperEntity extends Super {
      * of accepted enum values (enum properties
      */
     setProperty(identifier, value) {
-        return this.source_instance.setProperty(identifier, value);
+        return this.source_instance?.setProperty(identifier, value);
     }
     ;
     /**
@@ -956,7 +960,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     setRotation(rotation) {
-        return this.source_instance.setRotation(rotation);
+        return this.source_instance?.setRotation(rotation);
     }
     ;
     /**
@@ -973,7 +977,7 @@ export class SuperEntity extends Super {
      * @example teleportMovement.ts
      */
     teleport(location, teleportOptions) {
-        return this.source_instance.teleport(location, teleportOptions);
+        return this.source_instance?.teleport(location, teleportOptions);
     }
     ;
     /**
@@ -1005,7 +1009,7 @@ export class SuperEntity extends Super {
      * ```
      */
     triggerEvent(eventName) {
-        return this.source_instance.triggerEvent(eventName);
+        return this.source_instance?.triggerEvent(eventName);
     }
     ;
     /**
@@ -1027,13 +1031,16 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     tryTeleport(location, teleportOptions) {
-        return this.source_instance.tryTeleport(location, teleportOptions);
+        return this.source_instance?.tryTeleport(location, teleportOptions);
     }
     ;
 }
 __decorate([
     registerAsSubscribable
 ], SuperEntity.prototype, "tick", null);
+__decorate([
+    registerAsSubscribable
+], SuperEntity.prototype, "fallOn", null);
 __decorate([
     registerAsSubscribable
 ], SuperEntity.prototype, "onDieAfterEvent", null);

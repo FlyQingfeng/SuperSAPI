@@ -8,7 +8,6 @@ export class mPlayer extends SuperSAPI.SuperPlayer {
     }
     @SuperSAPI.registerAsSubscribable
     onItemUseAfterEvent(event: mc.ItemUseAfterEvent): void {
-        console.log("use item");
     }
 }
 

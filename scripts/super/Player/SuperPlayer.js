@@ -9,6 +9,7 @@ import { SuperEntity } from "../Entity/SuperEntity";
 import { registerAsSubscribable } from "../Super/Super";
 import { ComponentType, CustomComponentManager } from "../Component/CustomComponentManager";
 import { enumKeyToString } from "../Public/Stdlib";
+import { SuperItemStack } from "../Item/SuperItemStack";
 export class SuperPlayer extends SuperEntity {
     constructor(source_instance, world) {
         super(source_instance, world);
@@ -86,21 +87,26 @@ export class SuperPlayer extends SuperEntity {
         }
     }
     setHandItem(item) {
-        let handitem = this.getHandItem();
-        if (!handitem) {
-            return;
-        }
-        let found = handitem.getDynamicPropertyIds().find(id => {
-            return id = "uuid";
-        });
-        if (found) {
-            let uuid = handitem.getDynamicProperty("uuid");
-            if (uuid !== item.uuid) {
+        if (item instanceof SuperItemStack) {
+            let handitem = this.getHandItem();
+            if (!handitem) {
+                return;
+            }
+            let found = handitem.getDynamicPropertyIds().find(id => {
+                return id = "uuid";
+            });
+            if (found) {
+                let uuid = handitem.getDynamicProperty("uuid");
+                if (uuid !== item.uuid) {
+                    this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+                }
+            }
+            else {
                 this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
             }
         }
         else {
-            this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+            this.getInventoryContainer().setItem(this.selectedSlotIndex, item);
         }
     }
     giveItem(item) {
@@ -189,7 +195,7 @@ export class SuperPlayer extends SuperEntity {
     }
     onChatSendBeforeEvent(event) {
     }
-    onPlaceBeforeEvent(event) {
+    onPlaceBlockBeforeEvent(event) {
     }
     onBreakBlockBeforeEvent(event) {
     }
@@ -608,7 +614,7 @@ __decorate([
 ], SuperPlayer.prototype, "onChatSendBeforeEvent", null);
 __decorate([
     registerAsSubscribable
-], SuperPlayer.prototype, "onPlaceBeforeEvent", null);
+], SuperPlayer.prototype, "onPlaceBlockBeforeEvent", null);
 __decorate([
     registerAsSubscribable
 ], SuperPlayer.prototype, "onBreakBlockBeforeEvent", null);

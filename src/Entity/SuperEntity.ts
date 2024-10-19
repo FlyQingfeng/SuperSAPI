@@ -15,6 +15,8 @@ export class SuperEntity extends Super {
     attribute: Attribute;
     custom_component: { [id: string]: EntitySuperComponent };
     enable_tick: boolean = false
+    last_isFalling:boolean=false//上一次下落状态
+    FallingTime:number=0;//下落时间
     constructor(source_instance: mc.Entity,world:SuperWorld) {
         super()
         this.world=world;
@@ -27,57 +29,57 @@ export class SuperEntity extends Super {
     };
     
     public get dimension() : mc.Dimension {
-        return this.source_instance.dimension
+        return this.source_instance?.dimension
     }
     public get id() : string {
-        return this.source_instance.id
+        return this.source_instance?.id
     }
     public get isClimbing() : boolean {
-        return this.source_instance.isClimbing
+        return this.source_instance?.isClimbing
     }
     public get isFalling() : boolean {
-        return this.source_instance.isFalling
+        return this.source_instance?.isFalling
     }
     public get isSneaking() : boolean {
-        return this.source_instance.isSneaking
+        return this.source_instance?.isSneaking
     }
     public get isInWater() : boolean {
-        return this.source_instance.isInWater
+        return this.source_instance?.isInWater
     }
     public get isOnGround() : boolean {
-        return this.source_instance.isOnGround
+        return this.source_instance?.isOnGround
     }
     public get isSleeping() : boolean {
-        return this.source_instance.isSleeping
+        return this.source_instance?.isSleeping
     }
     public get isSprinting() : boolean {
-        return this.source_instance.isSprinting
+        return this.source_instance?.isSprinting
     }
     public get isSwimming() : boolean {
-        return this.source_instance.isSwimming
+        return this.source_instance?.isSwimming
     }
     public get location() : Vec3 {
-        return Vec3.fromObj(this.source_instance.location)
+        return Vec3.fromObj(this.source_instance?.location)
     }
     
     public get nameTag() : string {
-        return this.source_instance.nameTag
+        return this.source_instance?.nameTag
     }
     public get scoreboardIdentity() : mc.ScoreboardIdentity {
-        return this.source_instance.scoreboardIdentity
+        return this.source_instance?.scoreboardIdentity
     }
     public get target() : mc.Entity {
-        return this.source_instance.target
+        return this.source_instance?.target
     }
     public get typeId() : string {
-        return this.source_instance.typeId
+        return this.source_instance?.typeId
     }
     
     getWorld():SuperWorld{
         return this.world;
     }
     getDimension() {
-        return this.source_instance.dimension;
+        return this.source_instance?.dimension;
     }
     cast<T>() {
         return cast<T>(this)
@@ -170,7 +172,12 @@ export class SuperEntity extends Super {
         }
         return coms
     }
+    
     //触发事件
+    @registerAsSubscribable
+    fallOn(block:mc.Block){//落到方块上
+
+    }
     @registerAsSubscribable
     onDieAfterEvent(event: mc.EntityDieAfterEvent) {
     }
@@ -200,7 +207,7 @@ export class SuperEntity extends Super {
     }
 
     addEffect(effectType: mc.EffectType | string, duration: number, options?: mc.EntityEffectOptions): mc.Effect | undefined {
-        return this.source_instance.addEffect(effectType, duration, options);
+        return this.source_instance?.addEffect(effectType, duration, options);
     };
     /**
      * @remarks
@@ -217,7 +224,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     addTag(tag: string): boolean {
-        return this.source_instance.addTag(tag);
+        return this.source_instance?.addTag(tag);
     };
     /**
      * @remarks
@@ -260,7 +267,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyDamage(amount: number, options?: mc.EntityApplyDamageByProjectileOptions | mc.EntityApplyDamageOptions): boolean {
-        return this.source_instance.applyDamage(amount, options);
+        return this.source_instance?.applyDamage(amount, options);
     };
     /**
      * @remarks
@@ -288,7 +295,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyImpulse(vector: mc.Vector3): void {
-        return this.source_instance.applyImpulse(vector);
+        return this.source_instance?.applyImpulse(vector);
     };
     /**
      * @remarks
@@ -329,7 +336,7 @@ export class SuperEntity extends Super {
      * ```
      */
     applyKnockback(directionX: number, directionZ: number, horizontalStrength: number, verticalStrength: number): void {
-        return this.source_instance.applyKnockback(directionX, directionZ, horizontalStrength, verticalStrength);
+        return this.source_instance?.applyKnockback(directionX, directionZ, horizontalStrength, verticalStrength);
     };
     /**
      * @remarks
@@ -339,7 +346,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     clearDynamicProperties(): void {
-        return this.source_instance.clearDynamicProperties();
+        return this.source_instance?.clearDynamicProperties();
     };
     /**
      * @remarks
@@ -365,7 +372,7 @@ export class SuperEntity extends Super {
      * ```
      */
     clearVelocity(): void {
-        return this.source_instance.clearVelocity();
+        return this.source_instance?.clearVelocity();
     };
     /**
      * @remarks
@@ -401,7 +408,7 @@ export class SuperEntity extends Super {
      * ```
      */
     extinguishFire(useEffects?: boolean): boolean {
-        return this.source_instance.extinguishFire(useEffects);
+        return this.source_instance?.extinguishFire(useEffects);
     };
     /**
      * @remarks
@@ -416,7 +423,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getBlockFromViewDirection(options?: mc.BlockRaycastOptions): mc.BlockRaycastHit | undefined {
-        return this.source_instance.getBlockFromViewDirection(options);
+        return this.source_instance?.getBlockFromViewDirection(options);
     };
     /**
      * @remarks
@@ -433,7 +440,7 @@ export class SuperEntity extends Super {
      * undefined.
      */
     getComponent<T extends keyof mc.EntityComponentTypeMap>(componentId: T): mc.EntityComponentTypeMap[T] | undefined {
-        return this.source_instance.getComponent(componentId);
+        return this.source_instance?.getComponent(componentId);
     };
     /**
      * @remarks
@@ -445,7 +452,7 @@ export class SuperEntity extends Super {
      * and supported by the API.
      */
     getComponents(): mc.EntityComponent[] {
-        return this.source_instance.getComponents();
+        return this.source_instance?.getComponents();
     };
     /**
      * @remarks
@@ -459,7 +466,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicProperty(identifier: string): boolean | number | string | mc.Vector3 | undefined {
-        return this.source_instance.getDynamicProperty(identifier);
+        return this.source_instance?.getDynamicProperty(identifier);
     };
     /**
      * @remarks
@@ -471,7 +478,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicPropertyIds(): string[] {
-        return this.source_instance.getDynamicPropertyIds();
+        return this.source_instance?.getDynamicPropertyIds();
     };
     /**
      * @remarks
@@ -485,7 +492,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getDynamicPropertyTotalByteCount(): number {
-        return this.source_instance.getDynamicPropertyTotalByteCount();
+        return this.source_instance?.getDynamicPropertyTotalByteCount();
     };
     /**
      * @remarks
@@ -502,7 +509,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEffect(effectType: mc.EffectType | string): mc.Effect | undefined {
-        return this.source_instance.getEffect(effectType);
+        return this.source_instance?.getEffect(effectType);
     };
     /**
      * @remarks
@@ -513,7 +520,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEffects(): mc.Effect[] {
-        return this.source_instance.getEffects();
+        return this.source_instance?.getEffects();
     };
     /**
      * @remarks
@@ -528,7 +535,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getEntitiesFromViewDirection(options?: mc.EntityRaycastOptions): mc.EntityRaycastHit[] {
-        return this.source_instance.getEntitiesFromViewDirection(options);
+        return this.source_instance?.getEntitiesFromViewDirection(options);
     };
     /**
      * @remarks
@@ -541,7 +548,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getHeadLocation(): mc.Vector3 {
-        return this.source_instance.getHeadLocation();
+        return this.source_instance?.getHeadLocation();
     };
     /**
      * @remarks
@@ -560,7 +567,7 @@ export class SuperEntity extends Super {
      * Throws if the entity is invalid.
      */
     getProperty(identifier: string): boolean | number | string | undefined {
-        return this.source_instance.getProperty(identifier);
+        return this.source_instance?.getProperty(identifier);
     };
     /**
      * @remarks
@@ -572,7 +579,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getRotation(): mc.Vector2 {
-        return this.source_instance.getRotation();
+        return this.source_instance?.getRotation();
     };
     /**
      * @remarks
@@ -583,7 +590,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getTags(): string[] {
-        return this.source_instance.getTags();
+        return this.source_instance?.getTags();
     };
     /**
      * @remarks
@@ -610,7 +617,7 @@ export class SuperEntity extends Super {
      * ```
      */
     getVelocity(): mc.Vector3 {
-        return this.source_instance.getVelocity();
+        return this.source_instance?.getVelocity();
     };
     /**
      * @remarks
@@ -621,7 +628,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     getViewDirection(): mc.Vector3 {
-        return this.source_instance.getViewDirection();
+        return this.source_instance?.getViewDirection();
     };
     /**
      * @remarks
@@ -637,7 +644,7 @@ export class SuperEntity extends Super {
      * entity.
      */
     hasComponent(componentId: string): boolean {
-        return this.source_instance.hasComponent(componentId);
+        return this.source_instance?.hasComponent(componentId);
     };
     /**
      * @remarks
@@ -650,7 +657,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     hasTag(tag: string): boolean {
-        return this.source_instance.hasTag(tag);
+        return this.source_instance?.hasTag(tag);
     };
     /**
      * @remarks
@@ -662,7 +669,7 @@ export class SuperEntity extends Super {
      * Whether the entity is valid.
      */
     isValid(): boolean {
-        if (this.source_instance&&this.source_instance.isValid()) {
+        if (this.source_instance&&this.source_instance?.isValid()) {
             return true
         }
         return false;
@@ -702,7 +709,7 @@ export class SuperEntity extends Super {
      * ```
      */
     kill(): boolean {
-        return this.source_instance.kill();
+        return this.source_instance?.kill();
     };
     /**
      * @remarks
@@ -719,7 +726,7 @@ export class SuperEntity extends Super {
      * Throws if the query options are misconfigured.
      */
     matches(options: mc.EntityQueryOptions): boolean {
-        return this.source_instance.matches(options);
+        return this.source_instance?.matches(options);
     };
     /**
      * @remarks
@@ -735,7 +742,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     playAnimation(animationName: string, options?: mc.PlayAnimationOptions): void {
-        return this.source_instance.playAnimation(animationName, options);
+        return this.source_instance?.playAnimation(animationName, options);
     };
     /**
      * @remarks
@@ -748,7 +755,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     remove(): void {
-        return this.source_instance.remove();
+        return this.source_instance?.remove();
     };
     /**
      * @remarks
@@ -765,7 +772,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     removeEffect(effectType: mc.EffectType | string): boolean {
-        return this.source_instance.removeEffect(effectType);
+        return this.source_instance?.removeEffect(effectType);
     };
     /**
      * @remarks
@@ -780,7 +787,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     removeTag(tag: string): boolean {
-        return this.source_instance.removeTag(tag);
+        return this.source_instance?.removeTag(tag);
     };
     /**
      * @remarks
@@ -805,7 +812,7 @@ export class SuperEntity extends Super {
      * {@link Error}
      */
     resetProperty(identifier: string): boolean | number | string {
-        return this.source_instance.resetProperty(identifier);
+        return this.source_instance?.resetProperty(identifier);
     };
     /**
      * @remarks
@@ -826,7 +833,7 @@ export class SuperEntity extends Super {
      * {@link Error}
      */
     runCommand(commandString: string): mc.CommandResult {
-        return this.source_instance.runCommand(commandString);
+        return this.source_instance?.runCommand(commandString);
     };
     /**
      * @remarks
@@ -843,7 +850,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     runCommandAsync(commandString: string): Promise<mc.CommandResult> {
-        return this.source_instance.runCommandAsync(commandString);
+        return this.source_instance?.runCommandAsync(commandString);
     };
     /**
      * @remarks
@@ -859,7 +866,7 @@ export class SuperEntity extends Super {
         if (!this.source_instance) {
             return
         }
-        return this.source_instance.setDynamicProperty(identifier, value);
+        return this.source_instance?.setDynamicProperty(identifier, value);
     };
     /**
      * @remarks
@@ -900,7 +907,7 @@ export class SuperEntity extends Super {
      * ```
      */
     setOnFire(seconds: number, useEffects?: boolean): boolean {
-        return this.source_instance.setOnFire(seconds, useEffects);
+        return this.source_instance?.setOnFire(seconds, useEffects);
     };
     /**
      * @remarks
@@ -925,7 +932,7 @@ export class SuperEntity extends Super {
      * of accepted enum values (enum properties
      */
     setProperty(identifier: string, value: boolean | number | string): void {
-        return this.source_instance.setProperty(identifier, value);
+        return this.source_instance?.setProperty(identifier, value);
     };
     /**
      * @remarks
@@ -940,7 +947,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     setRotation(rotation: mc.Vector2): void {
-        return this.source_instance.setRotation(rotation);
+        return this.source_instance?.setRotation(rotation);
     };
     /**
      * @remarks
@@ -956,7 +963,7 @@ export class SuperEntity extends Super {
      * @example teleportMovement.ts
      */
     teleport(location: Vec3, teleportOptions?: mc.TeleportOptions): void {
-        return this.source_instance.teleport(location, teleportOptions);
+        return this.source_instance?.teleport(location, teleportOptions);
     };
     /**
      * @remarks
@@ -987,7 +994,7 @@ export class SuperEntity extends Super {
      * ```
      */
     triggerEvent(eventName: string): void {
-        return this.source_instance.triggerEvent(eventName);
+        return this.source_instance?.triggerEvent(eventName);
     };
     /**
      * @remarks
@@ -1008,7 +1015,7 @@ export class SuperEntity extends Super {
      * @throws This function can throw errors.
      */
     tryTeleport(location: Vec3, teleportOptions?: mc.TeleportOptions): boolean {
-        return this.source_instance.tryTeleport(location, teleportOptions);
+        return this.source_instance?.tryTeleport(location, teleportOptions);
     };
 }
 

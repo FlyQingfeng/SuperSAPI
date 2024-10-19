@@ -13,6 +13,10 @@ import * as sim from "./Item/SuperItemManager";
 import * as tm from "./Public/Timer";
 import * as msuper from "./Super/Super";
 import * as db from "./Public/Debug";
+import * as cscm from "./Component/CustomStaticComponentManager";
+import * as ssc from "./Component/SuperStaticComponent";
+import * as sbsc from "./Component/SuperBlockStaticComponent";
+import * as sisc from "./Component/SuperItemStaticComponent";
 //版本说明
 export const version_information = {
     name: "SuperSAPI",
@@ -39,11 +43,16 @@ export const PlayerComponent = spc.PlayerSuperComponent;
 export const EntityComponent = sec.EntitySuperComponent;
 export const ItemComponent = sic.ItemSuperComponent;
 export const SuperComponent = sc.SuperComponent;
+export const SuperStaticComponent = ssc.SuperStaticComponent;
+export const StaticComponentType = ssc.StaticComponentType;
+export const SuperBlockStaticComponent = sbsc.SuperBlockStaticComponent;
+export const SuperItemStaticComponent = sisc.SuperItemStaticComponent;
 //类管理
 export const ClassManager = run.ClassManager;
 export const CommandManager = cm.CommandManager;
 export const CustomComponentManager = ccm.CustomComponentManager;
 export const ItemStackManager = sim.ItemStackManager;
+export const CustomStaticComponentManager = cscm.CustomStaticComponentManager;
 //工具类
 export const Debug = db.Debug;
 //定时器类

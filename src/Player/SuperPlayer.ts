@@ -5,107 +5,112 @@ import { ComponentType, CustomComponentManager } from "../Component/CustomCompon
 import { enumKeyToString } from "../Public/Stdlib";
 import { PlayerSuperComponent } from "../Component/SuperPlayerComponent";
 import { SuperWorld } from "../World/SuperWorld";
-import { SuperItemStack } from "Item/SuperItemStack";
+import { SuperItemStack } from "../Item/SuperItemStack";
 
 export class SuperPlayer extends SuperEntity {
-    
-    
+
+
     source_instance: mc.Player;
-    last_selectedSlotIndex: number=0;
-    constructor(source_instance: mc.Player,world:SuperWorld) {
-        super(source_instance,world)
+    last_selectedSlotIndex: number = 0;
+    constructor(source_instance: mc.Player, world: SuperWorld) {
+        super(source_instance, world)
         this.source_instance = source_instance;
     };
-    
-    public get camera() : mc.Camera {
+
+    public get camera(): mc.Camera {
         return this.source_instance.camera
     }
-    public get inputPermissions() : mc.PlayerInputPermissions {
+    public get inputPermissions(): mc.PlayerInputPermissions {
         return this.source_instance.inputPermissions
     }
-    public get isEmoting() : boolean {
+    public get isEmoting(): boolean {
         return this.source_instance.isEmoting
     }
-    public get isFlying() : boolean {
+    public get isFlying(): boolean {
         return this.source_instance.isFlying
     }
-    public get isGliding() : boolean {
+    public get isGliding(): boolean {
         return this.source_instance.isGliding
     }
-    public get isJumping() : boolean {
+    public get isJumping(): boolean {
         return this.source_instance.isJumping
     }
-    public get level() : number {
+    public get level(): number {
         return this.source_instance.level
     }
-    public get name() : string {
+    public get name(): string {
         return this.source_instance.name
     }
-    public get onScreenDisplay() : mc.ScreenDisplay {
+    public get onScreenDisplay(): mc.ScreenDisplay {
         return this.source_instance.onScreenDisplay
     }
-    public get totalXpNeededForNextLevel() : number {
+    public get totalXpNeededForNextLevel(): number {
         return this.source_instance.totalXpNeededForNextLevel
     }
-    public get xpEarnedAtCurrentLevel() : number {
+    public get xpEarnedAtCurrentLevel(): number {
         return this.source_instance.xpEarnedAtCurrentLevel
     }
-    public get selectedSlotIndex() : number {
+    public get selectedSlotIndex(): number {
         return this.source_instance.selectedSlotIndex
     }
     onSwitchSelectedSlot() {
-        
+
     }
-    getInventory():mc.EntityInventoryComponent{
+    getInventory(): mc.EntityInventoryComponent {
         return this.getComponent(mc.EntityComponentTypes.Inventory)
     }
-    getInventoryContainer():mc.Container{
+    getInventoryContainer(): mc.Container {
         return this.getInventory().container
     }
-    getEquipment():mc.EntityEquippableComponent{
+    getEquipment(): mc.EntityEquippableComponent {
         return this.getComponent(mc.EntityComponentTypes.Equippable)
     }
-    
-    getHandItem():mc.ItemStack|undefined{
-        let item=this.getInventoryContainer().getItem(this.selectedSlotIndex)
+
+    getHandItem(): mc.ItemStack | undefined {
+        let item = this.getInventoryContainer().getItem(this.selectedSlotIndex)
         return item
     }
     setSelectedSlotItem(slot: number, item: SuperItemStack) {
-        let olditem=this.getInventoryContainer().getItem(slot)
-        if (!olditem||!item) {
+        let olditem = this.getInventoryContainer().getItem(slot)
+        if (!olditem || !item) {
             return
         }
-        let found=olditem.getDynamicPropertyIds().find(id=>{
-            return id="uuid"
+        let found = olditem.getDynamicPropertyIds().find(id => {
+            return id = "uuid"
         })
         if (found) {
-            let uuid=olditem.getDynamicProperty("uuid") as string
-            if (uuid!==item.uuid) {
-                this.getInventoryContainer().setItem(slot,item.getItem());
+            let uuid = olditem.getDynamicProperty("uuid") as string
+            if (uuid !== item.uuid) {
+                this.getInventoryContainer().setItem(slot, item.getItem());
             }
-        }else{
-            this.getInventoryContainer().setItem(slot,item.getItem());
+        } else {
+            this.getInventoryContainer().setItem(slot, item.getItem());
         }
     }
-    setHandItem(item:SuperItemStack){
-        let handitem=this.getHandItem();
-        if (!handitem) {
-            return
-        }
-        let found=handitem.getDynamicPropertyIds().find(id=>{
-            return id="uuid"
-        })
-        if (found) {
-            let uuid=handitem.getDynamicProperty("uuid") as string
-            if (uuid!==item.uuid) {
-                this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+    setHandItem(item: SuperItemStack | mc.ItemStack) {
+        if (item instanceof SuperItemStack) {
+            let handitem = this.getHandItem();
+            if (!handitem) {
+                return
+            }
+            let found = handitem.getDynamicPropertyIds().find(id => {
+                return id = "uuid"
+            })
+            if (found) {
+                let uuid = handitem.getDynamicProperty("uuid") as string
+                if (uuid !== item.uuid) {
+                    this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
+                }
+            } else {
+                this.getInventoryContainer().setItem(this.selectedSlotIndex, item.getItem());
             }
         }else{
-            this.getInventoryContainer().setItem(this.selectedSlotIndex,item.getItem());
+            this.getInventoryContainer().setItem(this.selectedSlotIndex, item);
         }
+
     }
-    giveItem(item:SuperItemStack){
-        let container=this.getComponent(mc.EntityComponentTypes.Inventory).container
+    giveItem(item: SuperItemStack) {
+        let container = this.getComponent(mc.EntityComponentTypes.Inventory).container
         container.addItem(item.getItem())
     }
     readCustomComponent() {
@@ -116,11 +121,11 @@ export class SuperPlayer extends SuperEntity {
             for (let [id, cm_data] of Object.entries(json)) {
                 let type = CustomComponentManager.GetType(id);
                 if (type == ComponentType.PlayerComponentType) {
-                    let com = CustomComponentManager.CreateComponentInstance<PlayerSuperComponent,SuperEntity>(id, this);
+                    let com = CustomComponentManager.CreateComponentInstance<PlayerSuperComponent, SuperEntity>(id, this);
                     for (let [key, value] of Object.entries(json)) {
                         com[key] = value;
                     }
-                    if(!this.custom_component.hasOwnProperty(id)){
+                    if (!this.custom_component.hasOwnProperty(id)) {
                         com.onStart();
                         this.custom_component[id] = com;
                     }
@@ -128,15 +133,15 @@ export class SuperPlayer extends SuperEntity {
             }
         }
     }
-    addCustomComponent(identifier: string,options?):boolean {
-        let type=CustomComponentManager.GetType(identifier);
-        if (type!=ComponentType.PlayerComponentType) {
-            throw new Error(`Attempting to add ${enumKeyToString(ComponentType,ComponentType.PlayerComponentType)} components to player components`);
+    addCustomComponent(identifier: string, options?): boolean {
+        let type = CustomComponentManager.GetType(identifier);
+        if (type != ComponentType.PlayerComponentType) {
+            throw new Error(`Attempting to add ${enumKeyToString(ComponentType, ComponentType.PlayerComponentType)} components to player components`);
         }
-        let com=CustomComponentManager.CreateComponentInstance<PlayerSuperComponent,SuperEntity>(identifier,this);
+        let com = CustomComponentManager.CreateComponentInstance<PlayerSuperComponent, SuperEntity>(identifier, this);
         if (!this.custom_component.hasOwnProperty(identifier)) {
             com.onStart();
-            this.custom_component[identifier]=com;
+            this.custom_component[identifier] = com;
             this.saveCustomComponent();
             return true
         }
@@ -240,7 +245,7 @@ export class SuperPlayer extends SuperEntity {
     }
 
     @registerAsSubscribable
-    onPlaceBeforeEvent(event: mc.PlayerPlaceBlockBeforeEvent) {
+    onPlaceBlockBeforeEvent(event: mc.PlayerPlaceBlockBeforeEvent) {
     }
 
     @registerAsSubscribable

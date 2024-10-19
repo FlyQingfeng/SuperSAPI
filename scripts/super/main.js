@@ -5,6 +5,8 @@ import { mPlayer } from "./ownCode/mPlayer"; //导入自己的mPlayer类
 import { mPlayerComponent } from "./ownCode/mPlayerComponent";
 import { mEntityComponent } from "./ownCode/mEntityComponent";
 import { mItemsatckComponent } from "./ownCode/mItemStackComponent";
+import { mSuperBlockStaticComponent } from "./ownCode/mSuperBlockStaticComponent";
+import { mSuperItemStaticComponent } from "./ownCode/mSuperItemStaticComponent";
 //把我们在ownCode文件夹写的类注册到SuperSAPI内启用
 //自定义实体类
 SuperSAPI.ClassManager.replaceClass(SuperSAPI.NativeClassType.Entity, mEntity); //替换掉原SSAPI的Entity类
@@ -16,6 +18,10 @@ SuperSAPI.CustomComponentManager.registrationCustomComponent("mEC", mEntityCompo
 SuperSAPI.CustomComponentManager.registrationCustomComponent("mPC", mPlayerComponent, SuperSAPI.CustomComponentType.PlayerComponentType);
 //注册一个物品组件
 SuperSAPI.CustomComponentManager.registrationCustomComponent("mIC", mItemsatckComponent, SuperSAPI.CustomComponentType.ItemComponentType);
+//注册一个方块静态组件
+SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftBlockTypes.Tnt, mSuperBlockStaticComponent, mSuperBlockStaticComponent.type);
+//注册一个物品静态组件
+SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Tnt, mSuperItemStaticComponent, mSuperItemStaticComponent.type);
 //注册一个聊天指令：#give <物品ID> <组件ID>
 //可以在游戏内输入#help查看所有已经注册的指令和用法
 SuperSAPI.CommandManager.registerCommand("give", "<物品ID> <组件ID>  给予一个物品，并且附加自定义组件", (player, args) => {

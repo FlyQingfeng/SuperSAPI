@@ -6,6 +6,7 @@ import { CommandManager } from "./Command/CommandManager";
 import { SuperItemStack } from "./Item/SuperItemStack";
 import { ItemStackManager } from "./Item/SuperItemManager";
 import { cast } from "./Public/Stdlib";
+import { CustomStaticComponentManager } from "./Component/CustomStaticComponentManager";
 export var NativeClassType;
 (function (NativeClassType) {
     NativeClassType[NativeClassType["World"] = 0] = "World";
@@ -50,7 +51,7 @@ export class SuperSystem {
         //玩家事件
         //beforeEvents事件
         SuperSystem.sp_world.beforeEvents.playerBreakBlock.subscribe(this.PlayerBreakBlockBeforeEvent);
-        SuperSystem.sp_world.beforeEvents.playerPlaceBlock.subscribe(this.PlayerBreakPlaceBeforeEvent);
+        SuperSystem.sp_world.beforeEvents.playerPlaceBlock.subscribe(this.PlayerPlaceBlockBeforeEvent);
         SuperSystem.sp_world.beforeEvents.chatSend.subscribe(this.PlayerChatSendBeforeEvent);
         SuperSystem.sp_world.beforeEvents.itemUse.subscribe(this.PlayerItemUseBeforeEvent);
         SuperSystem.sp_world.beforeEvents.itemUseOn.subscribe(this.PlayerItemUseOnBeforeEvent);
@@ -129,6 +130,22 @@ export class SuperSystem {
                     if (sp_com.enable_tick) {
                         sp_com.tick(t);
                     }
+                }
+                if (entity.isValid()) { //实体落到方块上判断
+                    if (entity.last_isFalling && !entity.isFalling) {
+                        let block = entity.dimension.getBlockBelow(entity.location, { maxDistance: 2 });
+                        if (block && CustomStaticComponentManager.HasBlockCustomComponent(block.typeId)) {
+                            entity.last_isFalling = false;
+                            let blockCom = CustomStaticComponentManager.GetBlockCustomComponent(block.typeId);
+                            blockCom.onEntityFallOn(block, entity, entity.FallingTime);
+                            entity.fallOn(block);
+                            entity.FallingTime = 0;
+                        }
+                    }
+                    if (entity.isFalling) {
+                        entity.FallingTime++;
+                    }
+                    entity.last_isFalling = entity.isFalling;
                 }
                 if (entity instanceof SuperPlayer) {
                     let player = cast(entity);
@@ -279,6 +296,10 @@ export class SuperSystem {
             player.setHandItem(item);
             let { useDuration } = event;
             item.onItemRelease(player, useDuration);
+            if (CustomStaticComponentManager.HasItemCustomComponent(item.typeId)) {
+                let itemCom = CustomStaticComponentManager.GetItemCustomComponent(item.typeId);
+                itemCom.onItemRelease(item, player);
+            }
         }
     }
     PlayerItemCompleteAfterEvent(event) {
@@ -291,6 +312,10 @@ export class SuperSystem {
         if (item) {
             player.setHandItem(item);
             item.onItemComplete(player);
+            if (CustomStaticComponentManager.HasItemCustomComponent(item.typeId)) {
+                let itemCom = CustomStaticComponentManager.GetItemCustomComponent(item.typeId);
+                itemCom.onItemComplete(item, player);
+            }
         }
     }
     PlayerItemUseOnAfterEvent(event) {
@@ -300,10 +325,14 @@ export class SuperSystem {
         }
         player.onItemUseOnAfterEvent(event);
         let item = ItemStackManager.CreateItem(player.getHandItem());
+        let { block, blockFace, faceLocation, isFirstEvent } = event;
         if (item) {
             player.setHandItem(item);
-            let { block, blockFace, faceLocation, isFirstEvent } = event;
             item.onUseOn(player, block, blockFace, faceLocation, isFirstEvent);
+            if (CustomStaticComponentManager.HasItemCustomComponent(item.typeId)) {
+                let itemCom = CustomStaticComponentManager.GetItemCustomComponent(item.typeId);
+                itemCom.onUseOn(item, player, block, blockFace, faceLocation, isFirstEvent);
+            }
         }
     }
     PlayerItemUseAfterEvent(event) {
@@ -316,6 +345,10 @@ export class SuperSystem {
         if (item) {
             player.setHandItem(item);
             item.onUse(player);
+            if (CustomStaticComponentManager.HasItemCustomComponent(item.typeId)) {
+                let itemCom = CustomStaticComponentManager.GetItemCustomComponent(item.typeId);
+                itemCom.onUse(item, player);
+            }
         }
     }
     PlayerSpawnAfterEvent(event) {
@@ -331,6 +364,11 @@ export class SuperSystem {
             return;
         }
         player.onPlaceBlockAfterEvent(event);
+        if (CustomStaticComponentManager.HasBlockCustomComponent(event.block.typeId)) {
+            let blockCom = CustomStaticComponentManager.GetBlockCustomComponent(event.block.typeId);
+            const { block, dimension } = event;
+            blockCom.onPlayerPlace(player, block, dimension);
+        }
     }
     PlayerLeaveAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.playerName })[0];
@@ -363,6 +401,11 @@ export class SuperSystem {
             return;
         }
         player.onInteractWithBlockAfterEvent(event);
+        if (CustomStaticComponentManager.HasBlockCustomComponent(event.block.typeId)) {
+            let blockCom = CustomStaticComponentManager.GetBlockCustomComponent(event.block.typeId);
+            const { beforeItemStack, block, blockFace, faceLocation, isFirstEvent, itemStack } = event;
+            blockCom.onPlayerInteract(player, beforeItemStack, block, blockFace, faceLocation, isFirstEvent, itemStack);
+        }
     }
     PlayerInputPermissionCategoryChangeAfterEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];
@@ -400,6 +443,12 @@ export class SuperSystem {
             return;
         }
         player.onBreakBlockAfterEvent(event);
+        let typeId = event.brokenBlockPermutation.type.id;
+        if (CustomStaticComponentManager.HasBlockCustomComponent(typeId)) {
+            let blockCom = CustomStaticComponentManager.GetBlockCustomComponent(typeId);
+            const { block, brokenBlockPermutation, dimension, itemStackAfterBreak, itemStackBeforeBreak } = event;
+            blockCom.onPlayerDestroy(player, block, brokenBlockPermutation, dimension, itemStackAfterBreak, itemStackBeforeBreak);
+        }
     }
     PlayerLeaveBeforeEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];
@@ -450,12 +499,17 @@ export class SuperSystem {
         }
         player.onChatSendBeforeEvent(event);
     }
-    PlayerBreakPlaceBeforeEvent(event) {
+    PlayerPlaceBlockBeforeEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];
         if (player == undefined) {
             return;
         }
-        player.onPlaceBeforeEvent(event);
+        player.onPlaceBlockBeforeEvent(event);
+        let typeId = event.permutationBeingPlaced.type.id;
+        if (CustomStaticComponentManager.HasBlockCustomComponent(typeId)) {
+            let blockCom = CustomStaticComponentManager.GetBlockCustomComponent(typeId);
+            blockCom.beforeOnPlayerPlace(player, event);
+        }
     }
     PlayerBreakBlockBeforeEvent(event) {
         let player = SuperSystem.getWorld().getPlayers({ name: event.player.name })[0];

@@ -35,6 +35,9 @@ export class SuperItemStack extends Super {
     get typeId() {
         return this.source_instance.typeId;
     }
+    setItem(item) {
+        this.source_instance = item;
+    }
     onSwitchIn(player) {
         this.getCustomComponents().forEach((c) => {
             c.onSwitchIn(player);

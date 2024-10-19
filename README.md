@@ -78,7 +78,7 @@ SuperSAPI.System.init();
 
 ```
 
-## 更多关于 SuperSAPI 的详细文档和 API 参考，请访问 [SuperSAPI 文档](#)。
+## 更多关于 SuperSAPI 的详细文档和 API 参考，请访问 [SuperSAPI - Minecraft Bedrock Super Script API](https://flyqingfeng.github.io/SuperSAPI/)。
 
 ## 贡献
 

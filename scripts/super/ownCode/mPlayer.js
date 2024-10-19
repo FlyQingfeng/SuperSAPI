@@ -11,7 +11,6 @@ export class mPlayer extends SuperSAPI.SuperPlayer {
         this.enable_tick = true;
     }
     onItemUseAfterEvent(event) {
-        console.log("use item");
     }
 }
 __decorate([
