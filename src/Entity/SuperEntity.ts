@@ -27,7 +27,9 @@ export class SuperEntity extends Super {
         //加载存储的组件
         this.readCustomComponent();
     };
-    
+    getOrigin(){
+        return this.source_instance
+    }
     public get dimension() : mc.Dimension {
         return this.source_instance?.dimension
     }

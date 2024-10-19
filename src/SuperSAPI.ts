@@ -20,6 +20,7 @@ import * as ssc from "./Component/SuperStaticComponent";
 import * as sbsc from "./Component/SuperBlockStaticComponent";
 import * as sisc from "./Component/SuperItemStaticComponent";
 import * as sesc from "./Component/SuperEntityStaticComponent";
+import * as ui from "./UI/UI";
 
 //版本说明
 export const version_information={
@@ -84,6 +85,18 @@ export const CommandManager=cm.CommandManager
 export const CustomComponentManager=ccm.CustomComponentManager
 export const ItemStackManager=sim.ItemStackManager
 export const CustomStaticComponentManager=cscm.CustomStaticComponentManager
+
+
+//UI类
+export const UI=ui.UI
+export const BtnBarUI=ui.BtnBar
+export const InfoBarUI=ui.InfoBar
+export const MessageUI=ui.MessageUI
+
+export type UI=ui.UI
+export type BtnBar=ui.BtnBar
+export type InfoBar=ui.InfoBar
+export type MessageUI=ui.MessageUI
 
 //工具类
 

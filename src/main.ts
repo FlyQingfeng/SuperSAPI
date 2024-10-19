@@ -32,7 +32,7 @@ SuperSAPI.CustomComponentManager.registrationCustomComponent("mIC",mItemsatckCom
 SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftBlockTypes.Tnt,mSuperBlockStaticComponent,mSuperBlockStaticComponent.type)
 
 //注册一个物品静态组件
-SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Tnt,mSuperItemStaticComponent,mSuperItemStaticComponent.type)
+SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Clock,mSuperItemStaticComponent,mSuperItemStaticComponent.type)
 
 //注册一个实体静态组件
 SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftEntityTypes.Pig,mSuperEntityStaticComponent,mSuperEntityStaticComponent.type)
@@ -54,6 +54,8 @@ SuperSAPI.CommandManager.registerCommand("give","<物品ID> <组件ID>  给予�
             player.sendMessage("指令参数错误，请输入#help查看用法")
         }
 })
+
+
 
 SuperSAPI.System.init()//初始化SuperSAPI系统，必须初始化要不然不起作用
 

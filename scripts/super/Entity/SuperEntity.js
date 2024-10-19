@@ -23,6 +23,9 @@ export class SuperEntity extends Super {
         this.readCustomComponent();
     }
     ;
+    getOrigin() {
+        return this.source_instance;
+    }
     get dimension() {
         return this.source_instance?.dimension;
     }

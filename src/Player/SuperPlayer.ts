@@ -8,8 +8,6 @@ import { SuperWorld } from "../World/SuperWorld";
 import { SuperItemStack } from "../Item/SuperItemStack";
 
 export class SuperPlayer extends SuperEntity {
-
-
     source_instance: mc.Player;
     last_selectedSlotIndex: number = 0;
     constructor(source_instance: mc.Player, world: SuperWorld) {
@@ -53,6 +51,7 @@ export class SuperPlayer extends SuperEntity {
     public get selectedSlotIndex(): number {
         return this.source_instance.selectedSlotIndex
     }
+    
     onSwitchSelectedSlot() {
 
     }

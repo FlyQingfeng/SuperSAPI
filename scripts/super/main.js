@@ -22,7 +22,7 @@ SuperSAPI.CustomComponentManager.registrationCustomComponent("mIC", mItemsatckCo
 //注册一个方块静态组件
 SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftBlockTypes.Tnt, mSuperBlockStaticComponent, mSuperBlockStaticComponent.type);
 //注册一个物品静态组件
-SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Tnt, mSuperItemStaticComponent, mSuperItemStaticComponent.type);
+SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftItemTypes.Clock, mSuperItemStaticComponent, mSuperItemStaticComponent.type);
 //注册一个实体静态组件
 SuperSAPI.CustomStaticComponentManager.registrationCustomComponent(SuperSAPI.MCVD.MinecraftEntityTypes.Pig, mSuperEntityStaticComponent, mSuperEntityStaticComponent.type);
 //注册一个聊天指令：#give <物品ID> <组件ID>
