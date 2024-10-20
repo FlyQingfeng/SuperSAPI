@@ -25,7 +25,7 @@ export const version_information = {
     author: "Qingfeng",
     link: "https://github.com/FlyQingfeng/SuperSAPI",
     version: [1, 0, 0],
-    beta: true,
+    beta: false,
     toString() {
         return `${this.name}${JSON.stringify(this.version)}${this.beta ? "-bata" : ""} 加载成功 @${this.name} |项目地址:${this.link}`;
     }
